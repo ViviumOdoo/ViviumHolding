@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="product_template_search_view_model_inherit" model="ir.ui.view">
+            <field name="name">product.template.search</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <field name="categ_id" position="replace">
+                    <field name="model_no_id"/>
+                    <field name="model_type"/>
+                    <field name="subtype"/>
+                    <field name="fabric_ids"/>
+                    <field name="color_ids"/>
+                </field>
+                <separator/>
+                <group expand="1" string="Group By">
+                    <filter string="Model No." name="model_no_id" context="{'group_by':'model_no_id'}"/>
+                    <filter string="Model Type" name="model_type" context="{'group_by':'model_type'}"/>
+                    <filter string="Sub Type" name="subtype" context="{'group_by':'subtype'}"/>
+                    <filter string="Fabric" name="fabric_ids" context="{'group_by':'fabric_ids'}"/>
+                    <filter string="Color" name="color_ids" context="{'group_by':'color_ids'}"/>
+                </group>
+                <filter name="services" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </filter>
+                <field name="attribute_line_ids" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <filter name="consumable" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </filter>
+                <filter name="favorites" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </filter>
+                <filter name="activities_exception" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </filter>
+                <filter name="type" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </filter>
+                <filter name="categ_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </filter>
+            </field>
+        </record>
+
+
+        <record id="product_search_form_view_model_inherit" model="ir.ui.view">
+            <field name="name">product.product.search</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_search_form_view"/>
+            <field name="arch" type="xml">
+                <field name="product_template_attribute_value_ids" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="product_tmpl_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+
+        <record id="product_product_tree_view_inherit" model="ir.ui.view">
+            <field name="name">product.product.tree</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="model_name"/>
+                    <field name="model_type"/>
+                    <field name="subtype"/>
+                    <field name="fabric_ids" widget="many2many_tags"/>
+                    <field name="color_ids" widget="many2many_tags"/>
+                </field>
+                <field name="product_template_variant_value_ids" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="type" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="product_search_form_view_stock_model_inherit" model="ir.ui.view">
+            <field name="name">product.search.stock.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="stock.product_search_form_view_stock"/>
+            <field name="arch" type="xml">
+                <field name="location_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="warehouse_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_stock_product_tree_model_inherit" model="ir.ui.view">
+            <field name="name">product.stock.tree.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="stock.view_stock_product_tree"/>
+            <field name="arch" type="xml">
+                <field name="qty_available" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="virtual_available" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="product_template_search_form_view_stock_model_inherit" model="ir.ui.view">
+            <field name="name">product.template.search.stock.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.product_template_search_form_view_stock"/>
+            <field name="arch" type="xml">
+                <field name="location_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="warehouse_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <filter name="real_stock_available" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </filter>
+                <filter name="real_stock_negative" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </filter>
+            </field>
+        </record>
+
+        <record id="product_template_tree_view_inherit_model" model="ir.ui.view">
+            <field name="name">product.template.product.tree</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="model_name"/>
+                    <field name="model_type"/>
+                    <field name="subtype"/>
+                    <field name="fabric_ids"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- Product Templete View Inherit -->
+        <record id="product_templ_form_inherit" model="ir.ui.view">
+            <field name="name">product.template.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='categ_id']" position="before">
+                    <field name="sale_price_aed"/>
+                    <field name="purchase_price_aed"/>
+                </xpath>
+                <label for="list_price" position="attributes">
+                    <attribute name="string">Sale Price (EUR)</attribute>
+                    <attribute name="readonly">1</attribute>
+                </label>
+                <label for="standard_price" position="attributes">
+                    <attribute name="string">Purchase Price (EUR)</attribute>
+                    <attribute name="readonly">1</attribute>
+                </label>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attributes name="required">0</attributes>
+                </xpath>
+                <xpath expr="//notebook/page[1]" position="after">
+                    <page name="item_info" string="Item Information">
+                        <group>
+                            <group>
+                                <field name="model_no_id" required="1"/>
+                                <field name="model_name"/>
+                                <field name="model_type" required="1"/>
+                                <field name="subtype" required="1"/>
+                            </group>
+                            <group>
+                               <field name="fabric_ids" widget="many2many_tags"/>
+                                <field name="item_code_id" invisible="1"/>
+                                <field name="color_ids" widget="many2many_tags"
+                                       options="{'no_create_edit': True, 'color_field': 'color'}"/>
+                                <field name="custom_name" invisible="1"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Product Product View Inherit -->
+        <record id="product_product_form_inherit" model="ir.ui.view">
+            <field name="name">product.product.form.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='categ_id']" position="before">
+                    <field name="sale_price_aed"/>
+                    <field name="purchase_price_aed"/>
+                </xpath>
+                <label for="list_price" position="attributes">
+                    <attribute name="string">Sale Price (EUR)</attribute>
+                </label>
+                <label for="standard_price" position="attributes">
+                    <attribute name="string">Purchase Price (EUR)</attribute>
+                </label>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attributes name="required">0</attributes>
+                </xpath>
+                <xpath expr="//notebook/page[1]" position="after">
+                    <page name="item_info" string="Item Information">
+                        <group>
+                            <group>
+                                <field name="model_no_id"/>
+                                <field name="model_name"/>
+                                <field name="model_type"/>
+                                <field name="subtype"/>
+                            </group>
+                            <group>
+                                <field name="fabric_ids" widget="many2many_tags"/>
+                                <field name="item_code_id" invisible="1"/>
+                                <field name="color_ids" widget="many2many_tags"
+                                       options="{'no_create_edit': True, 'color_field': 'color'}"/>
+                                <field name="custom_name" invisible="1"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Sale Order View Inherit -->
+        <record id="sale_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                    <field name="product_no_id" required="1" context="{'default_is_model': True}"/>
+                    <field name="model_type"/>
+                    <field name="subtype"/>
+                    <field name="fabric_id" widget="many2many_tags"/>
+                    <field name="color_ids" widget="many2many_tags" options="{'no_create_edit': True, 'color_field': 'color'}"/>
+                </xpath>
+<!--				<xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">-->
+<!--					<attribute name="domain">[('model_no_id', '=', model_no_id)]</attribute>-->
+<!--				</xpath>-->
+            </field>
+        </record>
+
+        <!-- Purchase Order View Inherit -->
+        <record id="purchase_order_form_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.form.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                    <field name="product_no_id" required="1" context="{'default_is_model': True}"/>
+                    <field name="model_type"/>
+                    <field name="subtype"/>
+                    <field name="fabric_id" widget="many2many_tags"/>
+                    <field name="color_ids" widget="many2many_tags"
+                           options="{'no_create_edit': True, 'color_field': 'color'}"/>
+                </xpath>
+<!--                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">-->
+<!--					<attribute name="domain">[('model_no_id', '=', model_no_id)]</attribute>-->
+<!--				</xpath>-->
+            </field>
+        </record>
+
+        <!-- Stock Order View Inherit -->
+        <record id="stock_picking_form_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//tree/field[@name='product_id']" position="after">
+                    <field name="product_no_id" readonly="0" context="{'default_is_model': True}"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
+                           force_save="1"/>
+
+                    <field name="purchase_product_no_id" readonly="0" context="{'default_is_model': True}"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'incoming')] }"
+                           force_save="1"/>
+                    <field name="model_type"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
+                           force_save="1"/>
+                    <field name="subtype"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
+                           force_save="1"/>
+                    <field name="fabric_id" widget="many2many_tags"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
+                           force_save="1"/>
+                    <field name="color_ids" widget="many2many_tags" options="{'no_create_edit': True, 'color_field': 'color'}"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
+                           force_save="1"/>
+
+                    <field name="purchase_model_type"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'incoming')] }"
+                           force_save="1"/>
+                    <field name="purchase_subtype"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'incoming')] }"
+                           force_save="1"/>
+
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Account Move View Inherit -->
+        <record id="account_move_form_inherit" model="ir.ui.view">
+            <field name="name">account.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']" position="after">
+                    <field name="product_no_id" required="1" context="{'default_is_model': True}"/>
+                    <field name="model_type"/>
+                    <field name="subtype"/>
+                   <field name="fabric_id" widget="many2many_tags"/>
+                   <field name="color_ids" widget="many2many_tags"
+                          options="{'no_create_edit': True, 'color_field': 'color'}"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='partner_id']" position="before">
+                    <field name="product_no_id" invisible="1"/>
+                    <field name="model_type" invisible="1"/>
+                    <field name="subtype" invisible="1"/>
+                    <field name="fabric_id" invisible="1"/>
+                    <field name="color_ids" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

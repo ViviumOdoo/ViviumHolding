@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<!-- Fabric View -->
+		<record id="vvm_model_fabric_tree_view" model="ir.ui.view">
+			<field name="name">vvm.model.fabric.tree.view</field>
+			<field name="model">vvm.model.fabric</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="vvm_model_fabric_form_view" model="ir.ui.view">
+			<field name="name">vvm.model.fabric.form.view</field>
+			<field name="model">vvm.model.fabric</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<group>
+								<field name="name"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="vvm_model_fabric_act_window" model="ir.actions.act_window">
+            <field name="name">Fabric</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vvm.model.fabric</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Fabric" id="vvm_model_fabric_menu" parent="sale.menu_sale_config" action="vvm_model_fabric_act_window" sequence="6"/>
+
+		<!-- Color View -->
+		<record id="model_color_tree_view" model="ir.ui.view">
+			<field name="name">model.color.tree.view</field>
+			<field name="model">model.color</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="model_color_form_view" model="ir.ui.view">
+			<field name="name">model.color.form.view</field>
+			<field name="model">model.color</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<group>
+								<field name="name" required="1"/>
+								<field name="html_color" widget="color"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="model_color_act_window" model="ir.actions.act_window">
+            <field name="name">Color</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">model.color</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Color" id="vvm_model_color_menu" parent="sale.menu_sale_config"
+				  action="model_color_act_window" sequence="7"/>
+
+	</data>
+</odoo>

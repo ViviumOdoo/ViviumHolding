@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vvm_model,name_vvm_model,model_vvm_model,,1,1,1,1
+access_model_color,name_model_color,model_model_color,,1,1,1,1
+access_vvm_model_fabric,name_vvm_model_fabric,model_vvm_model_fabric,,1,1,1,1
