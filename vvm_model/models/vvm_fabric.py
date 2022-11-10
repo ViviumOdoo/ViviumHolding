@@ -10,4 +10,3 @@ class VVMFabric(models.Model):
 
 	name = fields.Char(string="Name", required=True)
 	color_ids = fields.Many2many("model.color", string="Fabric Color")
-
