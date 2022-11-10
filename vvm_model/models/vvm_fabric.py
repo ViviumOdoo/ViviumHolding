@@ -9,3 +9,5 @@ class VVMFabric(models.Model):
 	_rec_name = 'name'
 
 	name = fields.Char(string="Name", required=True)
+	color_ids = fields.Many2many("model.color", string="Fabric Color")
+
