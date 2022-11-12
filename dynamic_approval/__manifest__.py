@@ -10,9 +10,9 @@
         custom module / third party modules.
     """,
 
-    'author': "Nama Integrated Solutions LLC",
-    'website': "www.namais.ae",
-    'support': "www.namais.ae",
+    'author': "Adi Nurcahyo",
+    'website': "https://www.linkedin.com/in/adinc13",
+    'support': "https://www.linkedin.com/in/adinc13",
     'category': 'Tools',
     'version': '15.0.1.0.0',
     'sequence': 0,
@@ -23,9 +23,11 @@
     "images": [
         'static/description/banner.gif'
     ],
-
+    # "price": 114.29,
+    # discount price for first release
     "price": 57.31,
     "currency": "EUR",
+    "live_test_url": "https://youtu.be/Mzu872MW6eE",
 
     # any module necessary for this one to work correctly
     'depends': [

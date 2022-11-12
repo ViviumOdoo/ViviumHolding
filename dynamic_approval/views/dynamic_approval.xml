@@ -64,8 +64,7 @@
                     <field name="approval_id" invisible="1"/>
                     <field name="sequence" invisible="1"/>
                     <field name="name"/>
-                    <field name="group_id" invisible="1"/>
-                    <field name="user_id"/>
+                    <field name="group_id"/>
                     <field name="amount" widget="monetary"
                            attrs="{'column_invisible': [('parent.amount_field_id', '=', False)]}"/>
                     <field name="currency_id" invisible="1"/>

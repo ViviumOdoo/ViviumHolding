@@ -228,7 +228,7 @@ class DynamicApproval(models.Model):
             return self.line_ids[0]
         line = self.line_ids.filtered(lambda l: l.sequence == current_level)
         if not line:
-            raise ValidationError("Approval level {} is not found in dynamic approval {}.".format(current_level,                                                                                self.name))
+            raise ValidationError("Approval level {} is not found in dynamic approval {}.".format(current_level, self.name))
         lines = self.line_ids.mapped('id')
         index_change = -1 if mode == 'reject' else 1
         try:
@@ -299,8 +299,7 @@ class DynamicApprovalLine(models.Model):
     approval_id = fields.Many2one(comodel_name="dynamic.approval", string="Approval", ondelete="cascade")
     sequence = fields.Integer(string="Level", required=False, default=1)
     name = fields.Char(string="Name", required=True)
-    group_id = fields.Many2one(comodel_name="res.groups", string="User Groups")
-    user_id = fields.Many2one(comodel_name="res.users", string="User Name", required=True)
+    group_id = fields.Many2one(comodel_name="res.groups", string="User Groups", required=True)
     amount = fields.Monetary(string="Amount", default=0)
     currency_id = fields.Many2one(comodel_name="res.currency", string="Currency", required=True, ondelete="restrict",
                                   related='approval_id.currency_id')
