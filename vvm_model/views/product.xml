@@ -154,15 +154,15 @@
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='categ_id']" position="before">
-                    <field name="sale_price_aed"/>
-                    <field name="purchase_price_aed"/>
+                    <field name="sale_price_aed" string="Sale Price (EUR)"/>
+                    <field name="purchase_price_aed" string="Purchase Price (EUR)"/>
                 </xpath>
                 <label for="list_price" position="attributes">
-                    <attribute name="string">Sale Price (EUR)</attribute>
+                    <attribute name="string">Sale Price (AED)</attribute>
                     <attribute name="readonly">1</attribute>
                 </label>
                 <label for="standard_price" position="attributes">
-                    <attribute name="string">Purchase Price (EUR)</attribute>
+                    <attribute name="string">Purchase Price (AED)</attribute>
                     <attribute name="readonly">1</attribute>
                 </label>
                 <xpath expr="//field[@name='name']" position="attributes">
@@ -198,14 +198,14 @@
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='categ_id']" position="before">
-                    <field name="sale_price_aed"/>
-                    <field name="purchase_price_aed"/>
+                    <field name="sale_price_aed" string="Sale Price (AED)"/>
+                    <field name="purchase_price_aed" string="Purchase Price (AED)"/>
                 </xpath>
                 <label for="list_price" position="attributes">
-                    <attribute name="string">Sale Price (EUR)</attribute>
+                    <attribute name="string">Sale Price (AED)</attribute>
                 </label>
                 <label for="standard_price" position="attributes">
-                    <attribute name="string">Purchase Price (EUR)</attribute>
+                    <attribute name="string">Purchase Price (AED)</attribute>
                 </label>
                 <xpath expr="//field[@name='name']" position="attributes">
                     <attributes name="required">0</attributes>
