@@ -28,8 +28,8 @@ class ProductTemplate(models.Model):
     item_code_id = fields.Many2one("product.product", string="Item Code")
     color_ids = fields.Many2many("model.color", string="Color")
     fabric_ids = fields.Many2many("vvm.model.fabric", string="Fabric")
-    sale_price_aed = fields.Float(string="Sale Price (AED)")
-    purchase_price_aed = fields.Float(string="Purchase Price (AED)")
+    sale_price_aed = fields.Float(string="Sale Price (EUR)")
+    purchase_price_aed = fields.Float(string="Purchase Price (EUR)")
 
     @api.onchange('sale_price_aed')
     def onchange_sale_price_aed(self):
