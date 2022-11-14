@@ -9,6 +9,7 @@
             <field name="arch" type="xml">
                 <field name="categ_id" position="replace">
                     <field name="model_no_id"/>
+                    <field name="model_name"/>
                     <field name="model_type"/>
                     <field name="subtype"/>
                     <field name="fabric_ids"/>
@@ -17,6 +18,7 @@
                 <separator/>
                 <group expand="1" string="Group By">
                     <filter string="Model No." name="model_no_id" context="{'group_by':'model_no_id'}"/>
+                    <filter string="Model Name" name="model_name" context="{'group_by':'model_name'}"/>
                     <filter string="Model Type" name="model_type" context="{'group_by':'model_type'}"/>
                     <filter string="Sub Type" name="subtype" context="{'group_by':'subtype'}"/>
                     <filter string="Fabric" name="fabric_ids" context="{'group_by':'fabric_ids'}"/>
