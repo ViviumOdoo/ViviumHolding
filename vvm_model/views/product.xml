@@ -12,7 +12,7 @@
                     <field name="model_name"/>
                     <field name="model_type"/>
                     <field name="subtype"/>
-                    <field name="fabric_ids"/>
+                    <field name="fabric_id"/>
                     <field name="color_ids"/>
                 </field>
                 <separator/>
@@ -21,7 +21,7 @@
                     <filter string="Model Name" name="model_name" context="{'group_by':'model_name'}"/>
                     <filter string="Model Type" name="model_type" context="{'group_by':'model_type'}"/>
                     <filter string="Sub Type" name="subtype" context="{'group_by':'subtype'}"/>
-                    <filter string="Fabric" name="fabric_ids" context="{'group_by':'fabric_ids'}"/>
+                    <filter string="Fabric" name="fabric_id" context="{'group_by':'fabric_id'}"/>
                     <filter string="Color" name="color_ids" context="{'group_by':'color_ids'}"/>
                 </group>
                 <filter name="services" position="attributes">
@@ -63,7 +63,6 @@
             </field>
         </record>
 
-
         <record id="product_product_tree_view_inherit" model="ir.ui.view">
             <field name="name">product.product.tree</field>
             <field name="model">product.product</field>
@@ -74,7 +73,7 @@
                     <field name="model_name"/>
                     <field name="model_type"/>
                     <field name="subtype"/>
-                    <field name="fabric_ids" widget="many2many_tags"/>
+                    <field name="fabric_id"/>
                     <field name="color_ids" widget="many2many_tags"/>
                 </field>
                 <field name="product_template_variant_value_ids" position="attributes">
@@ -143,12 +142,12 @@
                     <field name="model_name"/>
                     <field name="model_type"/>
                     <field name="subtype"/>
-                    <field name="fabric_ids"/>
+                    <field name="fabric_id"/>
                 </field>
             </field>
         </record>
 
-        <!-- Product Templete View Inherit -->
+        <!-- Product Template View Inherit -->
         <record id="product_templ_form_inherit" model="ir.ui.view">
             <field name="name">product.template.form.inherit</field>
             <field name="model">product.template</field>
@@ -180,11 +179,16 @@
                                 <field name="subtype" required="1"/>
                             </group>
                             <group>
-                               <field name="fabric_ids" widget="many2many_tags"/>
-                                <field name="item_code_id" invisible="1"/>
-                                <field name="color_ids" widget="many2many_tags"
-                                       options="{'no_create_edit': True, 'color_field': 'color'}"/>
                                 <field name="custom_name" invisible="1"/>
+                                <field name="item_code_id" invisible="1"/>
+                                <field name="fabric_id"/>
+                                <field name="color_ids" widget="many2many_tags"
+                                       options="{'no_create_edit': True}"
+                                       domain="[('fabric_id','=', fabric_id)]"/>
+                                <field name="finish_category_id"/>
+                                <field name="finish_color_ids" widget="many2many_tags"
+                                       options="{'no_create_edit': True}"
+                                       domain="[('finish_id','=', finish_category_id)]"/>
                             </group>
                         </group>
                     </page>
@@ -222,11 +226,16 @@
                                 <field name="subtype"/>
                             </group>
                             <group>
-                                <field name="fabric_ids" widget="many2many_tags"/>
-                                <field name="item_code_id" invisible="1"/>
-                                <field name="color_ids" widget="many2many_tags"
-                                       options="{'no_create_edit': True, 'color_field': 'color'}"/>
                                 <field name="custom_name" invisible="1"/>
+                                <field name="item_code_id" invisible="1"/>
+                                <field name="fabric_id"/>
+                                <field name="color_ids" widget="many2many_tags"
+                                       options="{'no_create_edit': True}"
+                                       domain="[('fabric_id', '=', fabric_id)]"/>
+                                <field name="finish_category_id"/>
+                                <field name="finish_color_ids" widget="many2many_tags"
+                                       options="{'no_create_edit': True}"
+                                       domain="[('finish_id', '=', finish_category_id)]"/>
                             </group>
                         </group>
                     </page>
@@ -245,8 +254,14 @@
                     <field name="model_no_id"/>
                     <field name="model_type"/>
                     <field name="subtype"/>
-                    <field name="fabric_id" widget="many2many_tags"/>
-                    <field name="color_ids" widget="many2many_tags" options="{'no_create_edit': True, 'color_field': 'color'}"/>
+                    <field name="fabric_id"/>
+                    <field name="color_ids" widget="many2many_tags"
+                           options="{'no_create_edit': True}"
+                           domain="[('fabric_id', '=', fabric_id)]"/>
+                    <field name="finish_category_id"/>
+                    <field name="finish_color_ids" widget="many2many_tags"
+                           options="{'no_create_edit': True}"
+                           domain="[('finish_id', '=', finish_category_id)]"/>
                 </xpath>
 <!--				<xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">-->
 <!--					<attribute name="domain">[('model_no_id', '=', model_no_id)]</attribute>-->
@@ -265,9 +280,14 @@
                     <field name="model_no_id"/>
                     <field name="model_type"/>
                     <field name="subtype"/>
-                    <field name="fabric_id" widget="many2many_tags"/>
+                    <field name="fabric_id"/>
                     <field name="color_ids" widget="many2many_tags"
-                           options="{'no_create_edit': True, 'color_field': 'color'}"/>
+                           options="{'no_create_edit': True}"
+                           domain="[('fabric_id', '=', fabric_id)]"/>
+                    <field name="finish_category_id"/>
+                    <field name="finish_color_ids" widget="many2many_tags"
+                           options="{'no_create_edit': True}"
+                           domain="[('finish_id', '=', finish_category_id)]"/>
                 </xpath>
 <!--                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">-->
 <!--					<attribute name="domain">[('model_no_id', '=', model_no_id)]</attribute>-->
@@ -282,35 +302,45 @@
             <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
-
                 <xpath expr="//tree/field[@name='product_id']" position="after">
                     <field name="product_no_id" readonly="0" context="{'default_is_model': True}"
                            attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
                            force_save="1"/>
-
                     <field name="purchase_product_no_id" readonly="0" context="{'default_is_model': True}"
                            attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'incoming')] }"
                            force_save="1"/>
                     <field name="model_type"
                            attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
                            force_save="1"/>
-                    <field name="subtype"
-                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
-                           force_save="1"/>
-                    <field name="fabric_id" widget="many2many_tags"
-                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
-                           force_save="1"/>
-                    <field name="color_ids" widget="many2many_tags" options="{'no_create_edit': True, 'color_field': 'color'}"
-                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
-                           force_save="1"/>
-
                     <field name="purchase_model_type"
                            attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'incoming')] }"
+                           force_save="1"/>
+                    <field name="subtype"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
                            force_save="1"/>
                     <field name="purchase_subtype"
                            attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'incoming')] }"
                            force_save="1"/>
-
+                    <field name="fabric_id"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
+                           force_save="1"/>
+                    <field name="purchase_fabric_id"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'incoming')] }"
+                           force_save="1"/>
+                    <field name="color_ids" widget="many2many_tags"
+                           options="{'no_create_edit': True}"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
+                           force_save="1"/>
+                    <field name="finish_category_id"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
+                           force_save="1"/>
+                    <field name="purchase_finish_category_id"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'incoming')] }"
+                           force_save="1"/>
+                    <field name="finish_color_ids" widget="many2many_tags"
+                           options="{'no_create_edit': True}"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
+                           force_save="1"/>
                 </xpath>
             </field>
         </record>
@@ -326,16 +356,27 @@
                     <field name="product_no_id" required="1" context="{'default_is_model': True}"/>
                     <field name="model_type"/>
                     <field name="subtype"/>
-                   <field name="fabric_id" widget="many2many_tags"/>
-                   <field name="color_ids" widget="many2many_tags"
-                          options="{'no_create_edit': True, 'color_field': 'color'}"/>
+                   <field name="fabric_id"/>
+                    <field name="color_ids" widget="many2many_tags"
+                           options="{'no_create_edit': True}"
+                           domain="[('fabric_id', '=', fabric_id)]"/>
+                    <field name="finish_category_id"/>
+                    <field name="finish_color_ids" widget="many2many_tags"
+                           options="{'no_create_edit': True}"
+                           domain="[('finish_id', '=', finish_category_id)]"/>
                 </xpath>
                 <xpath expr="//field[@name='line_ids']/tree/field[@name='partner_id']" position="before">
                     <field name="product_no_id" invisible="1"/>
                     <field name="model_type" invisible="1"/>
                     <field name="subtype" invisible="1"/>
-                    <field name="fabric_id" invisible="1"/>
-                    <field name="color_ids" invisible="1"/>
+                    <field name="fabric_id"/>
+                    <field name="color_ids" widget="many2many_tags"
+                           options="{'no_create_edit': True}"
+                           domain="[('fabric_id', '=', fabric_id)]"/>
+                    <field name="finish_category_id"/>
+                    <field name="finish_color_ids" widget="many2many_tags"
+                           options="{'no_create_edit': True}"
+                           domain="[('finish_id', '=', finish_category_id)]"/>
                 </xpath>
             </field>
         </record>

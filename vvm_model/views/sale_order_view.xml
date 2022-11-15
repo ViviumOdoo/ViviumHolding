@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_order_form_sale_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+<!--                attrs="{'readonly': [('is_created', '=', True)]}"-->
+                <xpath expr="//form/header/button[@name='action_quotation_send']" position="before">
+                    <button name="action_create_po" string="Create PO"
+                            type="object" states="draft" class="btn-primary" data-hotkey="g"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

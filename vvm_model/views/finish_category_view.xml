@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<!-- Fabric View -->
+		<record id="finish_category_tree_view" model="ir.ui.view">
+			<field name="name">finish.category.tree.view</field>
+			<field name="model">finish.category</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="finish_category_form_view" model="ir.ui.view">
+			<field name="name">finish.category.form.view</field>
+			<field name="model">finish.category</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<group>
+								<field name="name" />
+								<field name="is_created"/>
+							</group>
+						</group>
+						<group>
+							<group>
+								<field name="finish_color_line">
+									<tree editable="bottom">
+										<field name="color_id"/>
+									</tree>
+								</field>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="finish_category_act_window" model="ir.actions.act_window">
+            <field name="name">Finish Category</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">finish.category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Finish Category" id="finish_category_menu" parent="sale.menu_sale_config"
+                  action="finish_category_act_window" sequence="8"/>
+
+	</data>
+</odoo>

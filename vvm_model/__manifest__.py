@@ -23,6 +23,9 @@
 		'views/vvm_model_view.xml',
 		'views/model_fabric.xml',
 		'views/product.xml',
+		'views/finish_category_view.xml',
+		'views/sale_order_view.xml',
+		'views/stock_picking_view.xml'
 	],
 	'installable': True,
 	'application': True,

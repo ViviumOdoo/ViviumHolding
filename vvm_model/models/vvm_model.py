@@ -25,12 +25,14 @@ class VVMModel(models.Model):
 class ModelColor(models.Model):
 	_name = 'model.color'
 	_description = 'Model Color'
-	_rec_name = 'name'
+
 
 	def _get_default_color(self):
 		return randint(1, 11)
 
-	name = fields.Char(string="Name", required=True)
+	name = fields.Char(string="Name", required=True, size=3)
+	image_1920 = fields.Image("Image")
 	html_color = fields.Char(string='Color',
 	help="Here you can set a specific HTML color index (e.g. #ff0000) to display the color if the attribute type is 'Color'.")
 	color = fields.Integer('Color Index', default=_get_default_color)
+

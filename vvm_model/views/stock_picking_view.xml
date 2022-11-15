@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_picking_form_inherit_vvm" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <button name="action_cancel" position="after">
+                    <button name="send_mail_to_warehouse" type="object"
+                            string="Send to Warehouse"/>
+                </button>
+            </field>
+        </record>
+</odoo>

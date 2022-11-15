@@ -6,30 +6,34 @@ from datetime import date
 import requests
 
 
-class Product(models.Model):
-    _inherit = 'product.product'
-
-    default_code = fields.Char('Vendor Reference', index=True)
-
-
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     custom_name = fields.Char(string="Name")
     model_no_id = fields.Many2one("vvm.model", string="Model No.", required=True)
     name = fields.Char('Name', index=True, translate=True, readonly=True, store=True, required=False)
-    default_code = fields.Char(
-        'Vendor Reference', compute='_compute_default_code',
-        inverse='_set_default_code', store=True)
+    default_code = fields.Char('Vendor Reference', compute='_compute_default_code',
+                               inverse='_set_default_code', store=True)
     model_name = fields.Char(string="Model Name")
-    model_type = fields.Char(string="Type", required=True)
-    subtype = fields.Char(string="Sub-Type")
-    fabric_id = fields.Many2one("vvm.model.fabric", string="Fabric")
+    model_type = fields.Char(string="Type", required=True, size=4)
+    subtype = fields.Char(string="Sub-Type", size=2)
     item_code_id = fields.Many2one("product.product", string="Item Code")
-    color_ids = fields.Many2many("model.color", string="Color")
-    fabric_ids = fields.Many2many("vvm.model.fabric", string="Fabric")
+    fabric_id = fields.Many2one("vvm.model.fabric", string="Fabric")
+    color_ids = fields.Many2many("fabric.color.line", string="Color")
+    finish_category_id = fields.Many2one('finish.category', string="Finish Category")
+    finish_color_ids = fields.Many2many("finish.category.color.line", string="Finish Color")
     sale_price_aed = fields.Float(string="Sale Price (EUR)")
     purchase_price_aed = fields.Float(string="Purchase Price (EUR)")
+
+    @api.onchange('finish_category_id')
+    def onchange_finish_category(self):
+        if self.finish_category_id:
+            self.finish_color_ids = [(6, 0, [])]
+
+    @api.onchange('fabric_id')
+    def onchange_fabric_id(self):
+        if self.fabric_id:
+            self.color_ids = [(6, 0, [])]
 
     @api.onchange('sale_price_aed')
     def onchange_sale_price_aed(self):
@@ -48,7 +52,7 @@ class ProductTemplate(models.Model):
                     if today_rates.get('EUR'):
                         original_rates = round(today_rates.get('EUR'), 4)
                         # print("======original_rates===", original_rates)
-                        self.list_price = self.sale_price_aed * original_rates
+                        self.list_price = self.sale_price_aed / original_rates
 
     @api.onchange('purchase_price_aed')
     def onchange_purchase_price_aed(self):
@@ -67,7 +71,7 @@ class ProductTemplate(models.Model):
                     if today_rates.get('EUR'):
                         original_rates = round(today_rates.get('EUR'), 4)
                         # print("======original_rates===", original_rates)
-                        self.standard_price = self.purchase_price_aed * original_rates
+                        self.standard_price = self.purchase_price_aed / original_rates
 
     @api.onchange('model_no_id')
     def onchange_model_no_id_method(self):
@@ -87,6 +91,8 @@ class ProductTemplate(models.Model):
 
 class ProductProduct(models.Model):
     _inherit = 'product.product'
+
+    default_code = fields.Char('Vendor Reference', index=True)
 
     def name_get(self):
         result = []
@@ -117,7 +123,7 @@ class ProductProduct(models.Model):
                     if today_rates.get('EUR'):
                         original_rates = round(today_rates.get('EUR'), 4)
                         # print("======original_rates===", original_rates)
-                        self.list_price = self.sale_price_aed * original_rates
+                        self.list_price = self.sale_price_aed / original_rates
 
     @api.onchange('purchase_price_aed')
     def onchange_purchase_price_aed(self):
@@ -136,7 +142,7 @@ class ProductProduct(models.Model):
                     if today_rates.get('EUR'):
                         original_rates = round(today_rates.get('EUR'), 4)
                         # print("======original_rates===", original_rates)
-                        self.standard_price = self.purchase_price_aed * original_rates
+                        self.standard_price = self.purchase_price_aed / original_rates
 
     @api.onchange('model_no_id')
     def onchange_model_no_id_method(self):
@@ -158,11 +164,15 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     product_no_id = fields.Many2one("product.product", string="Model No.")
+    price_unit = fields.Float('Unit Price', required=True, digits='Product Price',
+                              default=0.0, readonly=True, store=True)
     model_no_id = fields.Many2one("vvm.model", string="Model No.")
     model_type = fields.Char(string="Type")
     subtype = fields.Char(string="Sub-Type")
-    fabric_id = fields.Many2many("vvm.model.fabric", string="Fabric")
-    color_ids = fields.Many2many("model.color", string="Color")
+    fabric_id = fields.Many2one("vvm.model.fabric", string="Fabric")
+    color_ids = fields.Many2many("fabric.color.line", string="Color")
+    finish_category_id = fields.Many2one('finish.category', string="Finish Category")
+    finish_color_ids = fields.Many2many("finish.category.color.line", string="Finish Color")
 
     def _prepare_invoice_line(self, **optional_values):
         values = super(SaleOrderLine, self)._prepare_invoice_line(**optional_values)
@@ -173,9 +183,9 @@ class SaleOrderLine(models.Model):
         if self.subtype:
             values['subtype'] = self.subtype
         if self.fabric_id:
-            values['fabric_id'] = self.fabric_id.ids
-        if self.color_ids:
-            values['color_ids'] = self.color_ids.ids
+            values['fabric_id'] = self.fabric_id.id
+        if self.finish_category_id:
+            values['finish_category_id'] = self.finish_category_id.id
         return values
 
     @api.onchange('product_id')
@@ -184,8 +194,8 @@ class SaleOrderLine(models.Model):
             self.model_no_id = self.product_id.model_no_id.id
             self.model_type = self.product_id.model_type
             self.subtype = self.product_id.subtype
-            self.fabric_id = self.product_id.fabric_ids.ids
-            self.color_ids = self.product_id.color_ids.ids
+            self.fabric_id = self.product_id.fabric_id.id
+            self.finish_category_id = self.product_id.finish_category_id.id
 
     # @api.onchange('product_no_id')
     # def onchange_product_no_id_method(self):
@@ -215,8 +225,10 @@ class PurchaseOrderLine(models.Model):
     model_no_id = fields.Many2one("vvm.model", string="Model No.")
     model_type = fields.Char(string="Type")
     subtype = fields.Char(string="Sub-Type")
-    fabric_id = fields.Many2many("vvm.model.fabric", string="Fabric")
-    color_ids = fields.Many2many("model.color", string="Color")
+    fabric_id = fields.Many2one("vvm.model.fabric", string="Fabric")
+    color_ids = fields.Many2many("fabric.color.line", string="Color")
+    finish_category_id = fields.Many2one('finish.category', string="Finish Category")
+    finish_color_ids = fields.Many2many("finish.category.color.line", string="Finish Color")
 
     def _prepare_account_move_line(self, move=False):
         values = super(PurchaseOrderLine, self)._prepare_account_move_line(move=False)
@@ -227,9 +239,9 @@ class PurchaseOrderLine(models.Model):
         if self.subtype:
             values['subtype'] = self.subtype
         if self.fabric_id:
-            values['fabric_id'] = self.fabric_id.ids
-        if self.color_ids:
-            values['color_ids'] = self.color_ids.ids
+            values['fabric_id'] = self.fabric_id.id
+        if self.finish_category_id:
+            values['finish_category_id'] = self.finish_category_id.id
         return values
 
     # @api.onchange('product_no_id')
@@ -259,33 +271,41 @@ class PurchaseOrderLine(models.Model):
             self.model_no_id = self.product_id.model_no_id.id
             self.model_type = self.product_id.model_type
             self.subtype = self.product_id.subtype
-            self.fabric_id = self.product_id.fabric_ids.ids
-            self.color_ids = self.product_id.color_ids.ids
+            self.fabric_id = self.product_id.fabric_id.id
+            self.finish_category_id = self.product_id.finish_category_id.id
 
 
 class StockMove(models.Model):
     _inherit = 'stock.move'
 
-    product_no_id = fields.Many2one("product.product", string="Model No.",related='sale_line_id.product_no_id',store=True)
-    model_no_id = fields.Many2one("vvm.model", string="Model No.", related='sale_line_id.model_no_id', store=True)
+    product_no_id = fields.Many2one("product.product", string="Model No.",
+                                    related='sale_line_id.product_no_id', store=True)
+    model_no_id = fields.Many2one("vvm.model", string="Model No.",
+                                  related='sale_line_id.model_no_id', store=True)
     model_type = fields.Char(string="Type", related='sale_line_id.model_type', store=True)
     subtype = fields.Char(string="Sub-Type", related='sale_line_id.subtype', store=True)
-    fabric_id = fields.Many2many("vvm.model.fabric", string="Fabric",  store=True)
-    color_ids = fields.Many2many("model.color", string="Color", store=True)
+    fabric_id = fields.Many2one("vvm.model.fabric", string="Fabric", store=True)
+    color_ids = fields.Many2many("fabric.color.line", string="Color", store=True)
+    finish_category_id = fields.Many2one('finish.category', string="Finish Category", store=True)
+    finish_color_ids = fields.Many2many("finish.category.color.line", string="Finish Color", store=True)
 
-    purchase_product_no_id = fields.Many2one("product.product", string="Model No.",related='purchase_line_id.product_no_id',store=True)
-    purchase_model_no_id = fields.Many2one("vvm.model", string="Model No.", related='purchase_line_id.model_no_id', store=True)
+    purchase_product_no_id = fields.Many2one("product.product", string="Model No.",
+                                             related='purchase_line_id.product_no_id', store=True)
+    purchase_model_no_id = fields.Many2one("vvm.model", string="Model No.",
+                                           related='purchase_line_id.model_no_id', store=True)
     purchase_model_type = fields.Char(string="Type", related='purchase_line_id.model_type', store=True)
     purchase_subtype = fields.Char(string="Sub-Type", related='purchase_line_id.subtype', store=True)
-    #purchase_fabric_id = fields.Many2many("vvm.model.fabric", string="Fabric", store=True)
+    purchase_finish_category_id = fields.Many2one(related='purchase_line_id.finish_category_id',
+                                                  string="Finish Category", store=True)
+    purchase_fabric_id = fields.Many2one(related='purchase_line_id.fabric_id', string="Fabric", store=True)
 
     @api.model
     def create(self, vals):
         res = super(StockMove, self).create(vals)
         if res.sale_line_id and res.sale_line_id.fabric_id:
-            res.fabric_id = res.sale_line_id.fabric_id.ids
-        if res.sale_line_id and res.sale_line_id.color_ids:
-            res.color_ids = res.sale_line_id.color_ids.ids
+            res.fabric_id = res.sale_line_id.fabric_id.id
+        if res.sale_line_id and res.sale_line_id.finish_category_id:
+            res.finish_category_id = res.sale_line_id.finish_category_id.id
         return res
 
     @api.onchange('purchase_product_no_id')
@@ -293,28 +313,16 @@ class StockMove(models.Model):
         if self.purchase_product_no_id:
             self.purchase_model_type = self.purchase_product_no_id.model_type
             self.purchase_subtype = self.purchase_product_no_id.subtype
-            if self.purchase_product_no_id.custom_name:
-                products = self.env["product.product"].sudo().search(
-                    [('custom_name', '=', self.purchase_product_no_id.custom_name)])
-                if len(products) == 1:
-                    self.product_id = products.id
-                elif len(products) > 1:
-                    return {'domain': {'product_id': [('id', 'in', products.ids)]}}
+            self.fabric_id = self.purchase_product_no_id.fabric_id.id
+            self.finish_category_id = self.purchase_product_no_id.finish_category_id.id
 
     @api.onchange('product_no_id')
     def onchange_product_no_id_method(self):
         if self.product_no_id:
             self.model_type = self.product_no_id.model_type
             self.subtype = self.product_no_id.subtype
-            self.fabric_id = self.product_no_id.fabric_ids.ids
-            self.color_ids = self.product_no_id.color_ids.ids
-            if self.product_no_id.custom_name:
-                products = self.env["product.product"].sudo().search(
-                    [('custom_name', '=', self.product_no_id.custom_name)])
-                if len(products) == 1:
-                    self.product_id = products.id
-                elif len(products) > 1:
-                    return {'domain': {'product_id': [('id', 'in', products.ids)]}}
+            self.fabric_id = self.product_no_id.fabric_id.id
+            self.finish_category_id = self.product_no_id.finish_category_id.id
 
     @api.onchange('model_no_id')
     def onchange_model_no_id_method(self):
@@ -328,14 +336,15 @@ class StockMove(models.Model):
             products = self.env["product.product"].sudo().search([('model_no_id', '=', self.model_no_id.id)])
             return {'domain': {'product_id': [('id', 'in', products.ids)]}}
 
-    # @api.onchange('product_id')
-    # def onchange_product_id_method(self):
-    #     if self.product_id:
-    #         self.model_type = self.product_id.model_type
-    #         self.purchase_model_type = self.product_id.model_type
-    #         self.subtype = self.product_id.subtype
-    #         self.purchase_subtype = self.product_id.subtype
-    #         self.fabric_id = self.product_id.fabric_id.ids
+    @api.onchange('product_id')
+    def onchange_product_id_method(self):
+        if self.product_id:
+            self.model_type = self.product_id.model_type
+            self.purchase_model_type = self.product_id.model_type
+            self.subtype = self.product_id.subtype
+            self.purchase_subtype = self.product_id.subtype
+            self.fabric_id = self.product_id.fabric_id.id
+            self.finish_category_id = self.product_no_id.finish_category_id.id
 
 
 class AccountMoveLine(models.Model):
@@ -344,27 +353,15 @@ class AccountMoveLine(models.Model):
     product_no_id = fields.Many2one("product.product", string="Model No.")
     model_type = fields.Char(string="Type")
     subtype = fields.Char(string="Sub-Type")
-    fabric_id = fields.Many2many("vvm.model.fabric", string="Fabric")
-    color_ids = fields.Many2many("model.color", string="Color")
+    fabric_id = fields.Many2one("vvm.model.fabric", string="Fabric")
+    color_ids = fields.Many2many("fabric.color.line", string="Color")
+    finish_category_id = fields.Many2one('finish.category', string="Finish Category")
+    finish_color_ids = fields.Many2many("finish.category.color.line", string="Finish Color")
 
     @api.onchange('product_no_id')
     def onchange_product_no_id_method(self):
         if self.product_no_id:
             self.model_type = self.product_no_id.model_type
             self.subtype = self.product_no_id.subtype
-            self.fabric_id = self.product_no_id.fabric_ids.ids
-            self.color_ids = self.product_no_id.color_ids.ids
-            if self.product_no_id.custom_name:
-                products = self.env["product.product"].sudo().search(
-                    [('custom_name', '=', self.product_no_id.custom_name)])
-                if len(products) == 1:
-                    self.product_id = products.id
-                elif len(products) > 1:
-                    return {'domain': {'product_id': [('id', 'in', products.ids)]}}
-
-
-
-
-
-
-
+            self.fabric_id = self.product_no_id.fabric_id.id
+            self.finish_category_id = self.product_no_id.finish_category_id.id

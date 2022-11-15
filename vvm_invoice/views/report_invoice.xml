@@ -1,0 +1,321 @@
+<odoo>
+	<!-- new invoice report design template -->
+	<template id="report_invoice_document_vvm">
+        <t t-call="web.basic_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)" />
+            <div class="page">
+                <div id="content" class='html-content'>
+                	<div class="row">
+                        <div class="col-6 col-md-6 float-left">
+                			<strong><h5>TAX INVOICE NUMBER-<t t-esc="o.name"></t></h5></strong>
+                        </div>
+                        <div class="col-6 col-md-6 float-right">
+                        	<img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' %o.company_id.logo" style="width:200px;height:135px;"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 col-md-6">
+                        	<style>
+			            		table-bordered > tbody > tr > td,
+									.table-bordered > tbody > tr > th,
+									.table-bordered > tbody > tr > td,
+									.table-bordered > tfoot > tr > td,
+									.table-bordered > tfoot > tr > th,
+									.table-bordered > thead > tr > td,
+									.table-bordered > thead > tr > th {
+										border: 1px solid black;
+									}
+			            	</style>
+                			<table class="table table-bordered" style="background-color: grey; font-weight:bold;line-height:0;">
+                				<tbody>
+                					<tr>
+                						<td>Project Reference:</td>
+                						<td><t t-esc="o.name"></t></td>
+                					</tr>
+                					<tr>
+                						<td>Sales Order Reference Number:</td>
+                						<td><t t-esc="o.name"></t></td>
+                					</tr>
+                					<tr>
+                						<td>Customer Name:</td>
+                						<td><t t-esc="o.partner_id.name"></t></td>
+                					</tr>
+                					<tr>
+                						<td>Contact Person:</td>
+                						<td><t t-esc="o.partner_id.name"></t></td>
+                					</tr>
+                					<tr>
+                						<td>Contact Details:</td>
+                						<td><t t-esc="o.partner_id.phone"></t></td>
+                					</tr>
+                					<tr>
+                						<td>Email:</td>
+                						<td><t t-esc="o.partner_id.email"></t></td>
+                					</tr>
+                					<tr>
+                						<td>Billing Address:</td>
+                						<td></td>
+                					</tr>
+                					<tr>
+                						<td>VAT number:</td>
+                						<td></td>
+                					</tr>
+                					<tr>
+                						<td>Ship to  party:</td>
+                						<td></td>
+                					</tr>
+                					<tr>
+                						<td>Shipping Address:</td>
+                						<td></td>
+                					</tr>
+                				</tbody>
+                			</table>
+                        </div>
+                        
+                        <div class="col-6 col-md-6">
+                        	<style>
+			            		table-bordered > tbody > tr > td,
+									.table-bordered > tbody > tr > th,
+									.table-bordered > tbody > tr > td,
+									.table-bordered > tfoot > tr > td,
+									.table-bordered > tfoot > tr > th,
+									.table-bordered > thead > tr > td,
+									.table-bordered > thead > tr > th {
+										border: 1px solid black;
+									}
+			            	</style>
+                        	<table class="table table-bordered" style="background-color: grey; font-weight:bold;line-height:0;">
+                				<tbody>
+                					<tr>
+                						<td>Supplier:</td>
+                						<td>Vivium Living1 Trading LLC</td>
+                					</tr>
+                					<tr>
+                						<td></td>
+                						<td></td>
+                					</tr>
+                					<tr>
+                						<td></td>
+                						<td></td>
+                					</tr>
+                					<tr>
+                						<td></td>
+                						<td>Cassina Furniture Distributor in UAE/ Bahrain/ Oman</td>
+                					</tr>
+                					<tr>
+                						<td>TRN:</td>
+                						<td>100520150200003</td>
+                					</tr>
+                					<tr>
+                						<td>Address:</td>
+                						<td>Jumeirah Beach Road, Plot No. 3560263, Umm Suqeim 1, Dubai</td>
+                					</tr>
+                					<tr>
+                						<td>Sales Person:</td>
+                						<td><t t-esc="o.invoice_user_id.name"></t></td>
+                					</tr>
+                					<tr>
+                						<td></td>
+                						<td></td>
+                					</tr>
+                					<tr>
+                						<td></td>
+                						<td></td>
+                					</tr>
+                					<tr>
+                						<td>Date:</td>
+                						<td><t t-esc="o.invoice_date"></t></td>
+                					</tr>
+                				</tbody>
+                			</table>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                    	<style>
+		            		table-bordered > tbody > tr > td,
+								.table-bordered > tbody > tr > th,
+								.table-bordered > tbody > tr > td,
+								.table-bordered > tfoot > tr > td,
+								.table-bordered > tfoot > tr > th,
+								.table-bordered > thead > tr > td,
+								.table-bordered > thead > tr > th {
+									border: 1px solid black;
+								}
+		            	</style>
+                    	<table class="table table-bordered">
+                    		<thead style="background-color: grey; font-weight:bold;">
+                    			<tr>
+                    				<th>SN</th>
+                    				<th>Barcode</th>
+                    				<th>Item Code</th>
+                    				<th>Details</th>
+                    				<th>Qty</th>
+                    				<th>Unit Price(AED)</th>
+                    				<th>Total Gross Price</th>
+                    				<th>Total Net Price (excl. VAT)</th>
+                    			</tr>
+                    		</thead>
+                    		<tbody>
+                    			<t t-set="i" t-value="1" />
+                    			<t t-foreach="o.invoice_line_ids" t-as="line">
+	                    			<tr>
+	                    				<td t-esc="i"></td>
+  										<t t-set="i" t-value="i+1"/> 
+	                    				<td></td>
+	                    				<td></td>
+	                    				<td></td>
+	                    				<td></td>
+	                    				<td></td>
+	                    				<td></td>	
+	                    				<td></td>
+	                    			</tr>
+                    			</t>
+                    			<tr>
+                    				<td colspan="4"></td>
+                    				<td colspan="3" style="font-weight:bold;">TOTAL (Excl. VAT)</td>
+                    				<td></td>
+                    			</tr>
+                    			<tr>
+                    				<td colspan="4"></td>
+                    				<td colspan="3" style="font-weight:bold;">VAT(5%)</td>
+                    				<td></td>
+                    			</tr>
+                    			<tr>
+                    				<td colspan="4"></td>
+                    				<td colspan="3" style="font-weight:bold;background-color: grey;">TOTAL PRICE (incl. VAT)</td>
+                    				<td style="background-color: grey;"></td>
+                    			</tr>
+                    		</tbody>
+                    	</table>
+                    </div>
+                    <br/>
+                    <strong>Bank Details : </strong>
+                    <div class="row">
+                    	<style>
+		            		table-bordered > tbody > tr > td,
+								.table-bordered > tbody > tr > th,
+								.table-bordered > tbody > tr > td,
+								.table-bordered > tfoot > tr > td,
+								.table-bordered > tfoot > tr > th,
+								.table-bordered > thead > tr > td,
+								.table-bordered > thead > tr > th {
+									border: 1px solid black;
+								}
+		            	</style>
+                    	<table class="table table-bordered" style="font-weight:bold;line-height:0;">
+                    		<thead>
+                    			<tr>
+                    				<th>Account Name</th>
+                    				<th>IBAN</th>
+                    				<th>SWIFT</th>
+                    				<th>Account Number</th>
+                    			</tr>
+                    			<tr>
+                    				<th>Vivium Living1 Trading LLC</th>
+                    				<th>AE290140038542784260015</th>
+                    				<th>BLOMAEAD</th>
+                    				<th>0510038542784260015</th>
+                    			</tr>
+                    		</thead>
+                    	</table>
+                    </div>
+                	<br/>
+                	<div class="row">
+                		<div class="col-3 col-md-3 float-left">
+                			<strong>Prepared By</strong>
+                		</div>
+                		<div class="col-3 col-md-3 float-left">
+                		</div>
+                		<div class="col-3 col-md-3 float-left">
+                			<strong>Approved By</strong>
+                			<br/>
+                			<br/>
+                			<br/>
+                			<span>CFO</span>
+                		</div>
+                		<div class="col-3 col-md-3 float-left">
+                			<strong>Approved By</strong>
+                			<br/>
+                			<br/>
+                			<br/>
+                			<span>CEO</span>
+                		</div>
+                	</div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- new invoice report main template -->
+	<template id="report_invoice_with_payments_vvm">
+	    <t t-call="web.html_container">
+	        <t t-foreach="docs" t-as="o">
+	            <t t-set="lang" t-value="o.partner_id.lang"/>
+	            <t t-set="print_with_payments" t-value="True"/>
+	            <t t-call="vvm_invoice.report_invoice_document_vvm" t-lang="lang"/>
+	        </t>
+	    </t>
+	</template>
+
+	<!-- paperformate for new report -->
+	<record id="paperformat_vvm" model="report.paperformat">
+        <field name="name">VVM</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">32</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+
+
+    <!-- added new invoice reports -->
+    <record id="account_invoices_vvm" model="ir.actions.report">
+        <field name="name">Invoices</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">vvm_invoice.report_invoice_with_payments_vvm</field>
+        <field name="report_file">vvm_invoice.report_invoice_with_payments_vvm</field>
+        <field name="print_report_name">(object._get_report_base_filename())</field>
+        <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field>
+        <field name="binding_model_id" ref="model_account_move"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="vvm_invoice.paperformat_vvm"></field>
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice')),
+(4, ref('account.group_account_readonly'))]"/>
+    </record>
+
+    <!-- hide existing invoice reports -->
+	<record id="account.account_invoices" model="ir.actions.report">
+        <field name="name">Invoices</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account.report_invoice_with_payments</field>
+        <field name="report_file">account.report_invoice_with_payments</field>
+        <field name="print_report_name">(object._get_report_base_filename())</field>
+        <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field>
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">report</field>
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice')),
+(4, ref('account.group_account_readonly'))]"/>
+    </record>
+
+    <record id="account.account_invoices_without_payment" model="ir.actions.report">
+        <field name="name">Invoices without Payment</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account.report_invoice</field>
+        <field name="report_file">account.report_invoice</field>
+        <field name="print_report_name">(object._get_report_base_filename())</field>
+        <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field>
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
