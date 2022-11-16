@@ -9,7 +9,7 @@
                   sequence="6"/>
 
         <menuitem name="Model" id="vvm_model_menu"
-				  parent="vvm_model.menu_master_model_fabric_sale_config"
+				  parent="menu_master_model_fabric_sale_config"
 				  action="vvm_model_act_window"
 				  sequence="1"/>
 
@@ -30,7 +30,7 @@
 
         <menuitem name="Fabric Color" id="vvm_model_fabric_color_menu"
 				  parent="menu_master_model_fabric_sale_config"
-				  action="vvm_model_fabric_color_act_window"
+				  action="vvm_model.vvm_model_fabric_color_act_window"
 				  sequence="5"/>
 
     </data>
