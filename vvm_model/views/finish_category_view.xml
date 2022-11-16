@@ -49,8 +49,5 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem name="Finish Category" id="finish_category_menu" parent="sale.menu_sale_config"
-                  action="finish_category_act_window" sequence="8"/>
-
 	</data>
 </odoo>

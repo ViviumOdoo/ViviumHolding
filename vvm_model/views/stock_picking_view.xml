@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+        <menuitem id="menu_master_model_fabric_config"
+                  name="Master"
+                  parent="stock.menu_stock_config_settings"
+                  groups="stock.group_stock_manager"
+                  sequence="4"/>
+
+        <menuitem name="Model"
+                  id="vvm_model_menu"
+                  parent="menu_master_model_fabric_config"
+				  action="vvm_model_act_window"
+                  sequence="1"/>
+
+        <menuitem name="Fabric" id="vvm_model_fabric_menu"
+                  parent="menu_master_model_fabric_config"
+				  action="vvm_model_fabric_act_window"
+                  sequence="2"/>
+
+        <menuitem name="Color"
+                  id="vvm_model_color_menu"
+                  parent="menu_master_model_fabric_config"
+				  action="model_color_act_window"
+                  sequence="3"/>
+
+        <menuitem name="Finish Category"
+                  id="finish_category_menu"
+                  parent="menu_master_model_fabric_config"
+                  action="finish_category_act_window"
+                  sequence="4"/>
+
+
         <record id="view_picking_form_inherit_vvm" model="ir.ui.view">
             <field name="name">stock.picking.form</field>
             <field name="model">stock.picking</field>

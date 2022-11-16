@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<!-- Fabric color tree View -->
+		<record id="vvm_model_fabric_color_tree_view" model="ir.ui.view">
+			<field name="name">fabric.color.line.tree.view</field>
+			<field name="model">fabric.color.line</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="fabric_id"/>
+					<field name="color_id"/>
+				</tree>
+			</field>
+		</record>
+
+        <!-- Fabric color form View -->
+		<record id="vvm_model_fabric_color_form_view" model="ir.ui.view">
+			<field name="name">fabric.color.line.tree.view</field>
+			<field name="model">fabric.color.line</field>
+			<field name="arch" type="xml">
+				<form>
+                    <sheet>
+                        <group>
+                            <field name="fabric_id"/>
+                            <field name="color_id"/>
+                        </group>
+                    </sheet>
+				</form>
+			</field>
+		</record>
+
+        <record id="vvm_model_fabric_color_act_window" model="ir.actions.act_window">
+            <field name="name">Fabric Color</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fabric.color.line</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+	</data>
+</odoo>

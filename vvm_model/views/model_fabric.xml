@@ -40,10 +40,6 @@
 									</tree>
 								</field>
 							</group>
-							<group>
-								<field name="image_1920" widget="image" class="oe_avatar"
-									   options="{'preview_image': 'image_1920'}"/>
-							</group>
 						</group>
 					</sheet>
 				</form>
@@ -57,8 +53,6 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem name="Fabric" id="vvm_model_fabric_menu" parent="sale.menu_sale_config"
-				  action="vvm_model_fabric_act_window" sequence="6"/>
 
 		<!-- Color View -->
 		<record id="model_color_tree_view" model="ir.ui.view">
@@ -99,9 +93,6 @@
             <field name="res_model">model.color</field>
             <field name="view_mode">tree,form</field>
         </record>
-
-        <menuitem name="Color" id="vvm_model_color_menu" parent="sale.menu_sale_config"
-				  action="model_color_act_window" sequence="7"/>
 
 	</data>
 </odoo>

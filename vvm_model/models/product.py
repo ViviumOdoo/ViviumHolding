@@ -93,7 +93,6 @@ class ProductTemplate(models.Model):
     def action_storable_product_template(self):
         product_consu_ids = self.env['product.template'].search([('detailed_type', '=', 'consu')])
         for consu in product_consu_ids:
-            print("==================>>>>",consu)
             consu.detailed_type = 'product'
 
 
@@ -170,7 +169,7 @@ class ProductProduct(models.Model):
     def action_storable_product(self):
         product_consu_ids = self.env['product.product'].search([('detailed_type', '=', 'consu')])
         for consu in product_consu_ids:
-            print("==================>>>>",consu)
+
             consu.detailed_type = 'product'
 
 
@@ -210,6 +209,14 @@ class SaleOrderLine(models.Model):
             self.subtype = self.product_id.subtype
             self.fabric_id = self.product_id.fabric_id.id
             self.finish_category_id = self.product_id.finish_category_id.id
+
+    @api.onchange('discount')
+    def onchange_discount(self):
+        user_discount = self.env.user.user_max_discount
+        print ("=========",user_discount)
+        if self.discount > user_discount:
+            raise ValidationError(_("You are not allowed to give more then %s discount" % user_discount))
+
 
     # @api.onchange('product_no_id')
     # def onchange_product_no_id_method(self):

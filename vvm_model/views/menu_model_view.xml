@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+        <menuitem id="menu_master_model_fabric_sale_config"
+                  name="Master"
+                  parent="sale.menu_sale_config"
+                  groups="sales_team.group_sale_manager"
+                  sequence="6"/>
+
+        <menuitem name="Model" id="vvm_model_menu"
+				  parent="vvm_model.menu_master_model_fabric_sale_config"
+				  action="vvm_model_act_window"
+				  sequence="1"/>
+
+        <menuitem name="Color" id="vvm_model_color_menu"
+				  parent="menu_master_model_fabric_sale_config"
+				  action="model_color_act_window"
+                  sequence="2"/>
+
+        <menuitem name="Fabric" id="vvm_model_fabric_menu"
+				  parent="menu_master_model_fabric_sale_config"
+				  action="vvm_model_fabric_act_window"
+                  sequence="3"/>
+
+        <menuitem name="Finish Category" id="finish_category_menu"
+				  parent="menu_master_model_fabric_sale_config"
+                  action="finish_category_act_window"
+				  sequence="4"/>
+
+        <menuitem name="Fabric Color" id="vvm_model_fabric_color_menu"
+				  parent="menu_master_model_fabric_sale_config"
+				  action="vvm_model_fabric_color_act_window"
+				  sequence="5"/>
+
+    </data>
+</odoo>
