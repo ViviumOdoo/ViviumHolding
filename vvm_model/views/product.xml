@@ -169,6 +169,15 @@
                 <xpath expr="//field[@name='name']" position="attributes">
                     <attributes name="required">0</attributes>
                 </xpath>
+                <xpath expr="//notebook/page" position="after">
+                    <page name="images" string="Dimension Image">
+                        <group>
+                            <group>
+                                <field name="image_dimension" widget="image" class="oe_avatar"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
                 <xpath expr="//notebook/page[1]" position="after">
                     <page name="item_info" string="Item Information">
                         <group>
@@ -216,6 +225,15 @@
                 </label>
                 <xpath expr="//field[@name='name']" position="attributes">
                     <attributes name="required">0</attributes>
+                </xpath>
+                <xpath expr="//notebook/page" position="after">
+                    <page name="images" string="Dimension Image">
+                        <group>
+                            <group>
+                                <field name="image_dimension" widget="image" class="oe_avatar"/>
+                            </group>
+                        </group>
+                    </page>
                 </xpath>
                 <xpath expr="//notebook/page[1]" position="after">
                     <page name="item_info" string="Item Information">

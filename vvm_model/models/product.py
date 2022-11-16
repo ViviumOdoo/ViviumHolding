@@ -24,6 +24,8 @@ class ProductTemplate(models.Model):
     finish_color_ids = fields.Many2many("finish.category.color.line", string="Finish Color")
     sale_price_aed = fields.Float(string="Sale Price (EUR)")
     purchase_price_aed = fields.Float(string="Purchase Price (EUR)")
+    image_dimension = fields.Image("Dimension Image")
+
 
     @api.onchange('finish_category_id')
     def onchange_finish_category(self):
