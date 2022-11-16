@@ -12,12 +12,7 @@ class FinishCategory(models.Model):
 	name = fields.Char(string="Name", required=True)
 	finish_color_line = fields.One2many('finish.category.color.line', 'finish_id', string="Fabric Color")
 	is_created = fields.Boolean(string="Is Created")
-
-	def write(self, vals):
-		if self.id > 0:
-			raise UserError(_("No edit in once record is saved"))
-		else:
-			return super().write(vals)
+	image_128 = fields.Image("Image")
 
 	@api.model
 	def create(self, vals):

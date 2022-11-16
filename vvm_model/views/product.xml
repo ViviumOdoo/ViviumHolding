@@ -205,7 +205,8 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='categ_id']" position="before">
                     <field name="sale_price_aed" string="Sale Price (EUR)"/>
-                    <field name="purchase_price_aed" string="Purchase Price (EUR)"/>
+                    <field name="purchase_price_aed" string="Purchase Price (EUR)"
+                            groups="abs_hide_sale_cost_price.group_cost_price_show"/>
                 </xpath>
                 <label for="list_price" position="attributes">
                     <attribute name="string">Sale Price (AED)</attribute>

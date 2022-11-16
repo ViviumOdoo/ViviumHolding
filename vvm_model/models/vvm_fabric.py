@@ -11,6 +11,7 @@ class VVMFabric(models.Model):
 	name = fields.Char(string="Name", required=True)
 	description = fields.Text(string='Description')
 	fabric_color_line = fields.One2many('fabric.color.line', 'fabric_id', string="Fabric Color")
+	image_1920 = fields.Image("Image")
 
 
 class FabricColorLine(models.Model):

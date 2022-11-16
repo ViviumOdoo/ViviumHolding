@@ -15,7 +15,7 @@
 	'category': 'Uncategorized',
 	'version': '15.1',
 
-	'depends': ['base', 'sale', 'purchase', 'stock', 'account'],
+	'depends': ['base', 'sale', 'purchase', 'stock', 'account', 'abs_hide_sale_cost_price'],
 
 	'data': [
 		'security/ir.model.access.csv',
