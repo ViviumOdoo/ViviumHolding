@@ -19,7 +19,7 @@
 
 	'data': [
 		'security/ir.model.access.csv',
-		#'data/data.xml',
+		'data/product_storable_cron.xml',
 		'views/vvm_model_view.xml',
 		'views/model_fabric.xml',
 		'views/product.xml',

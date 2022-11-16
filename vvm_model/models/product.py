@@ -90,6 +90,12 @@ class ProductTemplate(models.Model):
         res = super(ProductTemplate, self).create(values)
         return res
 
+    def action_storable_product_template(self):
+        product_consu_ids = self.env['product.template'].search([('detailed_type', '=', 'consu')])
+        for consu in product_consu_ids:
+            print("==================>>>>",consu)
+            consu.detailed_type = 'product'
+
 
 class ProductProduct(models.Model):
     _inherit = 'product.product'
@@ -160,6 +166,12 @@ class ProductProduct(models.Model):
                 values['custom_name'] = vvm_model.model_no + '/' + values['model_type'] + '/' + values['subtype']
         res = super(ProductProduct, self).create(values)
         return res
+
+    def action_storable_product(self):
+        product_consu_ids = self.env['product.product'].search([('detailed_type', '=', 'consu')])
+        for consu in product_consu_ids:
+            print("==================>>>>",consu)
+            consu.detailed_type = 'product'
 
 
 class SaleOrderLine(models.Model):
