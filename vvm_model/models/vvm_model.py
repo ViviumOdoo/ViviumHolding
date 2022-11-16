@@ -9,7 +9,11 @@ class VVMModel(models.Model):
 	_description = 'VVM Model'
 	_rec_name = 'model_no'
 
+<<<<<<< HEAD
 	model_no = fields.Char(string="Model No.", required=True, size=3)
+=======
+	model_no = fields.Char(string="Model No.", required=True,size=3)
+>>>>>>> 67d23a6a4b3ce065a22664af1d97056fda80b678
 	model_name = fields.Char(string="Model Name")
 	model_type = fields.Char(string="Type")
 	subtype = fields.Char(string="Sub-Type")
