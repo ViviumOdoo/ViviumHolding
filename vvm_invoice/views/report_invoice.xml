@@ -7,10 +7,15 @@
                 <div id="content" class='html-content'>
                 	<div class="row">
                         <div class="col-6 col-md-6 float-left">
-                			<strong><h5>TAX INVOICE NUMBER-<t t-esc="o.name"></t></h5></strong>
+                			<strong><h5>TAX INVOICE NUMBER-<t t-esc="o.name"/></h5></strong>
                         </div>
-                        <div class="col-6 col-md-6 float-right">
-                        	<img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' %o.company_id.logo" style="width:200px;height:135px;"/>
+                        <div class="col-6 col-md-6" name="right-upper-side">
+							<img t-if="o.company_id.logo"
+								 t-att-src="image_data_uri(o.company_id.logo)"
+								 style="max-height: 65px;max-weight: 100px" alt="Logo"/>
+                        	<!--<img t-if="o.company_id.logo"
+								 t-att-src="'data:image/png;base64,%s' %o.company_id.logo"
+								 style="width:150px;height:120px;"/>-->
                         </div>
                     </div>
                     <div class="row">
@@ -26,7 +31,8 @@
 										border: 1px solid black;
 									}
 			            	</style>
-                			<table class="table table-bordered" style="background-color: grey; font-weight:bold;line-height:0;">
+                			<table class="table table-bordered"
+								   style="background-color: #D3D3D3; font-weight:bold;line-height:0;">
                 				<tbody>
                 					<tr>
                 						<td>Project Reference:</td>
@@ -84,7 +90,7 @@
 										border: 1px solid black;
 									}
 			            	</style>
-                        	<table class="table table-bordered" style="background-color: grey; font-weight:bold;line-height:0;">
+                        	<table class="table table-bordered" style="background-color: #D3D3D3; font-weight:bold;line-height:0;">
                 				<tbody>
                 					<tr>
                 						<td>Supplier:</td>
@@ -112,7 +118,9 @@
                 					</tr>
                 					<tr>
                 						<td>Sales Person:</td>
-                						<td><t t-esc="o.invoice_user_id.name"></t></td>
+                						<td>
+											<t t-esc="o.invoice_user_id.name"/>
+										</td>
                 					</tr>
                 					<tr>
                 						<td></td>
@@ -124,7 +132,9 @@
                 					</tr>
                 					<tr>
                 						<td>Date:</td>
-                						<td><t t-esc="o.invoice_date"></t></td>
+                						<td>
+											<t t-esc="o.invoice_date"> </t>
+										</td>
                 					</tr>
                 				</tbody>
                 			</table>
@@ -144,7 +154,7 @@
 								}
 		            	</style>
                     	<table class="table table-bordered">
-                    		<thead style="background-color: grey; font-weight:bold;">
+                    		<thead style="background-color: #D3D3D3; font-weight:bold;">
                     			<tr>
                     				<th>SN</th>
                     				<th>Barcode</th>
@@ -160,7 +170,7 @@
                     			<t t-set="i" t-value="1" />
                     			<t t-foreach="o.invoice_line_ids" t-as="line">
 	                    			<tr>
-	                    				<td t-esc="i"></td>
+	                    				<td t-esc="i"> </td>
   										<t t-set="i" t-value="i+1"/> 
 	                    				<td></td>
 	                    				<td></td>
@@ -172,19 +182,20 @@
 	                    			</tr>
                     			</t>
                     			<tr>
-                    				<td colspan="4"></td>
+                    				<td colspan="4"> </td>
                     				<td colspan="3" style="font-weight:bold;">TOTAL (Excl. VAT)</td>
                     				<td></td>
                     			</tr>
                     			<tr>
-                    				<td colspan="4"></td>
+                    				<td colspan="4"> </td>
                     				<td colspan="3" style="font-weight:bold;">VAT(5%)</td>
                     				<td></td>
                     			</tr>
                     			<tr>
-                    				<td colspan="4"></td>
-                    				<td colspan="3" style="font-weight:bold;background-color: grey;">TOTAL PRICE (incl. VAT)</td>
-                    				<td style="background-color: grey;"></td>
+                    				<td colspan="4"> </td>
+                    				<td colspan="3"
+										style="font-weight:bold;background-color: #D3D3D3;">TOTAL PRICE (incl. VAT)</td>
+                    				<td style="background-color: #D3D3D3;"> </td>
                     			</tr>
                     		</tbody>
                     	</table>

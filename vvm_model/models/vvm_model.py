@@ -9,7 +9,6 @@ class VVMModel(models.Model):
 	_description = 'VVM Model'
 	_rec_name = 'model_no'
 
-	model_no = fields.Char(string="Model No.", required=True, size=3)
 	model_no = fields.Char(string="Model No.", required=True,size=3)
 	model_name = fields.Char(string="Model Name")
 	model_type = fields.Char(string="Type")
@@ -26,7 +25,9 @@ class VVMModel(models.Model):
 class ModelColor(models.Model):
 	_name = 'model.color'
 	_description = 'Model Color'
-
+	_sql_constraints = [
+		('name', 'UNIQUE (name)', 'You can not have two color with the same name !')
+	]
 
 	def _get_default_color(self):
 		return randint(1, 11)
@@ -36,4 +37,3 @@ class ModelColor(models.Model):
 	html_color = fields.Char(string='Color',
 	help="Here you can set a specific HTML color index (e.g. #ff0000) to display the color if the attribute type is 'Color'.")
 	color = fields.Integer('Color Index', default=_get_default_color)
-

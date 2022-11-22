@@ -15,10 +15,11 @@
     'category': 'Uncategorized',
     'version': '0.15.1',
 
-    'depends': ['base', 'account'],
+    'depends': ['base', 'account', 'sale'],
 
     'data': [
         # 'security/ir.model.access.csv',
         'views/report_invoice.xml',
+        'views/account_move_view.xml'
     ]
 }

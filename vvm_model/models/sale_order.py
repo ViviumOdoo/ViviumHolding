@@ -7,6 +7,12 @@ from odoo.exceptions import UserError, ValidationError
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    def _prepare_invoice(self):
+        values = super(SaleOrder, self)._prepare_invoice()
+        values['sale_order_id'] = self.id
+        values['sale_total_amount'] = self.amount_total
+        return values
+
     def action_create_po(self):
         po_id = self.env['purchase.order'].create({
             'date_planned': self.date_order,

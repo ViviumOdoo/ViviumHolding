@@ -375,7 +375,7 @@
                     <field name="product_no_id" required="1" context="{'default_is_model': True}"/>
                     <field name="model_type"/>
                     <field name="subtype"/>
-                   <field name="fabric_id"/>
+                    <field name="fabric_id"/>
                     <field name="color_ids" widget="many2many_tags"
                            options="{'no_create_edit': True}"
                            domain="[('fabric_id', '=', fabric_id)]"/>
@@ -384,6 +384,17 @@
                            options="{'no_create_edit': True}"
                            domain="[('finish_id', '=', finish_category_id)]"/>
                 </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='tax_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='account_internal_group']" position="after">
+                    <field name="tax_ids" widget="many2many_tags" string="VAT"
+                           domain="[('type_tax_use', '=?', parent.invoice_filter_type_domain), ('company_id', '=', parent.company_id), ('country_id', '=', parent.tax_country_id)]"
+                           context="{'append_type_to_tax_name': not parent.invoice_filter_type_domain}"
+                           options="{'no_create': True}"
+                           optional="show"/>
+                </xpath>
+
                 <xpath expr="//field[@name='line_ids']/tree/field[@name='partner_id']" position="before">
                     <field name="product_no_id" invisible="1"/>
                     <field name="model_type" invisible="1"/>

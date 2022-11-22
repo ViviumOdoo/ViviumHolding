@@ -87,6 +87,7 @@ class ProductTemplate(models.Model):
             if vvm_model:
                 values['name'] = vvm_model.model_no + values['model_type'] + values['subtype']
                 values['custom_name'] = vvm_model.model_no + '/' + values['model_type'] + '/' + values['subtype']
+                values['barcode'] = vvm_model.model_no + values['model_type'] + values['subtype']
         res = super(ProductTemplate, self).create(values)
         return res
 
@@ -163,13 +164,13 @@ class ProductProduct(models.Model):
             if vvm_model:
                 values['name'] = vvm_model.model_no + values['model_type'] + values['subtype']
                 values['custom_name'] = vvm_model.model_no + '/' + values['model_type'] + '/' + values['subtype']
+                values['barcode'] = vvm_model.model_no + values['model_type'] + values['subtype']
         res = super(ProductProduct, self).create(values)
         return res
 
     def action_storable_product(self):
         product_consu_ids = self.env['product.product'].search([('detailed_type', '=', 'consu')])
         for consu in product_consu_ids:
-
             consu.detailed_type = 'product'
 
 
@@ -378,6 +379,7 @@ class AccountMoveLine(models.Model):
     color_ids = fields.Many2many("fabric.color.line", string="Color")
     finish_category_id = fields.Many2one('finish.category', string="Finish Category")
     finish_color_ids = fields.Many2many("finish.category.color.line", string="Finish Color")
+
 
     @api.onchange('product_no_id')
     def onchange_product_no_id_method(self):

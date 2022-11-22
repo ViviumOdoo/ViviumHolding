@@ -6,7 +6,9 @@ from odoo import models, fields, api, _
 class VVMFabric(models.Model):
 	_name = 'vvm.model.fabric'
 	_description = 'VVM Fabric'
-	_rec_name = 'name'
+	_sql_constraints = [
+		('name_key', 'UNIQUE (name)', 'You can not have two color with the same name !')
+	]
 
 	name = fields.Char(string="Name", required=True)
 	description = fields.Text(string='Description')

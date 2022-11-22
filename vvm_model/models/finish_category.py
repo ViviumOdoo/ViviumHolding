@@ -7,7 +7,9 @@ from odoo.exceptions import UserError, ValidationError
 class FinishCategory(models.Model):
 	_name = 'finish.category'
 	_description = 'Finish Category'
-	_rec_name = 'name'
+	_sql_constraints = [
+		('name', 'UNIQUE (name)', 'You can not have two Finish Category with the same name !')
+	]
 
 	name = fields.Char(string="Name", required=True)
 	finish_color_line = fields.One2many('finish.category.color.line', 'finish_id', string="Fabric Color")
