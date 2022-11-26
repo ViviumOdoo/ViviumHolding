@@ -29,7 +29,7 @@
 		'views/sale_order_view.xml',
 		'views/stock_picking_view.xml',
 		'views/res_user_view.xml',
-
+		'views/purchase_order_view.xml'
 	],
 	'installable': True,
 	'application': True,

@@ -7,11 +7,16 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
+
                 <xpath expr="//form/header/button[@name='action_quotation_send']" position="before">
                     <button name="action_create_po" string="Create PO"
                             type="object" class="btn-primary" data-hotkey="g"
-                            attrs="{'invisible': [('state', '!=', 'sale')]}"/>
+                            attrs="{'invisible': ['|', ('state', '!=', 'sale'), ('po_created', '=', True)]}"/>
                 </xpath>
+
+                <field name="reference" position="after">
+                    <field name="po_created"/>
+                </field>
 
                 <xpath expr="//form/header/button[@name='action_quotation_send'][2]" position="attributes">
                     <attribute name="invisible">1</attribute>

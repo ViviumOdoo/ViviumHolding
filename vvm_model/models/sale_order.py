@@ -7,6 +7,8 @@ from odoo.exceptions import UserError, ValidationError
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    po_created = fields.Boolean(string="PO Created")
+
     def _prepare_invoice(self):
         values = super(SaleOrder, self)._prepare_invoice()
         values['sale_order_id'] = self.id
@@ -19,8 +21,10 @@ class SaleOrder(models.Model):
             'user_id': self.user_id.id,
             'company_id': self.company_id.id,
             'origin': self.origin,
-            'partner_id': self.env['res.partner'].search([('supplier_rank', '>=', 0)], limit=1).id
+            'partner_id': self.env['res.partner'].search([('supplier_rank', '>=', 0)], limit=1).id,
+            'sale_order_id': self.id
         })
+        self.po_created = True
         for line in self.order_line:
             po_line_id = self.env['purchase.order.line'].create({
                 'order_id': po_id.id,
@@ -36,6 +40,7 @@ class SaleOrder(models.Model):
                 'product_qty': line.product_uom_qty,
                 'product_uom': line.product_uom.id,
             })
+
 
     def copy_data(self, default=None):
         print ("***********",self)

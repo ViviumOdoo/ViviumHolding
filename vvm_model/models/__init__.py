@@ -7,3 +7,4 @@ from . import finish_category
 from . import sale_order
 from . import stock_picking
 from . import res_users
+from . import purchase_order
