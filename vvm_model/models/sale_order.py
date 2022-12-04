@@ -22,7 +22,8 @@ class SaleOrder(models.Model):
             'company_id': self.company_id.id,
             'origin': self.origin,
             'partner_id': self.env['res.partner'].search([('supplier_rank', '>=', 0)], limit=1).id,
-            'sale_order_id': self.id
+            'sale_order_id': self.id,
+            'sale_partner_id': self.partner_id.id
         })
         self.po_created = True
         for line in self.order_line:

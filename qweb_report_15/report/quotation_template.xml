@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="quotation_custom_layout">
+        <header>
+            <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
+                <tbody>
+                    <tr>
+                        <td style="text-align:left;">
+                            <h3 style="font-weight:700;">QUOTATION -<t t-esc="o.name"/></h3>
+                        </td>
+                        <td style="text-align:right;">
+                            <img t-att-src="o.company_id.logo"/>
+                        </td>                      
+                    </tr>
+                </tbody>
+            </table>
+        </header>
+        <t t-raw="0"/>
+    </template>
+    <template id="report_template_quotation">
+        <t t-call="web.basic_layout">
+            <t t-call="qweb_report_15.quotation_custom_layout">
+                <div class="page">
+                    <table border="0" cellspacing="0" cellpadding="0" style="width:100%;font-size:12px;">
+                        <tr>
+                            <td style="width:40%;padding-top:30px;">
+                                <table border="0" cellspacing="0" cellpadding="0" style="width:100%;border 1px solid; background:#D0CECE;">
+                                    <tr style="height:30px !important;">
+                                        <td style="border:1px solid;width:50%;">
+                                            <span>Project Reference:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:50%;">
+                                            <span></span>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:30px !important;">
+                                        <td style="border:1px solid;width:50%;">
+                                            <span>Contact Person:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:50%;">
+                                            <span></span>
+                                        </td>
+                                    </tr>                                
+                                    <tr style="height:30px !important;">
+                                        <td style="border:1px solid;width:50%;">
+                                            <span>Contact Details:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:50%;">
+                                            <span></span>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:30px !important;">
+                                        <td style="border:1px solid;width:50%;">
+                                            <span>Address:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:50%;">
+                                            <span></span>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:30px !important;">
+                                        <td style="border:1px solid;width:50%;">
+                                            <span>VAT Number</span>
+                                        </td>
+                                        <td style="border:1px solid;width:50%;">
+                                            <span></span>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:30px !important;">
+                                        <td style="border:1px solid;width:50%;">
+                                            <span>Designation:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:50%;">
+                                            <span></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width:20%;padding-top:30px;"></td>
+                            <td style="width:40%;">
+                                <table border="0" cellspacing="0" cellpadding="0" style="width:100%;border 1px solid; background:#D0CECE;">
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:20;">
+                                            <span>Supplier:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:80;">
+                                            <span>Vivium Living1 Trading LLC</span>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:20;">
+                                        </td>
+                                        <td style="border:1px solid;width:80;">
+                                            <span>Cassina Furniture Distributor in UAE/ Bahrain/ Oman</span>
+                                        </td>
+                                    </tr>                                
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:20;">
+                                            <span>TRN:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:80;">
+                                            <span>100520150200003</span>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:20;">
+                                            <span>Address:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:80;">
+                                            <span>Jumeirah Beach Road, Plot No. 3560263, Umm Suqeim 1, Dubai</span>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:20;">
+                                            <span>Sales Person</span>
+                                        </td>
+                                        <td style="border:1px solid;width:80;">
+                                        </td>
+                                    </tr>
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:20;">
+                                            <span>Date:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:80;">
+                                            <span><t t-esc="(datetime.date.today()).strftime('%d/%m/%Y')"/></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table table-sm o_main_table" border="0" cellspacing="0" cellpadding="0" style="width:100%;font-size:12px;">
+                        <thead style="border:1px solid;">
+                            <tr style="background-color:#D0CECE;border 1px solid black;">
+                                <th style="width:2%;"><strong>SN</strong></th>
+                                <th style="width:3%;"><strong>BARCODE</strong></th>
+                                <th style="width:8%;" class="text-center"><strong>ITEM CODE</strong></th>
+                                <th style="width:20%;" class="text-center"><strong>Details</strong></th>
+                                <th style="width:20%;" class="text-center"><strong>Indicative Image</strong></th>
+                                <th style="width:20%;" class="text-center"><strong>Dimension</strong></th>
+                                <th style="width:5%;" class="text-center"><strong>Qty</strong></th>
+                                <th style="width:7%;" class="text-center"><strong>Unit Price AED</strong></th>
+                                <th style="width:7%;" class="text-center"><strong>Total Gross Price</strong></th>
+                                <th style="width:8%;" class="text-center"><strong>Total  Net Price ( excl. VAT)</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="index" t-value="1"/>
+                            <t t-foreach="o.order_line" t-as="line">
+                                <tr style="border:1px solid;">
+                                    <td style="border:1px solid;width:2%;">
+                                        <t t-esc="index"/>)
+                                        <t t-set="index" t-value="index + 1"/>
+                                    </td>
+                                    <td style="border:1px solid;width:3%;">
+                                        
+                                    </td>
+                                    <td style="border:1px solid;width:8%;" class="text-center">
+                                        
+                                    </td>
+                                    <td style="border:1px solid;width:20%;" class="text-center">
+                                        
+                                    </td>
+                                    <td style="border:1px solid;width:20%;" class="text-center">
+                                        
+                                    </td>
+                                    <td style="border:1px solid;width:20%;" class="text-center">
+                                        
+                                    </td>
+                                    <td style="border:1px solid;width:5%;" class="text-center">
+                                        
+                                    </td>
+                                    <td style="border:1px solid;width:7%;" class="text-center">
+                                        
+                                    </td>
+                                    <td style="border:1px solid;width:7%;" class="text-center">
+                                        
+                                    </td>
+                                    <td style="border:1px solid;width:8%;" class="text-center">
+                                        
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="6" style="border:none;"/>
+                                <td style="border: 1px solid;" colspan="3">
+                                    <span> TOTAL (Excl. VAT)</span>
+                                </td>
+                                <td style="border: 1px solid;"/>
+                            </tr>
+                            <tr>
+                                <td colspan="6" style="border:none;"/>
+                                <td style="border: 1px solid;" colspan="3">
+                                    <span>VAT(5%)</span>
+                                </td>
+                                <td style="border: 1px solid;"/>
+                            </tr>
+                            <tr>
+                                <td colspan="6" style="border:none;"/>
+                                <td colspan="3" style="background-color:#D0CECE;border: 1px solid;">
+                                    <span>TOTAL PRICE (incl. VAT)</span>
+                                </td>
+                                <td style="background-color:#D0CECE;border: 1px solid;"/>
+                            </tr>
+                            <tr>
+                                <td colspan="10" style="border:none;">
+                                    <b>Terms &amp; Conditions:</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none;line-height:5px;">
+                                    <b>*</b>
+                                </td>
+                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                    Attached quotation is valid for thirty (30) days.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none;font-size:8px;line-height:5px;">
+                                    <b>*</b>
+                                </td>
+                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                    Order placed by the customer cannot be modified, exchanged, returned or refunded.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none;font-size:8px;line-height:5px;">
+                                    <b>*</b>
+                                </td>
+                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                    Once a payment or deposit is made, it is non-refundable.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none;font-size:8px;line-height:5px;">
+                                    <b>*</b>
+                                </td>
+                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                    For furniture that requires "customers own fabric/leather", the client needs to send to us A4 paper size sample material for approval.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none;font-size:8px;line-height:5px;">
+                                    <b>*</b>
+                                </td>
+                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                    The furniture will be delivered on the date and time agreed by Vivium Living1 Trading LLC Logistics team with the client. 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none;font-size:8px;line-height:5px;">
+                                    <b>*</b>
+                                </td>
+                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                    It is the client's responsibility to make the site accessible for delivery and installation including  necessary permits, scaffolding; lifts; staircases etc.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none;font-size:8px;line-height:5px;">
+                                    <b>*</b>
+                                </td>
+                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                    Price quoted includes delivery at Project site in U.A.E. Goods to be send to client's site maximum within 2 weeks upon availability.For any additional time storage charges to be applied.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none;font-size:8px;line-height:10px;">
+                                    <b>*</b>
+                                </td>
+                                <td colspan="9" style="border:none;font-size:10px;line-height:10px;">
+                                    Vivium Living1 Trading LLC will not be responsible for any delivery delay, which occurs beyond our control. Examples such as war, terrorism, riot, strikes, fire, flood, storm or unforeseen delay from the shipping forwarder, port/customs clearance.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none;font-size:8px;line-height:11px;">
+                                    <b>*</b>
+                                </td>
+                                <td colspan="9" style="border:none;font-size:10px;line-height:11px;">
+                                    Vivium Living1 Trading LLC will not be responsible for any defect in the goods arising from fair wear and tear, wilful damage, accident, negligence by clientor any third party, use and handling of goods against the manufacturer’s instructions and any alteration or repair carried out by the client. In case of any manufacturing defect found by the client, the same must be notified to us in writing within seven ( 7) days from the date of receiving the products.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none;font-size:8px;line-height:5px;">
+                                    <b>*</b>
+                                </td>
+                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                    We reserve the right to adjust our prices incase the order will not be purchased as quoted.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none;font-size:8px;line-height:5px;">
+                                    <b>*</b>
+                                </td>
+                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                    During the project realization period defined components types may change.These components will be substituted by matching successor products.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none;font-size:8px;line-height:12px;">
+                                    <b>*</b>
+                                </td>
+                                <td colspan="9" style="border:none;font-size:10px;line-height:12px;">
+                                    All technical information in relation to our products and their maintenance remains our property and, except where intended to serve as instructions for use or advertising matter, may not be utilized or copied, reproduced, transmitted or communicated to third parties without our prior written consent. Illustrations, catalogues, colors, drawings, dimensions, statements of weight and measurements etc. made available by us as printed information are only meant to present a general idea of the goods to which they refer; they are approximate only and therefore not binding upon us.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none;font-size:8px;line-height:10px;">
+                                    <b>*</b>
+                                </td>
+                                <td colspan="9" style="border:none;font-size:10px;line-height:10px;">
+                                    The acceptance of our quotation includes the acceptance of the above listed terms and conditions and no other terms and conditions (whether contained in the buyer’s purchase order or otherwise) shall be binding on us. unless they are expressly agreed to in writing by us.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none;font-size:8px;line-height:5px;">
+                                    <b>*</b>
+                                </td>
+                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                    <b>Payment Terms:</b> On Order - 70% Advance Payment/ 30% Balance Payment before Delivery/ Available stock -100% Payment before Delivery.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none;font-size:8px;line-height:10px;">
+                                    <b>*</b>
+                                </td>
+                                <td colspan="9" style="border:none;font-size:10px;line-height:10px;">
+                                    <b>Delivery Terms:</b> 14 Weeks after receiving Purchase Order by Sea Freight /Wooden crates shall be provided with additional cost, only by the client's request/Lead time will be affected by public holidays such as Christmas and August factory shut‐downs.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:none;font-size:8px;line-height:10px;">
+                                    <b>*</b>
+                                </td>
+                                <td colspan="2" style="border:none;line-height:10px;">
+                                    <b>Bank Details:</b>
+                                </td>
+                                <td style="border:1px solid;font-size:10px;">
+                                    <b>Account Name</b>
+                                </td>
+                                <td style="border:1px solid;font-size:10px;">
+                                    <b>IBAN</b>
+                                </td>
+                                <td style="border:1px solid;font-size:10px;">
+                                    <b>SWIFT</b>
+                                </td>
+                                <td colspan="2" style="border:1px solid;font-size:10px;">
+                                    <b>Account Number</b>
+                                </td>
+                                <td colspan="2"/>
+                            </tr>
+                            <tr>
+                                <td style="border:none;font-size:8px;line-height:10px;">
+                                </td>
+                                <td colspan="2" style="border:none;line-height:10px;">
+                                </td>
+                                <td style="border:1px solid;font-size:10px;">
+                                    <b>Vivium Living1 Trading LLC</b>
+                                </td>
+                                <td style="border:1px solid;font-size:10px;">
+                                    <b>AE290140038542784260015</b>
+                                </td>
+                                <td style="border:1px solid;font-size:10px;">
+                                    <b>BLOMAEAD</b>
+                                </td>
+                                <td colspan="2" style="border:1px solid;font-size:10px;">
+                                    <b>0510038542784260015</b>
+                                </td>
+                                <td colspan="2"/>
+                            </tr>
+                            <tr>
+                                <td colspan="9" style="border:none;">
+                                    <b>We trust that our quote meets your requirements and expectations and we will be delighted to carry out this prestigious project together with you.</b>
+                                </td>
+                                <td style="border:none;"/>
+                            </tr>
+                            <tr>
+                                <td colspan="9" style="border:none;">
+                                    <b>Again we would like to express our full commitment to the project and are looking forward to a fruitful and successful cooperation.</b>
+                                </td>
+                                <td style="border:none;"/>
+                            </tr>
+                            <tr>
+                                <td colspan="9" style="border:none;">
+                                    <b>For any further clarifications, please do not hesitate to contact us.</b> <span>info@viviumholding1.com</span>
+                                </td>
+                                <td style="border:none;"/>
+                            </tr>
+                            <tr>
+                                <td colspan="9" style="border:none;">
+                                    <b>Best Regards,</b>
+                                </td>
+                                <td style="border:none;"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
+                        <tr>
+                            <td style="width:35%;">
+                                <h5 style="font-weight:400;">Prepared BY</h5>
+                            </td>
+                            <td style="width:30%;">
+                                <h5 style="font-weight:400;">Approved by</h5>
+                            </td>
+                            <td style="width:35%;">
+                                <h5 style="font-weight:400;">Approved by</h5>
+                            </td>
+                        </tr>
+                        <tr style="padding-top:10px;">
+                            <td colspan="3">
+                            </td>
+                        </tr>
+                        <tr style="padding-top:10px;">
+                            <td colspan="3">
+                            </td>
+                        </tr>
+                        <tr style="padding-top:10px;">
+                            <td style="width:35%;">
+                                
+                            </td>
+                            <td style="width:30%;">
+                                <h5>CFO</h5>
+                            </td>
+                            <td style="width:35%;">
+                                <h5>CEO</h5>
+                            </td>
+                        </tr>                   
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+    <template id="report_quotation_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="qweb_report_15.report_template_quotation"/>
+            </t>
+        </t>
+    </template>
+</odoo>
