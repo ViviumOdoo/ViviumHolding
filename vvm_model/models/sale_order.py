@@ -8,6 +8,30 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     po_created = fields.Boolean(string="PO Created")
+    payment_method_id = fields.Many2one('account.payment.method', string="Payment Method")
+    payment_ref = fields.Char(string='Payment Reference No.')
+    down_payment = fields.Selection([('discount','Discount'),('fixed', 'Fixed Amount')],
+                                    default='discount', string='Down Payment')
+    discount_payment = fields.Float(string='Discount(%)')
+    fixed_payment = fields.Float(string="Fixed Amount")
+    amount_due = fields.Float(string="Amount Due", compute='_amount_due', store=True)
+
+    @api.depends('fixed_payment', 'discount_payment', 'down_payment')
+    def _amount_due(self):
+        """
+        Compute the due amounts of the SO.
+        """
+        for order in self:
+            amount_due = 0.0
+            if order.down_payment == 'discount':
+                order.fixed_payment = 0.0
+                amount_due +=  order.amount_total * (1 - (order.discount_payment or 0.0) / 100.0)
+            else:
+                order.discount_payment = 0.0
+                amount_due += order.amount_total - order.fixed_payment
+            order.update({
+                'amount_due': amount_due,
+            })
 
     def _prepare_invoice(self):
         values = super(SaleOrder, self)._prepare_invoice()
@@ -41,11 +65,3 @@ class SaleOrder(models.Model):
                 'product_qty': line.product_uom_qty,
                 'product_uom': line.product_uom.id,
             })
-
-
-    def copy_data(self, default=None):
-        print ("***********",self)
-        copy_record = super(SaleOrder, self).copy_data(default)
-        print("*****copy_record******", copy_record)
-        self.origin = self.name
-        return copy_record

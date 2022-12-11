@@ -21,6 +21,12 @@
                 <xpath expr="//form/header/button[@name='action_quotation_send'][2]" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
+                <field name="partner_invoice_id" position="attributes">
+                    <attribute name="domain">('parent_id', '=', partner_id)</attribute>
+                </field>
+                <field name="partner_shipping_id" position="attributes">
+                    <attribute name="domain">('parent_id', '=', partner_id)</attribute>
+                </field>
                 <xpath expr="//form/header/button[@name='action_quotation_send'][3]" position="replace">
                     <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice"
                             groups="sale.group_proforma_sales"
@@ -45,7 +51,22 @@
                 <xpath expr="//field[@name='validity_date']" position="after">
                     <field name="id" invisible="1"/>
                 </xpath>
-                <xpath expr="//field[@name='validity_date']" position="attributes">
+                <xpath expr="//group[@name='note_group']" position="after">
+                    <group>
+                        <group>
+                            <field name="payment_method_id"/>
+                            <field name="payment_ref"/>
+                        </group>
+                        <group class="oe_subtotal_footer oe_right" colspan="2">
+                            <field name="down_payment"/>
+                            <field name="discount_payment" attrs="{'invisible': [('down_payment','!=','discount')]}"/>
+                            <field name="fixed_payment" attrs="{'invisible': [('down_payment','!=','fixed')]}"/>
+                            <field name="amount_due"/>
+                        </group>
+                    </group>
+                </xpath>
+
+                <!--<xpath expr="//field[@name='validity_date']" position="attributes">
                     <attribute name="attrs">{'readonly': [('id', '!=', False)]}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='partner_id']" position="attributes">
@@ -135,7 +156,7 @@
                 </xpath>
                 <xpath expr="//field[@name='sale_order_option_ids']" position="attributes">
                     <attribute name="attrs">{'readonly': [('id', '!=', False)]}</attribute>
-                </xpath>
+                </xpath>-->
             </field>
         </record>
     </data>
