@@ -57,7 +57,7 @@
                             <field name="payment_method_id"/>
                             <field name="payment_ref"/>
                         </group>
-                        <group class="oe_subtotal_footer oe_right" colspan="2">
+                        <group class="oe_subtotal_footer oe_right" colspan="3">
                             <field name="down_payment"/>
                             <field name="discount_payment" attrs="{'invisible': [('down_payment','!=','discount')]}"/>
                             <field name="fixed_payment" attrs="{'invisible': [('down_payment','!=','fixed')]}"/>

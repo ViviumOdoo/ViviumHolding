@@ -4,8 +4,8 @@ from odoo import api, fields, models, _
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
-    sale_order_id = fields.Many2one('sale.order', string="Sale Order")
-    sale_partner_id = fields.Many2one('res.partner', string="Client Name")
+    sale_order_id = fields.Many2one('sale.order', string="Sale Order", readonly=1, store=True)
+    sale_partner_id = fields.Many2one('res.partner', string="Client Name", readonly=1, store=True)
 
 
     @api.onchange('currency_id')

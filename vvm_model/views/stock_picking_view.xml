@@ -43,4 +43,28 @@
                 </button>
             </field>
         </record>
+
+        <!-- Inventory Report + Update Quantity (via product) view -->
+        <record model="ir.ui.view" id="view_stock_quant_tree_inh">
+            <field name="name">stock.quant.tree.editable</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.view_stock_quant_tree_inventory_editable"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <field name="state"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_stock_quant_tree_inventory_inh">
+            <field name="name">stock.quant.tree.editable</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.view_stock_quant_tree_editable"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <field name="state"/>
+                </field>
+            </field>
+        </record>
+
 </odoo>

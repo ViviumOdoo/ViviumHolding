@@ -100,7 +100,17 @@ class ProductTemplate(models.Model):
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
+    _sql_constraints = [('barcode_uniq', 'Check(1=1)', 'Barcode must be unique per Company!'), ]
+
     default_code = fields.Char('Vendor Reference', index=True)
+
+    # @api.constrains('barcode', 'company_id')
+    # def _check_barcode_company_id(self):
+    #     for i in self.env['product.product'].search([]):
+    #         if i.id:
+    #             if self.barcode == i.barcode and self.company_id == i.company_id:
+    #                 raise ValidationError(_("Barcode 1 must be unique per Company!"))
+
 
     def name_get(self):
         result = []

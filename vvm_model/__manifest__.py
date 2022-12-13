@@ -20,8 +20,8 @@
 	'data': [
 		'security/ir.model.access.csv',
 		'data/product_storable_cron.xml',
+
 		'views/fabric_color_view.xml',
-		'views/menu_model_view.xml',
 		'views/vvm_model_view.xml',
 		'views/model_fabric.xml',
 		'views/product.xml',
@@ -29,7 +29,8 @@
 		'views/sale_order_view.xml',
 		'views/stock_picking_view.xml',
 		'views/res_user_view.xml',
-		'views/purchase_order_view.xml'
+		'views/purchase_order_view.xml',
+		'views/menu_model_view.xml',
 	],
 	'installable': True,
 	'application': True,

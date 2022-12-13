@@ -10,10 +10,10 @@ class SaleOrder(models.Model):
     po_created = fields.Boolean(string="PO Created")
     payment_method_id = fields.Many2one('account.payment.method', string="Payment Method")
     payment_ref = fields.Char(string='Payment Reference No.')
-    down_payment = fields.Selection([('discount','Discount'),('fixed', 'Fixed Amount')],
+    down_payment = fields.Selection([('discount','Percentage'),('fixed', 'Fixed Amount')],
                                     default='discount', string='Down Payment')
-    discount_payment = fields.Float(string='Discount(%)')
-    fixed_payment = fields.Float(string="Fixed Amount")
+    discount_payment = fields.Float(string='Advance Paid')
+    fixed_payment = fields.Float(string="Advance Paid")
     amount_due = fields.Float(string="Amount Due", compute='_amount_due', store=True)
 
     @api.depends('fixed_payment', 'discount_payment', 'down_payment')
