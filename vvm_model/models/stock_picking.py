@@ -28,3 +28,5 @@ class StockQuant(models.Model):
                 quant.state = 'available'
             elif quant.reserved_quantity > 0 and quant.available_quantity > 0:
                 quant.state = 'reserved'
+            else:
+                quant.state = 'not_available'
