@@ -38,6 +38,7 @@ class StockQuant(models.Model):
                 quant.state = 'reserved'
             else:
                 quant.state = 'not_available'
+<<<<<<< HEAD
 
 
 
@@ -74,3 +75,5 @@ class ProductionLot(models.Model):
             print("===============", lot_names)
 
         return lot_names
+=======
+>>>>>>> c38f194e203266d67d65bdf77dc051cd0d7aca74
