@@ -20,6 +20,7 @@
 	'data': [
 		'security/ir.model.access.csv',
 		'data/product_storable_cron.xml',
+		'data/mail_template.xml',
 
 		'views/fabric_color_view.xml',
 		'views/vvm_model_view.xml',

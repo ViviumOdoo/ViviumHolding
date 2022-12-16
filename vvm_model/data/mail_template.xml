@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+
+        <record id="email_template_send_to_warehouse_user" model="mail.template">
+            <field name="name">Email : Send To Warehouse</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="subject">Send To Warehouse</field>
+            <field name="email_from">${object.company_id.partner_id.email_formatted|safe}</field>
+            <field name="email_to">${object.created_by_mal.partner_id.email_formatted|safe}</field>
+            <field name="body_html" type="html">
+                <div>
+                    Dear <t t-out="object.warehouse_user_id.name"/>,<br/>
+                    Please check the Deliver Slip.
+                    <br/><br/>
+                </div>
+            </field>
+            <field name="report_template" ref="stock.action_report_delivery"/>
+            <field name="report_name">{{ (object.name or '').replace('/','_') }}</field>
+            <field name="lang">${object.company_id.partner_id.lang}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

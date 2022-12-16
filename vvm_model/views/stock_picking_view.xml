@@ -41,6 +41,10 @@
                     <button name="send_mail_to_warehouse" type="object"
                             string="Send to Warehouse"/>
                 </button>
+                <!--  VG Code -->
+                <field name="origin" position="after">
+                    <field name="warehouse_user_id"/>
+                </field>
             </field>
         </record>
 

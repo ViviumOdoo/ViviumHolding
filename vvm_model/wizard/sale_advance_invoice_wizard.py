@@ -20,20 +20,11 @@ class SaleAdvancePaymentInv(models.TransientModel):
 
     @api.onchange('advance_payment_method')
     def onchange_advance_payment_method(self):
-        if self.advance_payment_method == 'percentage':
-            amount = self.default_get(['amount']).get('amount')
-            return {'value': {'amount': amount}}
-        return {}
-
-    @api.onchange('advance_payment_method')
-    def onchange_advance_payment_method(self):
         if self.sale_id.down_payment:
             if self.advance_payment_method == 'fixed':
-                amount = self.sale_id.fixed_payment
-                return {'value': {'amount': amount}}
+                return {'value': {'fixed_amount':  self.sale_id.fixed_payment}}
             elif self.advance_payment_method == 'percentage':
-                amount = self.sale_id.discount_payment
-                return {'value': {'amount': amount}}
+                return {'value': {'amount': self.sale_id.discount_payment}}
             else:
                 return {'value': {'amount': 0.0}}
 
