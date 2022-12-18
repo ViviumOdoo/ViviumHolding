@@ -15,14 +15,17 @@
             <field name="header_line" eval="False" />
             <field name="header_spacing">35</field>
             <field name="dpi">90</field>
+            <field name="report_ids" eval="[(4,ref('sale.action_report_saleorder'))]"/>
         </record>
-        <record id="action_report_quotation" model="ir.actions.report">
-            <field name="name">Quotation 2</field>
+
+
+        <record id="action_report_sale_order" model="ir.actions.report">
+            <field name="name">Sales Order</field>
             <field name="model">sale.order</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">qweb_report_15.report_quotation_template</field>
-            <field name="report_file">qweb_report_15.report_quotation_template</field>
-            <field name="print_report_name">'Quotation - %s' % (object.name)</field>
+            <field name="report_name">qweb_report_15.report_sale_order_template</field>
+            <field name="report_file">qweb_report_15.report_sale_order_template</field>
+            <field name="print_report_name">'Sales Order - %s' % (object.name)</field>
             <field name="paperformat_id" ref="qweb_report_15.custom_paperformat_quotation"/>
             <field name="binding_model_id" ref="sale.model_sale_order"/>
             <field name="binding_type">report</field>

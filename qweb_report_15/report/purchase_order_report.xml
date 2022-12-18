@@ -16,8 +16,10 @@
             <field name="header_line" eval="False" />
             <field name="header_spacing">35</field>
             <field name="dpi">90</field>
+            <field name="report_ids" eval="[(4,ref('purchase.action_report_purchase_order'))]"/>
         </record>
 
+        <!--  VG Code
         <record id="action_report_purchase_order" model="ir.actions.report">
             <field name="name">Purchase Order 2</field>
             <field name="model">purchase.order</field>
@@ -28,6 +30,6 @@
             <field name="paperformat_id" ref="qweb_report_15.custom_paperformat_purchase_order"/>
             <field name="binding_model_id" ref="purchase.model_purchase_order"/>
             <field name="binding_type">report</field>
-        </record>
+        </record>  -->
     </data>
 </odoo>

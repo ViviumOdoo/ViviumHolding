@@ -2,8 +2,8 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import SUPERUSER_ID, _, api, fields, models
-
-
+from re import findall as regex_findall
+from re import split as regex_split
 class Picking(models.Model):
     _inherit = "stock.picking"
 
@@ -18,6 +18,24 @@ class Picking(models.Model):
             print("-----------Mail sent to warehouse-----template---", template)
             template.sudo().send_mail(self.id, force_send=True,email_values={"email_to": self.warehouse_user_id.login})
 
+# VG Code For First SN	in Recipt
+class StockMove(models.Model):
+    _inherit = 'stock.move'
+
+    def action_show_details(self):
+        self.ensure_one()
+        action = super().action_show_details()
+        if self.origin:
+            purchase_order = self.env["purchase.order"].sudo().search([('name','=',self.origin)])
+            if purchase_order and self.product_id:
+                next_serial = self.origin + '-' + self.product_id.name
+                if self.product_id.fabric_id and self.product_id.fabric_id.name and len(self.product_id.fabric_id.name)>=4:
+                    next_serial = next_serial + '-' + self.product_id.fabric_id.name[-4:]
+                if self.product_id.color_ids and self.product_id.color_ids[0].color_id and len(self.product_id.color_ids[0].color_id.name)>=4:
+                    next_serial = next_serial + '-' + self.product_id.color_ids[0].color_id.name[-4:]
+                next_serial = next_serial + '-' + '0001'
+                self.next_serial = next_serial
+        return action
 
 class StockQuant(models.Model):
     _inherit = 'stock.quant'
@@ -38,7 +56,6 @@ class StockQuant(models.Model):
                 quant.state = 'reserved'
             else:
                 quant.state = 'not_available'
-<<<<<<< HEAD
 
 
 
@@ -75,5 +92,3 @@ class ProductionLot(models.Model):
             print("===============", lot_names)
 
         return lot_names
-=======
->>>>>>> c38f194e203266d67d65bdf77dc051cd0d7aca74

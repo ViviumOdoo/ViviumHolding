@@ -304,7 +304,10 @@
             </t>
         </t>
     </template>
-    <template id="report_purchase_order_template">
+
+    <!-- VG Code -->
+<!--    <template id="report_purchase_order_template">-->
+    <template id="purchase.report_purchaseorder">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <t t-call="qweb_report_15.report_template_purchase_order"/>

@@ -31,7 +31,7 @@ class SaleOrder(models.Model):
             amount_due = discount_amount = 0.0
             if order.down_payment == 'discount':
                 order.fixed_payment = 0.0
-                amount_due +=  order.amount_total * (1 - (order.discount_payment or 0.0) / 100.0)
+                amount_due += order.amount_total * (1 - (order.discount_payment or 0.0) / 100.0)
                 discount_amount = order.amount_total - amount_due
             else:
                 order.discount_payment = 0.0
