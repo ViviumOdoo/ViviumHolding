@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+     <!-- Custom Quotation Report -->
     <template id="quotation_custom_layout">
         <header>
             <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
@@ -19,114 +20,130 @@
         </header>
         <t t-raw="0"/>
     </template>
+
     <template id="report_template_quotation">
         <t t-call="web.basic_layout">
             <t t-call="qweb_report_15.quotation_custom_layout">
                 <div class="page">
+                    <style>
+                        th, td {
+                          padding: 6px;
+                        }
+                    </style>
                     <table border="0" cellspacing="0" cellpadding="0" style="width:100%;font-size:12px;">
                         <tr>
-                            <td style="width:40%;padding-top:30px;">
+                            <!-- First Top Part -->
+                            <td style="width:45%;padding-top:30px;">
                                 <table border="0" cellspacing="0" cellpadding="0"
                                        style="width:100%;border 1px solid; background:#D0CECE;">
                                     <tr style="height:30px !important;">
-                                        <td style="border:1px solid;width:50%;">
+                                        <td style="border:1px solid;width:35%;">
                                             <span>Project Reference:</span>
                                         </td>
-                                        <td style="border:1px solid;width:50%;">
-                                            <span></span>
+                                        <td style="border:1px solid;width:65%;">
+                                            <span><t t-esc="o.project_reference"/></span>
                                         </td>
                                     </tr>
                                     <tr style="height:30px !important;">
-                                        <td style="border:1px solid;width:50%;">
+                                        <td style="border:1px solid;width:35%;">
                                             <span>Contact Person:</span>
                                         </td>
-                                        <td style="border:1px solid;width:50%;">
-                                            <span></span>
+                                        <td style="border:1px solid;width:65%;">
+                                            <span><t t-esc="o.partner_id.name"/></span>
                                         </td>
                                     </tr>
                                     <tr style="height:30px !important;">
-                                        <td style="border:1px solid;width:50%;">
+                                        <td style="border:1px solid;width:35%;">
                                             <span>Contact Details:</span>
                                         </td>
-                                        <td style="border:1px solid;width:50%;">
-                                            <span></span>
+                                        <td style="border:1px solid;width:65%;">
+                                            <span><t t-esc="o.partner_id.mobile"/></span>
                                         </td>
                                     </tr>
                                     <tr style="height:30px !important;">
-                                        <td style="border:1px solid;width:50%;">
+                                        <td style="border:1px solid;width:35%;">
                                             <span>Address:</span>
                                         </td>
-                                        <td style="border:1px solid;width:50%;">
-                                            <span></span>
+                                        <td style="border:1px solid;width:65%;">
+                                            <span>
+                                                <div t-field="o.partner_id"
+                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                    />
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr style="height:30px !important;">
-                                        <td style="border:1px solid;width:50%;">
+                                        <td style="border:1px solid;width:35%;">
                                             <span>VAT Number</span>
                                         </td>
-                                        <td style="border:1px solid;width:50%;">
-                                            <span></span>
+                                        <td style="border:1px solid;width:65%;">
+                                            <span><t t-esc="o.partner_id.vat"/></span>
                                         </td>
                                     </tr>
                                     <tr style="height:30px !important;">
-                                        <td style="border:1px solid;width:50%;">
-                                            <span>Designation:</span>
+                                        <td style="border:1px solid;width:35%;">
+                                            <span>Destination:</span>
                                         </td>
-                                        <td style="border:1px solid;width:50%;">
-                                            <span></span>
+                                        <td style="border:1px solid;width:65%;">
+                                            <span><t t-esc="o.partner_shipping_id.name"/></span>
                                         </td>
                                     </tr>
                                 </table>
                             </td>
-                            <td style="width:20%;padding-top:30px;"></td>
-                            <td style="width:40%;">
+
+                            <!-- Second Top Part -->
+                            <td style="width:10%;padding-top:30px;"></td>
+
+                            <!-- Third Top Part -->
+                            <td style="width:45%;">
                                 <table border="0" cellspacing="0" cellpadding="0"
                                        style="width:100%;border 1px solid; background:#D0CECE;">
                                     <tr style="height:25px !important;">
-                                        <td style="border:1px solid;width:20;">
+                                        <td style="border:1px solid;width:30;">
                                             <span>Supplier:</span>
                                         </td>
-                                        <td style="border:1px solid;width:80;">
+                                        <td style="border:1px solid;width:70;">
                                             <span>Vivium Living1 Trading LLC</span>
                                         </td>
                                     </tr>
                                     <tr style="height:25px !important;">
-                                        <td style="border:1px solid;width:20;">
+                                        <td style="border:1px solid;width:30;">
                                         </td>
-                                        <td style="border:1px solid;width:80;">
+                                        <td style="border:1px solid;width:70;">
                                             <span>Cassina Furniture Distributor in UAE/ Bahrain/ Oman</span>
                                         </td>
                                     </tr>
                                     <tr style="height:25px !important;">
-                                        <td style="border:1px solid;width:20;">
+                                        <td style="border:1px solid;width:30;">
                                             <span>TRN:</span>
                                         </td>
-                                        <td style="border:1px solid;width:80;">
+                                        <td style="border:1px solid;width:70;">
                                             <span>100520150200003</span>
                                         </td>
                                     </tr>
                                     <tr style="height:25px !important;">
-                                        <td style="border:1px solid;width:20;">
+                                        <td style="border:1px solid;width:30;">
                                             <span>Address:</span>
                                         </td>
-                                        <td style="border:1px solid;width:80;">
+                                        <td style="border:1px solid;width:70;">
                                             <span>Jumeirah Beach Road, Plot No. 3560263, Umm Suqeim 1, Dubai</span>
                                         </td>
                                     </tr>
                                     <tr style="height:25px !important;">
-                                        <td style="border:1px solid;width:20;">
+                                        <td style="border:1px solid;width:30;">
                                             <span>Sales Person</span>
                                         </td>
-                                        <td style="border:1px solid;width:80;">
+                                        <td style="border:1px solid;width:70;">
+                                            <span><t t-esc="o.user_id.name"/></span>
                                         </td>
                                     </tr>
                                     <tr style="height:25px !important;">
-                                        <td style="border:1px solid;width:20;">
+                                        <td style="border:1px solid;width:30;">
                                             <span>Date:</span>
                                         </td>
-                                        <td style="border:1px solid;width:80;">
+                                        <td style="border:1px solid;width:70;">
                                             <span>
-                                                <t t-esc="(datetime.date.today()).strftime('%d/%m/%Y')"/>
+                                                <t t-esc="(o.date_order).strftime('%d/%m/%Y')"/>
                                             </span>
                                         </td>
                                     </tr>
@@ -134,38 +151,40 @@
                             </td>
                         </tr>
                     </table>
+
+
                     <table class="table table-sm o_main_table" border="0" cellspacing="0" cellpadding="0"
                            style="width:100%;font-size:12px;">
                         <thead style="border:1px solid;">
                             <tr style="background-color:#D0CECE;border 1px solid black;">
-                                <th style="width:2%;">
+                                <th style="width:2%;border 1px solid black;">
                                     <strong>SN</strong>
                                 </th>
-                                <th style="width:3%;">
+                                <th style="width:3%;border 1px solid black;">
                                     <strong>BARCODE</strong>
                                 </th>
-                                <th style="width:8%;" class="text-center">
+                                <th style="width:8%;border 1px solid black;" class="text-center">
                                     <strong>ITEM CODE</strong>
                                 </th>
-                                <th style="width:20%;" class="text-center">
+                                <th style="width:20%;border 1px solid black;" class="text-center">
                                     <strong>Details</strong>
                                 </th>
-                                <th style="width:20%;" class="text-center">
+                                <th style="width:20%;border 1px solid black;" class="text-center">
                                     <strong>Indicative Image</strong>
                                 </th>
-                                <th style="width:20%;" class="text-center">
+                                <th style="width:20%;border 1px solid black;" class="text-center">
                                     <strong>Dimension</strong>
                                 </th>
-                                <th style="width:5%;" class="text-center">
+                                <th style="width:5%;border 1px solid black;" class="text-center">
                                     <strong>Qty</strong>
                                 </th>
-                                <th style="width:7%;" class="text-center">
+                                <th style="width:7%;border 1px solid black;" class="text-center">
                                     <strong>Unit Price AED</strong>
                                 </th>
-                                <th style="width:7%;" class="text-center">
+                                <th style="width:7%;border 1px solid black;" class="text-center">
                                     <strong>Total Gross Price</strong>
                                 </th>
-                                <th style="width:8%;" class="text-center">
+                                <th style="width:8%;border 1px solid black;" class="text-center">
                                     <strong>Total Net Price ( excl. VAT)</strong>
                                 </th>
                             </tr>
@@ -179,31 +198,37 @@
                                         <t t-set="index" t-value="index + 1"/>
                                     </td>
                                     <td style="border:1px solid;width:3%;">
-
+                                        <span><t t-esc="line.product_id.barcode"/> </span>
                                     </td>
                                     <td style="border:1px solid;width:8%;" class="text-center">
-
+                                        <span><t t-esc="line.product_id.name"/> </span>
                                     </td>
                                     <td style="border:1px solid;width:20%;" class="text-center">
-
+                                         <span><t t-esc="line.name"/> </span>
                                     </td>
-                                    <td style="border:1px solid;width:20%;" class="text-center">
-
+                                    <td style="border:1px solid;height:20px !important;width:20% !important;" class="text-center">
+                                        <t t-if="line.product_id.image_1920">
+                                        <span t-field="line.product_id.image_1920" t-options='{"widget": "image"}'
+                                        />
+                                        </t>
                                     </td>
-                                    <td style="border:1px solid;width:20%;" class="text-center">
-
+                                    <td style="border:1px solid;height:20px !important;width:20% !important;" class="text-center">
+                                        <t t-if="line.product_id.image_dimension">
+                                        <span t-field="line.product_id.image_dimension" t-options='{"widget": "image"}'
+                                        />
+                                        </t>
                                     </td>
                                     <td style="border:1px solid;width:5%;" class="text-center">
-
+                                        <span><t t-esc="line.product_uom_qty"/> </span>
                                     </td>
                                     <td style="border:1px solid;width:7%;" class="text-center">
-
+                                        <span><t t-esc="line.price_unit"/> </span>
                                     </td>
                                     <td style="border:1px solid;width:7%;" class="text-center">
-
+                                        <span><t t-esc="line.price_subtotal"/> </span>
                                     </td>
                                     <td style="border:1px solid;width:8%;" class="text-center">
-
+                                        <span><t t-esc="line.price_total"/> </span>
                                     </td>
                                 </tr>
                             </t>
@@ -212,22 +237,33 @@
                                 <td style="border: 1px solid;" colspan="3">
                                     <span>TOTAL (Excl. VAT)</span>
                                 </td>
-                                <td style="border: 1px solid;"/>
+                                <td style="border: 1px solid;">
+                                    <span><t t-esc="o.amount_untaxed"/> </span>
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan="6" style="border:none;"/>
                                 <td style="border: 1px solid;" colspan="3">
-                                    <span>VAT(5%)</span>
+                                    <span>VAT</span>
                                 </td>
-                                <td style="border: 1px solid;"/>
+                                <td style="border: 1px solid;">
+                                     <span><t t-esc="o.amount_tax"/> </span>
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan="6" style="border:none;"/>
                                 <td colspan="3" style="background-color:#D0CECE;border: 1px solid;">
                                     <span>TOTAL PRICE (incl. VAT)</span>
                                 </td>
-                                <td style="background-color:#D0CECE;border: 1px solid;"/>
+                                <td style="background-color:#D0CECE;border: 1px solid;">
+                                    <span><t t-esc="o.amount_total"/> </span>
+                                </td>
                             </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm o_main_table" border="0" cellspacing="0" cellpadding="0"
+                           style="width:100%;font-size:12px;">
+                        <tbody>
                             <tr>
                                 <td colspan="10" style="border:none;">
                                     <b>Terms &amp; Conditions:</b>
@@ -490,6 +526,7 @@
             </t>
         </t>
     </template>
+
     <template id="report_quotation_template">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
@@ -505,6 +542,8 @@
             </t>
         </t>
     </template>
+
+
 
 
     <!-- Custom Sale Order Report -->
@@ -532,134 +571,147 @@
         <t t-call="web.basic_layout">
             <t t-call="qweb_report_15.sale_order_custom_layout">
                 <div class="page">
+                    <style>
+                        th, td {
+                          padding: 6px;
+                        }
+                    </style>
                     <table border="0" cellspacing="0" cellpadding="0" style="width:100%;font-size:12px;">
                         <tr>
-                            <td style="width:40%;padding-top:30px;">
+                            <!-- First Top Part -->
+                            <td style="width:45%;padding-top:30px;">
                                 <table border="0" cellspacing="0" cellpadding="0"
                                        style="width:100%;border 1px solid; background:#D0CECE;">
                                     <tr style="height:30px !important;">
-                                        <td style="border:1px solid;width:50%;">
+                                        <td style="border:1px solid;width:35%;">
                                             <span>Project Reference:</span>
                                         </td>
-                                        <td style="border:1px solid;width:50%;">
-                                            <span></span>
+                                        <td style="border:1px solid;width:65%;">
+                                            <span><t t-esc="o.project_reference"/></span>
                                         </td>
                                     </tr>
                                     <tr style="height:30px !important;">
-                                        <td style="border:1px solid;width:50%;">
+                                        <td style="border:1px solid;width:35%;">
                                             <span>Quotation Reference Number :</span>
                                         </td>
-                                        <td style="border:1px solid;width:50%;">
-                                            <span></span>
+                                        <td style="border:1px solid;width:65%;">
+                                            <span><t t-esc="o.name"/></span>
                                         </td>
                                     </tr>
                                     <tr style="height:30px !important;">
-                                        <td style="border:1px solid;width:50%;">
+                                        <td style="border:1px solid;width:35%;">
                                             <span>Customer Name :</span>
                                         </td>
-                                        <td style="border:1px solid;width:50%;">
-                                            <span></span>
+                                        <td style="border:1px solid;width:65%;">
+                                            <span><t t-esc="o.partner_id.name"/></span>
                                         </td>
                                     </tr>
                                     <tr style="height:30px !important;">
-                                        <td style="border:1px solid;width:50%;">
+                                        <td style="border:1px solid;width:35%;">
                                             <span>Contact Person:</span>
                                         </td>
-                                        <td style="border:1px solid;width:50%;">
-                                            <span></span>
+                                        <td style="border:1px solid;width:65%;">
+                                            <span><t t-esc="o.partner_id.name"/></span>
                                         </td>
                                     </tr>
                                     <tr style="height:30px !important;">
-                                        <td style="border:1px solid;width:50%;">
+                                        <td style="border:1px solid;width:35%;">
                                             <span>Contact Details:</span>
                                         </td>
-                                        <td style="border:1px solid;width:50%;">
-                                            <span></span>
+                                        <td style="border:1px solid;width:65%;">
+                                            <span><t t-esc="o.partner_id.mobile"/></span>
                                         </td>
                                     </tr>
                                     <tr style="height:30px !important;">
-                                        <td style="border:1px solid;width:50%;">
+                                        <td style="border:1px solid;width:35%;">
                                             <span>Billing Address:</span>
                                         </td>
-                                        <td style="border:1px solid;width:50%;">
-                                            <span></span>
+                                        <td style="border:1px solid;width:65%;">
+                                            <div t-field="o.partner_id"
+                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                    />
                                         </td>
                                     </tr>
                                     <tr style="height:30px !important;">
-                                        <td style="border:1px solid;width:50%;">
+                                        <td style="border:1px solid;width:35%;">
                                             <span>VAT Number</span>
                                         </td>
-                                        <td style="border:1px solid;width:50%;">
-                                            <span></span>
+                                        <td style="border:1px solid;width:65%;">
+                                            <span><t t-esc="o.partner_id.vat"/></span>
                                         </td>
                                     </tr>
                                     <tr style="height:30px !important;">
-                                        <td style="border:1px solid;width:50%;">
+                                        <td style="border:1px solid;width:35%;">
                                             <span>Ship to party:</span>
                                         </td>
-                                        <td style="border:1px solid;width:50%;">
-                                            <span></span>
+                                        <td style="border:1px solid;width:65%;">
+                                            <span><t t-esc="o.partner_shipping_id.name"/></span>
                                         </td>
                                     </tr>
                                     <tr style="height:30px !important;">
-                                        <td style="border:1px solid;width:50%;">
+                                        <td style="border:1px solid;width:35%;">
                                             <span>Shipping Address:</span>
                                         </td>
-                                        <td style="border:1px solid;width:50%;">
-                                            <span></span>
+                                        <td style="border:1px solid;width:65%;">
+                                            <div t-field="o.partner_shipping_id"
+                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                    />
                                         </td>
                                     </tr>
                                 </table>
                             </td>
-                            <td style="width:20%;padding-top:30px;"></td>
-                            <td style="width:40%;">
+
+                            <td style="width:10%;padding-top:30px;"></td>
+
+                            <td style="width:45%;">
                                 <table border="0" cellspacing="0" cellpadding="0"
                                        style="width:100%;border 1px solid; background:#D0CECE;">
                                     <tr style="height:25px !important;">
-                                        <td style="border:1px solid;width:20;">
+                                        <td style="border:1px solid;width:30;">
                                             <span>Supplier:</span>
                                         </td>
-                                        <td style="border:1px solid;width:80;">
+                                        <td style="border:1px solid;width:70;">
                                             <span>Vivium Living1 Trading LLC</span>
                                         </td>
                                     </tr>
                                     <tr style="height:25px !important;">
-                                        <td style="border:1px solid;width:20;">
+                                        <td style="border:1px solid;width:30;">
                                         </td>
-                                        <td style="border:1px solid;width:80;">
+                                        <td style="border:1px solid;width:70;">
                                             <span>Cassina Furniture Distributor in UAE/ Bahrain/ Oman</span>
                                         </td>
                                     </tr>
                                     <tr style="height:25px !important;">
-                                        <td style="border:1px solid;width:20;">
+                                        <td style="border:1px solid;width:30;">
                                             <span>TRN:</span>
                                         </td>
-                                        <td style="border:1px solid;width:80;">
+                                        <td style="border:1px solid;width:70;">
                                             <span>100520150200003</span>
                                         </td>
                                     </tr>
                                     <tr style="height:25px !important;">
-                                        <td style="border:1px solid;width:20;">
+                                        <td style="border:1px solid;width:30;">
                                             <span>Address:</span>
                                         </td>
-                                        <td style="border:1px solid;width:80;">
+                                        <td style="border:1px solid;width:70;">
                                             <span>Jumeirah Beach Road, Plot No. 3560263, Umm Suqeim 1, Dubai</span>
                                         </td>
                                     </tr>
                                     <tr style="height:25px !important;">
-                                        <td style="border:1px solid;width:20;">
+                                        <td style="border:1px solid;width:30;">
                                             <span>Sales Person</span>
                                         </td>
-                                        <td style="border:1px solid;width:80;">
+                                        <td style="border:1px solid;width:70;">
+                                            <span><t t-esc="o.user_id.name"/></span>
                                         </td>
                                     </tr>
                                     <tr style="height:25px !important;">
-                                        <td style="border:1px solid;width:20;">
+                                        <td style="border:1px solid;width:30;">
                                             <span>Date:</span>
                                         </td>
-                                        <td style="border:1px solid;width:80;">
+                                        <td style="border:1px solid;width:70;">
                                             <span>
-                                                <t t-esc="(datetime.date.today()).strftime('%d/%m/%Y')"/>
+                                                <t t-esc="(o.date_order).strftime('%d/%m/%Y')"/>
                                             </span>
                                         </td>
                                     </tr>
@@ -712,31 +764,37 @@
                                         <t t-set="index" t-value="index + 1"/>
                                     </td>
                                     <td style="border:1px solid;width:3%;">
-
+                                        <span><t t-esc="line.product_id.barcode"/> </span>
                                     </td>
                                     <td style="border:1px solid;width:8%;" class="text-center">
 
                                     </td>
                                     <td style="border:1px solid;width:20%;" class="text-center">
-
+                                        <span><t t-esc="line.product_id.name"/> </span>
                                     </td>
-                                    <td style="border:1px solid;width:20%;" class="text-center">
-
+                                    <td style="border:1px solid;height:20px !important;width:20% !important;" class="text-center">
+                                        <t t-if="line.product_id.image_1920">
+                                        <span t-field="line.product_id.image_1920" t-options='{"widget": "image"}'
+                                        />
+                                        </t>
                                     </td>
-                                    <td style="border:1px solid;width:20%;" class="text-center">
-
+                                   <td style="border:1px solid;height:20px !important;width:20% !important;" class="text-center">
+                                        <t t-if="line.product_id.image_dimension">
+                                        <span t-field="line.product_id.image_dimension" t-options='{"widget": "image"}'
+                                        />
+                                        </t>
                                     </td>
                                     <td style="border:1px solid;width:5%;" class="text-center">
-
+                                        <span><t t-esc="line.product_uom_qty"/> </span>
                                     </td>
                                     <td style="border:1px solid;width:7%;" class="text-center">
-
+                                        <span><t t-esc="line.price_unit"/> </span>
                                     </td>
                                     <td style="border:1px solid;width:7%;" class="text-center">
-
+                                        <span><t t-esc="line.price_subtotal"/> </span>
                                     </td>
                                     <td style="border:1px solid;width:8%;" class="text-center">
-
+                                        <span><t t-esc="line.price_total"/> </span>
                                     </td>
                                 </tr>
                             </t>
@@ -745,22 +803,34 @@
                                 <td style="border: 1px solid;" colspan="3">
                                     <span>TOTAL (Excl. VAT)</span>
                                 </td>
-                                <td style="border: 1px solid;"/>
+                                <td style="border: 1px solid;">
+                                    <span><t t-esc="o.amount_untaxed"/> </span>
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan="6" style="border:none;"/>
                                 <td style="border: 1px solid;" colspan="3">
-                                    <span>VAT(5%)</span>
+                                    <span>VAT</span>
                                 </td>
-                                <td style="border: 1px solid;"/>
+                                <td style="border: 1px solid;">
+                                     <span><t t-esc="o.amount_tax"/> </span>
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan="6" style="border:none;"/>
                                 <td colspan="3" style="background-color:#D0CECE;border: 1px solid;">
                                     <span>TOTAL PRICE (incl. VAT)</span>
                                 </td>
-                                <td style="background-color:#D0CECE;border: 1px solid;"/>
+                                <td style="background-color:#D0CECE;border: 1px solid;">
+                                    <span><t t-esc="o.amount_total"/> </span>
+                                </td>
                             </tr>
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm o_main_table" border="0" cellspacing="0" cellpadding="0"
+                           style="width:100%;font-size:12px;">
+                        <tbody>
                             <tr>
                                 <td colspan="10" style="border:none;">
                                     <b>Terms &amp; Conditions:</b>

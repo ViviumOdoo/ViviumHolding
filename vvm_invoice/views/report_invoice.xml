@@ -18,6 +18,7 @@
 								 style="width:150px;height:120px;"/>-->
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-6 col-md-6">
                         	<style>
@@ -29,10 +30,15 @@
 									.table-bordered > thead > tr > td,
 									.table-bordered > thead > tr > th {
 										border: 1px solid black;
+										font-size:12px;
 									}
+								th, td {
+								  padding: 0;
+								  margin: 0;
+								}
 			            	</style>
-                			<table class="table table-bordered"
-								   style="background-color: #D3D3D3; font-weight:bold;line-height:0;">
+                			<table class=" table-bordered"
+								   style="background-color: #D3D3D3; font-weight:bold;">
                 				<tbody>
                 					<tr>
                 						<td>Project Reference:</td>
@@ -40,7 +46,7 @@
                 					</tr>
                 					<tr>
                 						<td>Sales Order Reference Number:</td>
-                						<td><t t-esc="o.name"></t></td>
+                						<td><t t-esc="o.sale_order_id.name"></t></td>
                 					</tr>
                 					<tr>
                 						<td>Customer Name:</td>
@@ -52,7 +58,7 @@
                 					</tr>
                 					<tr>
                 						<td>Contact Details:</td>
-                						<td><t t-esc="o.partner_id.phone"></t></td>
+                						<td><t t-esc="o.partner_id.mobile"></t></td>
                 					</tr>
                 					<tr>
                 						<td>Email:</td>
@@ -60,19 +66,27 @@
                 					</tr>
                 					<tr>
                 						<td>Billing Address:</td>
-                						<td></td>
+                						<td>
+											<div t-field="o.partner_id"
+                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                    />
+										</td>
                 					</tr>
                 					<tr>
                 						<td>VAT number:</td>
-                						<td></td>
+                						<td><span><t t-esc="o.partner_id.vat"/></span></td>
                 					</tr>
                 					<tr>
                 						<td>Ship to  party:</td>
-                						<td></td>
+										<td><span><t t-esc="o.partner_shipping_id.name"/></span></td>
                 					</tr>
                 					<tr>
                 						<td>Shipping Address:</td>
-                						<td></td>
+										<td>
+											<div t-field="o.partner_shipping_id"
+                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                    />
+										</td>
                 					</tr>
                 				</tbody>
                 			</table>
@@ -88,22 +102,27 @@
 									.table-bordered > thead > tr > td,
 									.table-bordered > thead > tr > th {
 										border: 1px solid black;
+										font-size:12px;
 									}
+								th, td {
+								  padding: 0;
+								  margin: 0;
+								}
 			            	</style>
-                        	<table class="table table-bordered" style="background-color: #D3D3D3; font-weight:bold;line-height:0;">
+                        	<table class="table-bordered" style="background-color: #D3D3D3; font-weight:bold;">
                 				<tbody>
                 					<tr>
                 						<td>Supplier:</td>
                 						<td>Vivium Living1 Trading LLC</td>
                 					</tr>
-                					<tr>
-                						<td></td>
-                						<td></td>
-                					</tr>
-                					<tr>
-                						<td></td>
-                						<td></td>
-                					</tr>
+<!--                					<tr>-->
+<!--                						<td></td>-->
+<!--                						<td></td>-->
+<!--                					</tr>-->
+<!--                					<tr>-->
+<!--                						<td></td>-->
+<!--                						<td></td>-->
+<!--                					</tr>-->
                 					<tr>
                 						<td></td>
                 						<td>Cassina Furniture Distributor in UAE/ Bahrain/ Oman</td>
@@ -122,14 +141,14 @@
 											<t t-esc="o.invoice_user_id.name"/>
 										</td>
                 					</tr>
-                					<tr>
-                						<td></td>
-                						<td></td>
-                					</tr>
-                					<tr>
-                						<td></td>
-                						<td></td>
-                					</tr>
+<!--                					<tr>-->
+<!--                						<td></td>-->
+<!--                						<td></td>-->
+<!--                					</tr>-->
+<!--                					<tr>-->
+<!--                						<td></td>-->
+<!--                						<td></td>-->
+<!--                					</tr>-->
                 					<tr>
                 						<td>Date:</td>
                 						<td>
@@ -141,17 +160,23 @@
                         </div>
                     </div>
                     <br/>
+
+
                     <div class="row">
                     	<style>
 		            		table-bordered > tbody > tr > td,
-								.table-bordered > tbody > tr > th,
-								.table-bordered > tbody > tr > td,
-								.table-bordered > tfoot > tr > td,
-								.table-bordered > tfoot > tr > th,
-								.table-bordered > thead > tr > td,
-								.table-bordered > thead > tr > th {
-									border: 1px solid black;
-								}
+									.table-bordered > tbody > tr > th,
+									.table-bordered > tbody > tr > td,
+									.table-bordered > tfoot > tr > td,
+									.table-bordered > tfoot > tr > th,
+									.table-bordered > thead > tr > td,
+									.table-bordered > thead > tr > th {
+										border: 1px solid black;
+										font-size:12px;
+									}
+							th, td {
+							  padding: 6px;
+							}
 		            	</style>
                     	<table class="table table-bordered">
                     		<thead style="background-color: #D3D3D3; font-weight:bold;">
@@ -172,30 +197,44 @@
 	                    			<tr>
 	                    				<td t-esc="i"> </td>
   										<t t-set="i" t-value="i+1"/> 
-	                    				<td></td>
-	                    				<td></td>
-	                    				<td></td>
-	                    				<td></td>
-	                    				<td></td>
-	                    				<td></td>	
-	                    				<td></td>
+	                    				<td>
+											<span><t t-esc="line.product_id.barcode"/> </span>
+										</td>
+	                    				<td>
+											<span><t t-esc="line.product_id.name"/> </span>
+										</td>
+	                    				<td>
+											<span><t t-esc="line.name"/> </span>
+										</td>
+	                    				<td>
+											<span><t t-esc="line.quantity"/> </span>
+										</td>
+	                    				<td>
+											<span><t t-esc="line.price_unit"/> </span>
+										</td>
+	                    				<td>
+											<span><t t-esc="line.price_subtotal"/> </span>
+										</td>
+	                    				<td>
+											<span><t t-esc="line.price_total"/> </span>
+										</td>
 	                    			</tr>
                     			</t>
                     			<tr>
                     				<td colspan="4"> </td>
                     				<td colspan="3" style="font-weight:bold;">TOTAL (Excl. VAT)</td>
-                    				<td></td>
+                    				<td><span><t t-esc="o.amount_untaxed"/> </span></td>
                     			</tr>
                     			<tr>
                     				<td colspan="4"> </td>
-                    				<td colspan="3" style="font-weight:bold;">VAT(5%)</td>
-                    				<td></td>
+                    				<td colspan="3" style="font-weight:bold;">VAT</td>
+                    				<td><span><t t-esc="o.amount_tax"/> </span></td>
                     			</tr>
                     			<tr>
                     				<td colspan="4"> </td>
                     				<td colspan="3"
 										style="font-weight:bold;background-color: #D3D3D3;">TOTAL PRICE (incl. VAT)</td>
-                    				<td style="background-color: #D3D3D3;"> </td>
+                    				<td style="background-color: #D3D3D3;"> <span><t t-esc="o.amount_total"/> </span></td>
                     			</tr>
                     		</tbody>
                     	</table>
@@ -214,7 +253,7 @@
 									border: 1px solid black;
 								}
 		            	</style>
-                    	<table class="table table-bordered" style="font-weight:bold;line-height:0;">
+                    	<table class="table table-bordered" style="font-weight:bold;">
                     		<thead>
                     			<tr>
                     				<th>Account Name</th>

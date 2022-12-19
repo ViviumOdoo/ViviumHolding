@@ -10,6 +10,7 @@
                         </td>
                     </tr>
                     <tr>
+                        <!-- Header Left Side -->
                         <td style="width:50%;padding-top:30px;">
                             <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
                                 <tr>
@@ -44,6 +45,7 @@
                             </table>
                         </td>
 
+                        <!-- Header Right Side -->
                         <td style="width:50%;">
                             <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
                                 <tr>
@@ -89,6 +91,8 @@
             <t t-call="qweb_report_15.purchase_order_custom_layout">
                 <div class="page">
                     <table border="0" cellspacing="0" cellpadding="0" style="width:100%;font-size:12px;">
+
+                        <!-- VENDOR INFORMATION -->
                         <tr style="border:1px solid;">
                             <td colspan="3" style="background-color:#008B8B;color:#fff;width:100%;">
                                 <span>VENDOR INFORMATION</span>
@@ -126,6 +130,8 @@
                                 <span>EMAIL ADDRESS: <span t-esc="o.partner_id.email"/></span>
                             </td>
                         </tr>
+
+                        <!-- SHIP TO -->
                         <tr style="border:1px solid;">
                             <td colspan="3" style="background-color:#008B8B;color:#fff;width:100%;">
                                 <span>Ship to</span>
@@ -159,6 +165,8 @@
                             </td>
                         </tr>
                     </table>
+
+
                     <table class="table table-sm o_main_table" border="0" cellspacing="0" cellpadding="0" style="width:100%;font-size:12px;">
                         <thead style="border:1px solid;">
                             <tr style="background-color:#008B8B;color:#fff;">
@@ -191,8 +199,11 @@
                                     <td style="border:1px solid;width:20%;" class="text-center">
                                         <span t-field="line.name"/>
                                     </td>
-                                    <td style="border:1px solid;width:20%;" class="text-center">
-                                        
+                                    <td style="border:1px solid;height:20px !important;width:20% !important;" class="text-center">
+                                        <t t-if="line.product_id.image_dimension">
+                                        <span t-field="line.product_id.image_dimension" t-options='{"widget": "image"}'
+                                        />
+                                        </t>
                                     </td>
                                     <td style="border:1px solid;width:2%;" class="text-center">
                                         <span t-field="line.product_uom.name"/>
@@ -213,7 +224,7 @@
                             </t>
                             <tr>
                                 <td colspan="5" style="background-color:#008B8B;color:#fff;">
-                                    <span>Additional Note: <span t-field="o.notes"/></span>
+                                    <span>Additional Note: <t t-if="o.notes"><span t-field="o.notes"/></t></span>
                                 </td>
                                 <td/>
                                 <td colspan="3">
@@ -232,7 +243,7 @@
                                     <span>Taxes(%)</span>
                                 </td>
                                 <td>
-                                    <span>10</span>
+<!--                                    <span>10</span>-->
                                 </td>
                                 <td/>
                                 <td style="border-bottom:1px solid;">
