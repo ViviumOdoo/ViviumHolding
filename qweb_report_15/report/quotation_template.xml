@@ -261,6 +261,11 @@
                             </tr>
                         </tbody>
                     </table>
+
+                    <div style="page-break-before: always;"/>
+
+                    <div style="padding-top:32px;margin-top:32px"/>
+
                     <table class="table table-sm o_main_table" border="0" cellspacing="0" cellpadding="0"
                            style="width:100%;font-size:12px;">
                         <tbody>
@@ -828,6 +833,11 @@
 
                         </tbody>
                     </table>
+
+                    <div style="page-break-before: always;"/>
+
+                    <div style="padding-top:32px;margin-top:32px"/>
+
                     <table class="table table-sm o_main_table" border="0" cellspacing="0" cellpadding="0"
                            style="width:100%;font-size:12px;">
                         <tbody>

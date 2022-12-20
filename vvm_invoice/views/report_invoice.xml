@@ -240,7 +240,12 @@
                     	</table>
                     </div>
                     <br/>
-                    <strong>Bank Details : </strong>
+
+					<div style="page-break-before: always;"/>
+
+                    <div style="padding-top:32px;margin-top:32px"/>
+
+                    <p><strong>Bank Details : </strong></p>
                     <div class="row">
                     	<style>
 		            		table-bordered > tbody > tr > td,

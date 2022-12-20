@@ -73,5 +73,5 @@ class SaleOrder(models.Model):
                 'name': line.name,
                 'product_qty': line.product_uom_qty,
                 'product_uom': line.product_uom.id,
-                'price_unit': line.product_id.lst_price,
+                'price_unit': line.product_id.lst_price or 1,
             })
