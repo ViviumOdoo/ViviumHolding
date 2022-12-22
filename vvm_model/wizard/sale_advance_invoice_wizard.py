@@ -22,9 +22,11 @@ class SaleAdvancePaymentInv(models.TransientModel):
     def onchange_advance_payment_method(self):
         if self.sale_id.down_payment:
             if self.advance_payment_method == 'fixed':
-                return {'value': {'fixed_amount': self.sale_id.fixed_payment}}
+                amount = self.sale_id.fixed_payment
+                return {'value': {'amount': amount}}
             elif self.advance_payment_method == 'percentage':
-                return {'value': {'amount': self.sale_id.discount_payment}}
+                amount = self.sale_id.discount_payment
+                return {'value': {'amount': amount}}
             else:
                 return {'value': {'amount': 0.0}}
 

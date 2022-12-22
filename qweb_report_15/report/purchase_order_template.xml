@@ -186,40 +186,103 @@
                             <t t-set="index" t-value="1"/>
                             <t t-foreach="o.order_line" t-as="line">
                                 <tr style="border:1px solid;">
-                                    <td style="border:1px solid;width:8%;">
-                                        <t t-esc="index"/>)
-                                        <t t-set="index" t-value="index + 1"/>
-                                    </td>
-                                    <td style="border:1px solid;width:8%;">
-                                        <span t-field="line.product_id.barcode"/>
-                                    </td>
-                                    <td style="border:1px solid;width:9%;" class="text-center">
-                                        <span t-field="line.product_id.name"/>
-                                    </td>
-                                    <td style="border:1px solid;width:20%;" class="text-center">
-                                        <span t-field="line.name"/>
-                                    </td>
-                                    <td style="border:1px solid;height:20px !important;width:20% !important;" class="text-center">
-                                        <t t-if="line.product_id.image_dimension">
-                                        <span t-field="line.product_id.image_dimension" t-options='{"widget": "image"}'
-                                        />
+
+<!--                                    <t t-set="product_qty" t-value="0"/>-->
+                                    <t t-set="price_subtotal" t-value="0"/>
+                                    <t t-set="subline_check" t-value="False"/>
+
+                                    <td style="border:1px solid;width:8%;" t-if="not line.display_type">
+                                        <t t-if="not line.display_type">
+                                            <t t-esc="index"/>)
+                                            <t t-set="index" t-value="index + 1"/>
                                         </t>
                                     </td>
-                                    <td style="border:1px solid;width:2%;" class="text-center">
+
+                                    <td style="border:1px solid;width:8%;" t-if="not line.display_type">
+                                        <span t-field="line.product_id.barcode"/>
+                                    </td>
+
+                                    <td style="border:1px solid;width:9%;" class="text-center" t-if="not line.display_type">
+                                        <span t-field="line.product_id.name"/>
+                                    </td>
+
+                                    <td style="border:1px solid;width:20%;" class="text-center" t-if="not line.display_type">
+                                        <span t-field="line.name"/>
+                                    </td>
+
+                                    <t t-if="line.display_type">
+                                        <t t-if="line.name == '#'">
+                                            <td style="border:1px solid;" colspan="10">
+                                                <strong>
+                                                    <span t-field="line.name"/>
+                                                </strong>
+                                            </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td style="border:1px solid;" colspan="9">
+                                                <strong>
+                                                    <span t-field="line.name"/>
+                                                </strong>
+                                            </td>
+                                        </t>
+                                    </t>
+
+
+                                    <td style="border:1px solid;height:20px !important;width:20% !important;" class="text-center" t-if="not line.display_type">
+                                        <t t-if="line.product_id.image_dimension">
+                                        <span t-field="line.product_id.image_dimension" t-options='{"widget": "image"}'/>
+                                        </t>
+                                    </td>
+
+                                    <td style="border:1px solid;width:2%;" class="text-center" t-if="not line.display_type">
                                         <span t-field="line.product_uom.name"/>
                                     </td>
-                                    <td style="border:1px solid;width:8%;" class="text-center">
+
+                                    <td style="border:1px solid;width:8%;" class="text-center" t-if="not line.display_type">
                                         <span t-field="line.product_qty"/>
                                     </td>
-                                    <td style="border:1px solid;width:8%;" class="text-center">
-                                        <span t-field="line.price_unit"/>
+
+                                    <td style="border:1px solid;width:8%;" class="text-center" t-if="not line.display_type">
+                                        <t t-if="not line.display_type">
+                                            <span t-field="line.price_unit"/>
+                                        </t>
                                     </td>
-                                    <td style="border:1px solid;width:8%;" class="text-center">
-                                        <span t-field="line.discount"/>
+
+                                    <td style="border:1px solid;width:8%;" class="text-center" t-if="not line.display_type">
+                                        <t t-if="not line.display_type">
+                                            <span t-field="line.discount"/>
+                                        </t>
                                     </td>
+
+                                    <t t-if="line.name != '#'">
                                     <td style="border:1px solid;width:9%;" class="text-center">
-                                        <span t-field="line.price_subtotal"/>
+                                        <t t-if="line.display_type">
+                                            <t t-foreach="o.order_line" t-as="subline">
+                                                <t t-if="subline.display_type">
+                                                    <t t-set="subline_check" t-value="False"/>
+                                                </t>
+                                                <t t-if="line.name == subline.name">
+                                                    <t t-set="subline_check" t-value="True"/>
+                                                </t>
+                                                <t t-if="subline_check">
+                                                    <t t-set="price_subtotal"
+                                                       t-value="price_subtotal+subline.price_subtotal"/>
+                                                </t>
+                                            </t>
+                                        </t>
+                                        <t t-if="not line.display_type">
+                                            <span>
+                                                <t t-esc="line.price_subtotal"/>
+                                            </span>
+                                        </t>
+                                        <t t-if="line.name != '#'">
+                                            <t t-if="line.display_type">
+                                                <t t-esc="price_subtotal"/>
+                                            </t>
+                                        </t>
+                                        <!--                                        <span t-field="line.price_subtotal"/>-->
                                     </td>
+                                    </t>
                                 </tr>
                             </t>
                             <tr>

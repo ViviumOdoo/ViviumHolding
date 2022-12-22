@@ -12,9 +12,8 @@ class SaleOrder(models.Model):
     payment_ref = fields.Char(string='Payment Reference No.')
     down_payment = fields.Selection([('discount','Percentage'),('fixed', 'Fixed Amount')],
                                     default='discount', string='Down Payment')
-    discount_payment = fields.Float(string='Advance Percentage')
-    discount_amount = fields.Float(compute='_amount_due', string="Advance Amount", store=True)
-    fixed_payment = fields.Float(string="Advance Amount", store=True)
+    discount_payment = fields.Float(string='Advance Paid')
+    fixed_payment = fields.Float(string="Advance Payment")
     amount_due = fields.Float(string="Amount Due", compute='_amount_due', store=True)
 
     # VG Code
@@ -28,18 +27,15 @@ class SaleOrder(models.Model):
         Compute the due amounts of the SO.
         """
         for order in self:
-            amount_due = discount_amount = 0.0
+            amount_due = 0.0
             if order.down_payment == 'discount':
                 order.fixed_payment = 0.0
-                amount_due += order.amount_total * (1 - (order.discount_payment or 0.0) / 100.0)
-                discount_amount = order.amount_total - amount_due
+                amount_due +=  order.amount_total * (1 - (order.discount_payment or 0.0) / 100.0)
             else:
                 order.discount_payment = 0.0
-                order.discount_amount = 0.0
                 amount_due += order.amount_total - order.fixed_payment
             order.update({
                 'amount_due': amount_due,
-                'discount_amount': discount_amount,
             })
 
     def _prepare_invoice(self):
@@ -73,5 +69,5 @@ class SaleOrder(models.Model):
                 'name': line.name,
                 'product_qty': line.product_uom_qty,
                 'product_uom': line.product_uom.id,
-                'price_unit': line.product_id.lst_price or 1,
+                'price_unit': line.product_id.lst_price,
             })

@@ -197,6 +197,7 @@ class SaleOrderLine(models.Model):
     color_ids = fields.Many2many("fabric.color.line", string="Color")
     finish_category_id = fields.Many2one('finish.category', string="Finish Category")
     finish_color_ids = fields.Many2many("finish.category.color.line", string="Finish Color")
+    stock_production_lot_ids = fields.Many2many("stock.production.lot", string="Serial number")
 
     def _prepare_invoice_line(self, **optional_values):
         values = super(SaleOrderLine, self)._prepare_invoice_line(**optional_values)

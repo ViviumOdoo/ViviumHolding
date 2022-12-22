@@ -282,6 +282,11 @@
                            options="{'no_create_edit': True}"
                            domain="[('finish_id', '=', finish_category_id)]"/>
                 </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="after">
+                    <field name="stock_production_lot_ids" widget="many2many_tags"
+                           options="{'no_create_edit': True}"
+                           domain="[('product_id','=',product_id)]"/>
+                </xpath>
 <!--				<xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">-->
 <!--					<attribute name="domain">[('model_no_id', '=', model_no_id)]</attribute>-->
 <!--				</xpath>-->

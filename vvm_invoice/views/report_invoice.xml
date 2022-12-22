@@ -178,7 +178,7 @@
 							  padding: 6px;
 							}
 		            	</style>
-                    	<table class="table table-bordered">
+                    	<table class=" table-bordered">
                     		<thead style="background-color: #D3D3D3; font-weight:bold;">
                     			<tr>
                     				<th>SN</th>
@@ -194,30 +194,94 @@
                     		<tbody>
                     			<t t-set="i" t-value="1" />
                     			<t t-foreach="o.invoice_line_ids" t-as="line">
-	                    			<tr>
-	                    				<td t-esc="i"> </td>
-  										<t t-set="i" t-value="i+1"/> 
-	                    				<td>
+									<tr>
+
+<!--										<t t-set="quantity" t-value="0"/>-->
+<!--										<t t-set="price_subtotal" t-value="0"/>-->
+										<t t-set="price_total" t-value="0"/>
+										<t t-set="subline_check" t-value="False"/>
+
+										<td t-if="not line.display_type">
+											<t t-if="not line.display_type">
+												<span><t t-esc="i"/></span>
+												<t t-set="i" t-value="i+1"/>
+											</t>
+										</td>
+
+	                    				<td t-if="not line.display_type">
 											<span><t t-esc="line.product_id.barcode"/> </span>
 										</td>
-	                    				<td>
+
+	                    				<td t-if="not line.display_type">
 											<span><t t-esc="line.product_id.name"/> </span>
 										</td>
-	                    				<td>
+
+	                    				<td t-if="not line.display_type">
 											<span><t t-esc="line.name"/> </span>
 										</td>
-	                    				<td>
-											<span><t t-esc="line.quantity"/> </span>
+
+										<t t-if="line.display_type">
+                                        <t t-if="line.name == '#'">
+                                            <td style="border:1px solid;" colspan="8">
+                                                <strong>
+                                                    <span t-field="line.name"/>
+                                                </strong>
+                                            </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td style="border:1px solid;" colspan="7">
+                                                <strong>
+                                                    <span t-field="line.name"/>
+                                                </strong>
+                                            </td>
+                                        </t>
+                                    </t>
+
+										<td t-if="not line.display_type">
+											<span>
+													<t t-esc="line.quantity"/>
+											</span>
 										</td>
-	                    				<td>
+
+	                    				<td t-if="not line.display_type">
 											<span><t t-esc="line.price_unit"/> </span>
 										</td>
-	                    				<td>
-											<span><t t-esc="line.price_subtotal"/> </span>
+
+	                    				<td t-if="not line.display_type">
+                                            <span>
+                                                <t t-esc="line.price_subtotal"/>
+                                            </span>
 										</td>
-	                    				<td>
-											<span><t t-esc="line.price_total"/> </span>
+
+										<t t-if="line.name != '#'">
+										<td>
+											<t t-if="line.display_type">
+												<t t-foreach="o.invoice_line_ids" t-as="subline">
+													<t t-if="subline.display_type">
+														<t t-set="subline_check" t-value="False"/>
+													</t>
+													<t t-if="line.name == subline.name">
+														<t t-set="subline_check" t-value="True"/>
+													</t>
+													<t t-if="subline_check">
+														<t t-set="price_total"
+														   t-value="price_total+subline.price_total"/>
+													</t>
+												</t>
+											</t>
+											<t t-if="not line.display_type">
+												<span>
+													<t t-esc="line.price_total"/>
+												</span>
+											</t>
+											<t t-if="line.name != '#'">
+												<t t-if="line.display_type">
+													<t t-esc="price_total"/>
+												</t>
+											</t>
+											<!--											<span><t t-esc="line.price_total"/> </span>-->
 										</td>
+										</t>
 	                    			</tr>
                     			</t>
                     			<tr>
