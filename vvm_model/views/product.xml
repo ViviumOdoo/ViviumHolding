@@ -283,9 +283,9 @@
                            domain="[('finish_id', '=', finish_category_id)]"/>
                 </xpath>
                 <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="after">
-                    <field name="stock_production_lot_ids" widget="many2many_tags"
+                    <field name="stock_production_lot_id"
                            options="{'no_create_edit': True}"
-                           domain="[('product_id','=',product_id)]"/>
+                           domain="['|', ('product_id', '=', product_id), ('reserved', '!=', True)]"/>
                 </xpath>
 <!--				<xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">-->
 <!--					<attribute name="domain">[('model_no_id', '=', model_no_id)]</attribute>-->
@@ -316,56 +316,6 @@
 <!--                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">-->
 <!--					<attribute name="domain">[('model_no_id', '=', model_no_id)]</attribute>-->
 <!--				</xpath>-->
-            </field>
-        </record>
-
-        <!-- Stock Order View Inherit -->
-        <record id="stock_picking_form_inherit" model="ir.ui.view">
-            <field name="name">stock.picking.form.inherit</field>
-            <field name="model">stock.picking</field>
-            <field name="inherit_id" ref="stock.view_picking_form"/>
-            <field name="priority" eval="8"/>
-            <field name="arch" type="xml">
-                <xpath expr="//tree/field[@name='product_id']" position="after">
-                    <field name="product_no_id" readonly="0" context="{'default_is_model': True}"
-                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
-                           force_save="1"/>
-                    <field name="purchase_product_no_id" readonly="0" context="{'default_is_model': True}"
-                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'incoming')] }"
-                           force_save="1"/>
-                    <field name="model_type"
-                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
-                           force_save="1"/>
-                    <field name="purchase_model_type"
-                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'incoming')] }"
-                           force_save="1"/>
-                    <field name="subtype"
-                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
-                           force_save="1"/>
-                    <field name="purchase_subtype"
-                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'incoming')] }"
-                           force_save="1"/>
-                    <field name="fabric_id"
-                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
-                           force_save="1"/>
-                    <field name="purchase_fabric_id"
-                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'incoming')] }"
-                           force_save="1"/>
-                    <field name="color_ids" widget="many2many_tags"
-                           options="{'no_create_edit': True}"
-                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
-                           force_save="1"/>
-                    <field name="finish_category_id"
-                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
-                           force_save="1"/>
-                    <field name="purchase_finish_category_id"
-                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'incoming')] }"
-                           force_save="1"/>
-                    <field name="finish_color_ids" widget="many2many_tags"
-                           options="{'no_create_edit': True}"
-                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
-                           force_save="1"/>
-                </xpath>
             </field>
         </record>
 

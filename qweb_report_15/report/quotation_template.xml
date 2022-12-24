@@ -22,7 +22,7 @@
     </template>
 
     <template id="report_template_quotation">
-        <t t-call="web.basic_layout">
+        <t t-call="web.external_layout">
             <t t-call="qweb_report_15.quotation_custom_layout">
                 <div class="page">
                     <style>
@@ -398,8 +398,8 @@
                                 <td colspan="9" style="border:none;font-size:10px;line-height:10px;">
                                     Vivium Living1 Trading LLC will not be responsible for any delivery delay, which
                                     occurs beyond our control. Examples such as war, terrorism, riot, strikes, fire,
-                                    flood, storm or unforeseen delay from the shipping forwarder, port/customs
-                                    clearance.
+                                    flood, storm or unforeseen delay from the shipping forwarder, port/customs clearance
+                                    as well as delay caused by the manufacturing facility.
                                 </td>
                             </tr>
                             <tr>
@@ -475,9 +475,9 @@
                                 </td>
                                 <td colspan="9" style="border:none;font-size:10px;line-height:10px;">
                                     <b>Delivery Terms:</b>
-                                    14 Weeks after receiving Purchase Order by Sea Freight /Wooden crates shall be
-                                    provided with additional cost, only by the client's request/Lead time will be
-                                    affected by public holidays such as Christmas and August factory shut‐downs.
+                                    Estimated time between 14-16 Weeks after receiving Purchase Order/Shipping by Sea
+                                    Freight /Wooden crates shall be provided with additional cost, only by the client's
+                                    request/Lead time will be affected by public holidays such as Christmas and August factory shut‐downs.
                                 </td>
                             </tr>
                             <tr>
@@ -510,13 +510,13 @@
                                     <b>Vivium Living1 Trading LLC</b>
                                 </td>
                                 <td style="border:1px solid;font-size:10px;">
-                                    <b>AE290140038542784260015</b>
+                                    <b>AE160211000000150407214</b>
                                 </td>
                                 <td style="border:1px solid;font-size:10px;">
-                                    <b>BLOMAEAD</b>
+                                    <b>CITIAEAD</b>
                                 </td>
                                 <td colspan="2" style="border:1px solid;font-size:10px;">
-                                    <b>0510038542784260015</b>
+                                    <b>0150407214</b>
                                 </td>
                                 <td colspan="2"/>
                             </tr>
@@ -543,12 +543,12 @@
                                 </td>
                                 <td style="border:none;"/>
                             </tr>
-                            <tr>
+                            <!--<tr>
                                 <td colspan="9" style="border:none;">
                                     <b>Best Regards,</b>
                                 </td>
                                 <td style="border:none;"/>
-                            </tr>
+                            </tr>-->
                         </tbody>
                     </table>
                     <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
@@ -605,8 +605,6 @@
     </template>
 
 
-
-
     <!-- Custom Sale Order Report -->
     <template id="sale_order_custom_layout">
         <header>
@@ -629,7 +627,7 @@
     </template>
 
     <template id="report_template_sale_order">
-        <t t-call="web.basic_layout">
+        <t t-call="web.external_layout">
             <t t-call="qweb_report_15.sale_order_custom_layout">
                 <div class="page">
                     <style>
@@ -722,7 +720,7 @@
                                 </table>
                             </td>
 
-                            <td style="width:10%;padding-top:30px;"></td>
+                            <td style="width:10%;padding-top:30px;"/>
 
                             <td style="width:45%;">
                                 <table border="0" cellspacing="0" cellpadding="0"
@@ -820,9 +818,6 @@
                             <t t-set="index" t-value="1"/>
                             <t t-foreach="o.order_line" t-as="line">
                                 <tr style="border:1px solid;">
-
-<!--                                    <t t-set="product_uom_qty" t-value="0"/>-->
-<!--                                    <t t-set="price_subtotal" t-value="0"/>-->
                                     <t t-set="price_total" t-value="0"/>
                                     <t t-set="subline_check" t-value="False"/>
 
@@ -864,12 +859,11 @@
 
                                     <td style="border:1px solid;height:20px !important;width:20% !important;" class="text-center" t-if="not line.display_type">
                                         <t t-if="line.product_id.image_1920">
-                                        <span t-field="line.product_id.image_1920" t-options='{"widget": "image"}'
-                                        />
+                                        <span t-field="line.product_id.image_1920" t-options='{"widget": "image"}'/>
                                         </t>
                                     </td>
 
-                                   <td style="border:1px solid;height:20px !important;width:20% !important;" class="text-center" t-if="not line.display_type">
+                                    <td style="border:1px solid;height:20px !important;width:20% !important;" class="text-center" t-if="not line.display_type">
                                         <t t-if="line.product_id.image_dimension">
                                         <span t-field="line.product_id.image_dimension" t-options='{"widget": "image"}'
                                         />
@@ -893,7 +887,7 @@
                                         <t t-if="not line.display_type">
                                         <span><t t-esc="line.price_unit"/> </span>
                                         </t>
-                                    </td>
+                                     </td>
 
                                     <td style="border:1px solid;width:7%;" class="text-center" t-if="not line.display_type">
                                         <t t-if="not line.display_type">
@@ -979,14 +973,6 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;line-height:5px;">
-                                    <b>*</b>
-                                </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
-                                    Attached quotation is valid for thirty (30) days.
-                                </td>
-                            </tr>
-                            <tr>
                                 <td style="border:none;font-size:8px;line-height:5px;">
                                     <b>*</b>
                                 </td>
@@ -1044,10 +1030,10 @@
                                     <b>*</b>
                                 </td>
                                 <td colspan="9" style="border:none;font-size:10px;line-height:10px;">
-                                    Vivium Living1 Trading LLC will not be responsible for any delivery delay, which
-                                    occurs beyond our control. Examples such as war, terrorism, riot, strikes, fire,
-                                    flood, storm or unforeseen delay from the shipping forwarder, port/customs
-                                    clearance.
+                                    Vivium Living1 Trading LLC will not be responsible for any delivery delay,
+                                    which occurs beyond our control. Examples such as war, terrorism, riot, strikes,
+                                    fire, flood, storm or unforeseen delay from the shipping forwarder, port/customs
+                                    clearance as well as delay caused by the manufacturing facility.
                                 </td>
                             </tr>
                             <tr>
@@ -1056,11 +1042,11 @@
                                 </td>
                                 <td colspan="9" style="border:none;font-size:10px;line-height:11px;">
                                     Vivium Living1 Trading LLC will not be responsible for any defect in the goods
-                                    arising from fair wear and tear, wilful damage, accident, negligence by clientor any
-                                    third party, use and handling of goods against the manufacturer’s instructions and
-                                    any alteration or repair carried out by the client. In case of any manufacturing
+                                    arising from fair wear and tear, wilful damage, accident, negligence by clientor
+                                    any third party, use and handling of goods against the manufacturer’s instructions
+                                    and any alteration or repair carried out by the client. In case of any manufacturing
                                     defect found by the client, the same must be notified to us in writing within seven
-                                    ( 7) days from the date of receiving the products.
+                                    ( 7) days from the date of receiving the products
                                 </td>
                             </tr>
                             <tr>
@@ -1077,8 +1063,8 @@
                                     <b>*</b>
                                 </td>
                                 <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
-                                    During the project realization period defined components types may change.These
-                                    components will be substituted by matching successor products.
+                                    During the project realization period defined components types may change.
+                                    These components will be substituted by matching successor products.
                                 </td>
                             </tr>
                             <tr>
@@ -1087,13 +1073,12 @@
                                 </td>
                                 <td colspan="9" style="border:none;font-size:10px;line-height:12px;">
                                     All technical information in relation to our products and their maintenance remains
-                                    our property and, except where intended to serve as instructions for use or
-                                    advertising matter, may not be utilized or copied, reproduced, transmitted or
-                                    communicated to third parties without our prior written consent. Illustrations,
-                                    catalogues, colors, drawings, dimensions, statements of weight and measurements etc.
-                                    made available by us as printed information are only meant to present a general idea
-                                    of the goods to which they refer; they are approximate only and therefore not
-                                    binding upon us.
+                                    our property and, except where intended to serve as instructions for use or advertising
+                                    matter, may not be utilized or copied, reproduced, transmitted or communicated to
+                                    third parties without our prior written consent. Illustrations, catalogues, colors,
+                                    drawings, dimensions, statements of weight and measurements etc. made available
+                                    by us as printed information are only meant to present a general idea of the goods
+                                    to which they refer; they are approximate only and therefore not binding upon us.
                                 </td>
                             </tr>
                             <tr>
@@ -1113,8 +1098,8 @@
                                 </td>
                                 <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
                                     <b>Payment Terms:</b>
-                                    On Order - 70% Advance Payment/ 30% Balance Payment before Delivery/ Available stock
-                                    -100% Payment before Delivery.
+                                    On Order - 70% Advance Payment/ 30% Balance Payment before Delivery/ Available
+                                    stock -100% Payment before Delivery.
                                 </td>
                             </tr>
                             <tr>
@@ -1123,9 +1108,10 @@
                                 </td>
                                 <td colspan="9" style="border:none;font-size:10px;line-height:10px;">
                                     <b>Delivery Terms:</b>
-                                    14 Weeks after receiving Purchase Order by Sea Freight /Wooden crates shall be
-                                    provided with additional cost, only by the client's request/Lead time will be
-                                    affected by public holidays such as Christmas and August factory shut‐downs.
+                                    Estimated time between 14-16 Weeks after receiving Purchase Order/Shipping by Sea
+                                    Freight /Wooden crates shall be provided with additional cost, only by the client's
+                                    request/Lead time will be affected by public holidays such as Christmas and August
+                                    factory shut‐downs.
                                 </td>
                             </tr>
                             <tr>
@@ -1158,17 +1144,17 @@
                                     <b>Vivium Living1 Trading LLC</b>
                                 </td>
                                 <td style="border:1px solid;font-size:10px;">
-                                    <b>AE290140038542784260015</b>
+                                    <b>AE160211000000150407214</b>
                                 </td>
                                 <td style="border:1px solid;font-size:10px;">
-                                    <b>BLOMAEAD</b>
+                                    <b>CITIAEAD</b>
                                 </td>
                                 <td colspan="2" style="border:1px solid;font-size:10px;">
-                                    <b>0510038542784260015</b>
+                                    <b>0150407214</b>
                                 </td>
                                 <td colspan="2"/>
                             </tr>
-                            <tr>
+                            <!--<tr>
                                 <td colspan="9" style="border:none;">
                                     <b>For any further clarifications, please do not hesitate to contact us.</b>
                                     <span>info@viviumholding1.com</span>
@@ -1180,7 +1166,7 @@
                                     <b>Best Regards,</b>
                                 </td>
                                 <td style="border:none;"/>
-                            </tr>
+                            </tr>-->
                         </tbody>
                     </table>
                     <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">

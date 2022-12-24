@@ -75,3 +75,10 @@ class SaleOrder(models.Model):
                 'product_uom': line.product_uom.id,
                 'price_unit': line.product_id.lst_price or 1,
             })
+
+    def action_confirm(self):
+        res = super(SaleOrder, self).action_confirm()
+        for order_line in self.order_line:
+            if order_line.stock_production_lot_id:
+                order_line.stock_production_lot_id.reserved = True
+        return res

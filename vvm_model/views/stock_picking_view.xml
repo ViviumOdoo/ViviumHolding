@@ -45,6 +45,53 @@
                 <field name="origin" position="after">
                     <field name="warehouse_user_id"/>
                 </field>
+                <xpath expr="//tree/field[@name='product_id']" position="after">
+                    <field name="product_no_id" readonly="0" context="{'default_is_model': True}"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
+                           force_save="1"/>
+                    <field name="purchase_product_no_id" readonly="0" context="{'default_is_model': True}"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'incoming')] }"
+                           force_save="1"/>
+                    <field name="model_type"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
+                           force_save="1"/>
+                    <field name="purchase_model_type"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'incoming')] }"
+                           force_save="1"/>
+                    <field name="subtype"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
+                           force_save="1"/>
+                    <field name="purchase_subtype"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'incoming')] }"
+                           force_save="1"/>
+                    <field name="fabric_id"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
+                           force_save="1"/>
+                    <field name="purchase_fabric_id"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'incoming')] }"
+                           force_save="1"/>
+                    <field name="color_ids" widget="many2many_tags"
+                           options="{'no_create_edit': True}"
+                           force_save="1"/>
+                    <field name="finish_category_id"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
+                           force_save="1"/>
+                    <field name="purchase_finish_category_id"
+                           attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'incoming')] }"
+                           force_save="1"/>
+                    <field name="finish_color_ids" widget="many2many_tags"
+                           options="{'no_create_edit': True}"
+                           force_save="1"/>
+                </xpath>
+                <!--<xpath expr="//page[@name='operations']/field/tree/field[@name='product_id']" position="after">
+                    <field name="model_no_id" optional="show"/>
+                        <field name="model_type" optional="show"/>
+                        <field name="subtype" optional="show"/>
+                        <field name="fabric_id" position="after"/>
+                        <field name="color_ids" optional="show"/>
+                        <field name="finish_category_id" optional="show"/>
+                        <field name="finish_color_ids" optional="show"/>
+                </xpath>-->
             </field>
         </record>
 
@@ -67,6 +114,25 @@
             <field name="arch" type="xml">
                 <field name="company_id" position="after">
                     <field name="state"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_production_lot_tree_inherit" model="ir.ui.view">
+            <field name="name">stock.production.lot.tree</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="model_no_id" optional="show"/>
+                    <field name="model_type" optional="show"/>
+                    <field name="subtype" optional="show"/>
+                    <field name="fabric_id" position="after"/>
+                    <field name="color_ids" optional="show" widget="many2many_tags"/>
+                    <field name="finish_category_id" optional="show"/>
+                    <field name="finish_color_ids" optional="show" widget="many2many_tags"/>
+                    <field name="location_id"/>
+                    <field name="reserved"/>
                 </field>
             </field>
         </record>

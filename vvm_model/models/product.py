@@ -197,7 +197,7 @@ class SaleOrderLine(models.Model):
     color_ids = fields.Many2many("fabric.color.line", string="Color")
     finish_category_id = fields.Many2one('finish.category', string="Finish Category")
     finish_color_ids = fields.Many2many("finish.category.color.line", string="Finish Color")
-    stock_production_lot_ids = fields.Many2many("stock.production.lot", string="Serial number")
+    stock_production_lot_id = fields.Many2one("stock.production.lot", string="Serial number")
 
     def _prepare_invoice_line(self, **optional_values):
         values = super(SaleOrderLine, self)._prepare_invoice_line(**optional_values)
@@ -213,22 +213,26 @@ class SaleOrderLine(models.Model):
             values['finish_category_id'] = self.finish_category_id.id
         return values
 
-    @api.onchange('product_id')
-    def onchange_product_model(self):
-        if self.product_id:
-            self.model_no_id = self.product_id.model_no_id.id
-            self.model_type = self.product_id.model_type
-            self.subtype = self.product_id.subtype
-            self.fabric_id = self.product_id.fabric_id.id
-            self.finish_category_id = self.product_id.finish_category_id.id
+    # @api.onchange('product_id')
+    # def onchange_product_model(self):
+    #     if self.product_id:
+    #         self.model_no_id = self.product_id.model_no_id.id
+    #         self.model_type = self.product_id.model_type
+    #         self.subtype = self.product_id.subtype
+    #         self.fabric_id = self.product_id.fabric_id.id
+    #         self.finish_category_id = self.product_id.finish_category_id.id
 
-    @api.onchange('discount')
-    def onchange_discount(self):
-        user_discount = self.env.user.user_max_discount
-        print ("=========",user_discount)
-        if self.discount > user_discount:
-            raise ValidationError(_("You are not allowed to give more then %s discount" % user_discount))
-
+    @api.onchange('stock_production_lot_id')
+    def onchange_stock_production_lot(self):
+        if self.stock_production_lot_id:
+            self.product_id = self.stock_production_lot_id.product_id.id
+            self.model_no_id = self.stock_production_lot_id.model_no_id.id
+            self.model_type = self.stock_production_lot_id.model_type
+            self.subtype = self.stock_production_lot_id.subtype
+            self.fabric_id = self.stock_production_lot_id.fabric_id.id
+            self.finish_category_id = self.stock_production_lot_id.finish_category_id.id
+            self.finish_color_ids = [(6, 0, self.stock_production_lot_id.finish_color_ids.ids)]
+            self.color_ids = [(6, 0, self.stock_production_lot_id.color_ids.ids)]
 
     # @api.onchange('product_no_id')
     # def onchange_product_no_id_method(self):
@@ -308,76 +312,74 @@ class PurchaseOrderLine(models.Model):
             self.finish_category_id = self.product_id.finish_category_id.id
 
 
-class StockMove(models.Model):
-    _inherit = 'stock.move'
-
-    product_no_id = fields.Many2one("product.product", string="Model No.",
-                                    related='sale_line_id.product_no_id', store=True)
-    model_no_id = fields.Many2one("vvm.model", string="Model No.",
-                                  related='sale_line_id.model_no_id', store=True)
-    model_type = fields.Char(string="Type", related='sale_line_id.model_type', store=True)
-    subtype = fields.Char(string="Sub-Type", related='sale_line_id.subtype', store=True)
-    fabric_id = fields.Many2one("vvm.model.fabric", string="Fabric", store=True)
-    color_ids = fields.Many2many("fabric.color.line", string="Color", store=True)
-    finish_category_id = fields.Many2one('finish.category', string="Finish Category", store=True)
-    finish_color_ids = fields.Many2many("finish.category.color.line", string="Finish Color", store=True)
-
-    purchase_product_no_id = fields.Many2one("product.product", string="Model No.",
-                                             related='purchase_line_id.product_no_id', store=True)
-    purchase_model_no_id = fields.Many2one("vvm.model", string="Model No.",
-                                           related='purchase_line_id.model_no_id', store=True)
-    purchase_model_type = fields.Char(string="Type", related='purchase_line_id.model_type', store=True)
-    purchase_subtype = fields.Char(string="Sub-Type", related='purchase_line_id.subtype', store=True)
-    purchase_finish_category_id = fields.Many2one(related='purchase_line_id.finish_category_id',
-                                                  string="Finish Category", store=True)
-    purchase_fabric_id = fields.Many2one(related='purchase_line_id.fabric_id', string="Fabric", store=True)
-
-    @api.model
-    def create(self, vals):
-        res = super(StockMove, self).create(vals)
-        if res.sale_line_id and res.sale_line_id.fabric_id:
-            res.fabric_id = res.sale_line_id.fabric_id.id
-        if res.sale_line_id and res.sale_line_id.finish_category_id:
-            res.finish_category_id = res.sale_line_id.finish_category_id.id
-        return res
-
-    @api.onchange('purchase_product_no_id')
-    def onchange_purchase_product_no_id_method(self):
-        if self.purchase_product_no_id:
-            self.purchase_model_type = self.purchase_product_no_id.model_type
-            self.purchase_subtype = self.purchase_product_no_id.subtype
-            self.fabric_id = self.purchase_product_no_id.fabric_id.id
-            self.finish_category_id = self.purchase_product_no_id.finish_category_id.id
-
-    @api.onchange('product_no_id')
-    def onchange_product_no_id_method(self):
-        if self.product_no_id:
-            self.model_type = self.product_no_id.model_type
-            self.subtype = self.product_no_id.subtype
-            self.fabric_id = self.product_no_id.fabric_id.id
-            self.finish_category_id = self.product_no_id.finish_category_id.id
-
-    @api.onchange('model_no_id')
-    def onchange_model_no_id_method(self):
-        if self.model_no_id:
-            products = self.env["product.product"].sudo().search([('model_no_id', '=', self.model_no_id.id)])
-            return {'domain': {'product_id': [('id', 'in', products.ids)]}}
-
-    @api.onchange('purchase_model_no_id')
-    def onchange_purchase_model_no_id_method(self):
-        if self.purchase_model_no_id:
-            products = self.env["product.product"].sudo().search([('model_no_id', '=', self.model_no_id.id)])
-            return {'domain': {'product_id': [('id', 'in', products.ids)]}}
-
-    @api.onchange('product_id')
-    def onchange_product_id_method(self):
-        if self.product_id:
-            self.model_type = self.product_id.model_type
-            self.purchase_model_type = self.product_id.model_type
-            self.subtype = self.product_id.subtype
-            self.purchase_subtype = self.product_id.subtype
-            self.fabric_id = self.product_id.fabric_id.id
-            self.finish_category_id = self.product_no_id.finish_category_id.id
+# class StockMove(models.Model):
+#     _inherit = 'stock.move'
+#
+#     product_no_id = fields.Many2one("product.product", string="Model No.",
+#                                     related='sale_line_id.product_no_id', store=True)
+#     model_no_id = fields.Many2one("vvm.model", string="Model No.",
+#                                   related='sale_line_id.model_no_id', store=True)
+#     model_type = fields.Char(string="Type", related='sale_line_id.model_type', store=True)
+#     subtype = fields.Char(string="Sub-Type", related='sale_line_id.subtype', store=True)
+#     fabric_id = fields.Many2one("vvm.model.fabric", string="Fabric", store=True)
+#     color_ids = fields.Many2many("fabric.color.line", string="Color", store=True)
+#     finish_category_id = fields.Many2one('finish.category', string="Finish Category", store=True)
+#     finish_color_ids = fields.Many2many("finish.category.color.line", string="Finish Color", store=True)
+#
+#     purchase_product_no_id = fields.Many2one("product.product", string="Model No.",
+#                                              related='purchase_line_id.product_no_id', store=True)
+#     purchase_model_no_id = fields.Many2one("vvm.model", string="Model No.",
+#                                            related='purchase_line_id.model_no_id', store=True)
+#     purchase_model_type = fields.Char(string="Type", related='purchase_line_id.model_type', store=True)
+#     purchase_subtype = fields.Char(string="Sub-Type", related='purchase_line_id.subtype', store=True)
+#     purchase_color_ids = fields.Many2many("fabric.color.line", string="Color")
+#     purchase_finish_category_id = fields.Many2one(related='purchase_line_id.finish_category_id',
+#                                                   string="Finish Category", store=True)
+#     purchase_fabric_id = fields.Many2one(related='purchase_line_id.fabric_id', string="Fabric", store=True)
+#     purchase_finish_color_ids = fields.Many2many("finish.category.color.line", string="Finish Color", store=True)
+#
+#     @api.model
+#     def create(self, vals):
+#         res = super(StockMove, self).create(vals)
+#         if res.sale_line_id:
+#             res.color_ids = res.sale_line_id.color_ids.ids
+#             res.finish_color_ids = res.sale_line_id.finish_color_ids.ids
+#         if res.purchase_line_id:
+#             res.purchase_color_ids = res.purchase_product_no_id.color_ids.ids
+#             res.purchase_finish_color_ids = res.purchase_product_no_id.finish_color_ids.ids
+#         return res
+#
+#     @api.onchange('purchase_line_id')
+#     def onchange_purchase_line_id(self):
+#         if self.purchase_product_no_id:
+#             self.purchase_color_ids = self.purchase_product_no_id.color_ids.ids
+#             self.purchase_finish_color_ids = self.purchase_product_no_id.finish_color_ids.ids
+#
+#     @api.onchange('sale_line_id')
+#     def onchange_sale_line_id(self):
+#         if self.sale_line_id:
+#             self.color_ids = self.sale_line_id.color_ids.ids
+#             self.finish_color_ids = self.sale_line_id.finish_color_ids.ids
+#
+#     @api.onchange('product_no_id')
+#     def onchange_product_no_id_method(self):
+#         if self.product_no_id:
+#             self.model_type = self.product_no_id.model_type
+#             self.subtype = self.product_no_id.subtype
+#             self.fabric_id = self.product_no_id.fabric_id.id
+#             self.finish_category_id = self.product_no_id.finish_category_id.id
+#
+#     @api.onchange('model_no_id')
+#     def onchange_model_no_id_method(self):
+#         if self.model_no_id:
+#             products = self.env["product.product"].sudo().search([('model_no_id', '=', self.model_no_id.id)])
+#             return {'domain': {'product_id': [('id', 'in', products.ids)]}}
+#
+#     @api.onchange('purchase_model_no_id')
+#     def onchange_purchase_model_no_id_method(self):
+#         if self.purchase_model_no_id:
+#             products = self.env["product.product"].sudo().search([('model_no_id', '=', self.model_no_id.id)])
+#             return {'domain': {'product_id': [('id', 'in', products.ids)]}}
 
 
 class AccountMoveLine(models.Model):
@@ -390,7 +392,6 @@ class AccountMoveLine(models.Model):
     color_ids = fields.Many2many("fabric.color.line", string="Color")
     finish_category_id = fields.Many2one('finish.category', string="Finish Category")
     finish_color_ids = fields.Many2many("finish.category.color.line", string="Finish Color")
-
 
     @api.onchange('product_no_id')
     def onchange_product_no_id_method(self):
