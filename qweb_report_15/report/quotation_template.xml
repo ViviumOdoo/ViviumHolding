@@ -206,16 +206,24 @@
                                         </t>
                                     </td>
 
-                                    <td style="border:1px solid;width:3%;" t-if="not line.display_type">
+                                    <td style="border:1px solid;width:3%;text-align:left;" t-if="not line.display_type">
                                         <span><t t-esc="line.product_id.barcode"/> </span>
                                     </td>
 
-                                    <td style="border:1px solid;width:8%;" class="text-center" t-if="not line.display_type">
+                                    <td style="border:1px solid;width:8%;text-align:left;" t-if="not line.display_type">
                                         <span><t t-esc="line.product_id.name"/> </span>
                                     </td>
 
-                                    <td style="border:1px solid;width:20%;" class="text-center" t-if="not line.display_type">
-                                         <span><t t-esc="line.name"/> </span>
+                                    <td style="border:1px solid;width:20%;text-align:left;" t-if="not line.display_type">
+                                         <span>
+                                            <t t-esc="line.product_id.name"/><br/>
+                                            <t t-esc="line.name"/><br/>
+                                            <t t-esc="line.fabric_id.name"/><br/>
+                                            <t t-esc="line.color_ids[1].name"/><br/>
+                                            <t t-esc="line.finish_category_id.name"/><br/>
+                                            <t t-esc="line.finish_color_ids[1].name"/><br/>
+                                            <t t-esc="line.stock_production_lot_id.name"/>
+                                        </span>
                                     </td>
 
                                     <t t-if="line.display_type">
@@ -828,16 +836,24 @@
                                         </t>
                                     </td>
 
-                                    <td style="border:1px solid;width:3%;" t-if="not line.display_type">
+                                    <td style="border:1px solid;width:3%;text-align:left;" t-if="not line.display_type">
                                         <span><t t-esc="line.product_id.barcode"/> </span>
                                     </td>
 
-                                    <td style="border:1px solid;width:8%;" class="text-center" t-if="not line.display_type">
+                                    <td style="border:1px solid;width:8%;text-align:left;" t-if="not line.display_type">
                                         <span><t t-esc="line.product_id.name"/> </span>
                                     </td>
 
-                                    <td style="border:1px solid;width:20%;" class="text-center" t-if="not line.display_type">
-                                        <span><t t-esc="line.name"/> </span>
+                                    <td style="border:1px solid;width:20%;text-align:left;" t-if="not line.display_type">
+                                        <span>
+                                            <t t-esc="line.product_id.name"/><br/>
+                                            <t t-esc="line.name"/><br/>
+                                            <t t-esc="line.fabric_id.name"/><br/>
+                                            <t t-esc="line.color_ids[1].name"/><br/>
+                                            <t t-esc="line.finish_category_id.name"/><br/>
+                                            <t t-esc="line.finish_color_ids[1].name"/><br/>
+                                            <t t-esc="line.stock_production_lot_id.name"/>
+                                        </span>
                                     </td>
 
                                     <t t-if="line.display_type">

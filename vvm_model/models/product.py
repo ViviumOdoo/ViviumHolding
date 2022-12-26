@@ -211,16 +211,22 @@ class SaleOrderLine(models.Model):
             values['fabric_id'] = self.fabric_id.id
         if self.finish_category_id:
             values['finish_category_id'] = self.finish_category_id.id
+        if self.finish_color_ids:
+            values['finish_color_ids'] = [(6, 0, self.finish_color_ids.ids)]
+        if self.color_ids:
+            values['color_ids'] = [(6, 0, self.color_ids.ids)]
+        if self.stock_production_lot_id:
+            values['stock_production_lot_id'] = self.stock_production_lot_id.id
         return values
 
-    # @api.onchange('product_id')
-    # def onchange_product_model(self):
-    #     if self.product_id:
-    #         self.model_no_id = self.product_id.model_no_id.id
-    #         self.model_type = self.product_id.model_type
-    #         self.subtype = self.product_id.subtype
-    #         self.fabric_id = self.product_id.fabric_id.id
-    #         self.finish_category_id = self.product_id.finish_category_id.id
+    @api.onchange('product_id')
+    def onchange_product_model(self):
+        if self.product_id:
+            self.model_no_id = self.product_id.model_no_id.id
+            self.model_type = self.product_id.model_type
+            self.subtype = self.product_id.subtype
+            self.fabric_id = self.product_id.fabric_id.id
+            self.finish_category_id = self.product_id.finish_category_id.id
 
     @api.onchange('stock_production_lot_id')
     def onchange_stock_production_lot(self):
@@ -392,11 +398,13 @@ class AccountMoveLine(models.Model):
     color_ids = fields.Many2many("fabric.color.line", string="Color")
     finish_category_id = fields.Many2one('finish.category', string="Finish Category")
     finish_color_ids = fields.Many2many("finish.category.color.line", string="Finish Color")
+    stock_production_lot_id = fields.Many2one("stock.production.lot", string="Serial number")
 
-    @api.onchange('product_no_id')
-    def onchange_product_no_id_method(self):
-        if self.product_no_id:
-            self.model_type = self.product_no_id.model_type
-            self.subtype = self.product_no_id.subtype
-            self.fabric_id = self.product_no_id.fabric_id.id
-            self.finish_category_id = self.product_no_id.finish_category_id.id
+    # @api.onchange('product_no_id')
+    # def onchange_product_no_id_method(self):
+    #     if self.product_no_id:
+    #         self.model_type = self.product_no_id.model_type
+    #         self.subtype = self.product_no_id.subtype
+    #         self.fabric_id = self.product_no_id.fabric_id.id
+    #         self.finish_category_id = self.product_no_id.finish_category_id.id
+            #self.stock_production_lot_id = self.product_no_id.

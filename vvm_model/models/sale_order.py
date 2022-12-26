@@ -2,6 +2,8 @@
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
+from datetime import date
+import requests
 
 
 class SaleOrder(models.Model):
@@ -56,7 +58,8 @@ class SaleOrder(models.Model):
             'origin': self.origin,
             'partner_id': self.env['res.partner'].search([('supplier_rank', '>=', 0)], limit=1).id,
             'sale_order_id': self.id,
-            'sale_partner_id': self.partner_id.id
+            'sale_partner_id': self.partner_id.id,
+            'currency_id': self.currency_id.id
         })
         self.po_created = True
         for line in self.order_line:
@@ -81,4 +84,29 @@ class SaleOrder(models.Model):
         for order_line in self.order_line:
             if order_line.stock_production_lot_id:
                 order_line.stock_production_lot_id.reserved = True
+                order_line.stock_production_lot_id.sale_order_id = self.id
         return res
+
+    @api.onchange('currency_id')
+    def currency_onchange(self):
+        if self.currency_id.name == 'AED':
+            for line in self.order_line:
+                line.price_unit = line.product_id.lst_price
+        if self.currency_id.name == 'EUR':
+            for line in self.order_line:
+                # line.price_unit = line.product_id.standard_price
+                today = date.today()
+                url = 'https://api.exchangerate.host/timeseries?base=AED&start_date=' + str(today) + '&end_date=' + str(
+                    today) + '&symbols=EUR'
+                response = requests.get(url)
+                data = response.json()
+                if data.get('rates'):
+                    rates_data = data.get('rates')
+                    # print("=======rates_data=======",rates_data)
+                    if rates_data.get(str(date.today())):
+                        today_rates = rates_data.get(str(date.today()))
+                        # print("======today_rates===",today_rates)
+                        if today_rates.get('EUR'):
+                            original_rates = round(today_rates.get('EUR'), 4)
+                            # print("======original_rates===", original_rates)
+                            line.price_unit = line.product_id.lst_price * original_rates

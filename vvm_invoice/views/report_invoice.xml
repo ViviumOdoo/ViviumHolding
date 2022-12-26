@@ -208,34 +208,42 @@
 											</t>
 										</td>
 
-	                    				<td t-if="not line.display_type">
+	                    				<td t-if="not line.display_type" style="border:1px solid;width:8%;text-align:left;">
 											<span><t t-esc="line.product_id.barcode"/> </span>
 										</td>
 
-	                    				<td t-if="not line.display_type">
+	                    				<td t-if="not line.display_type" style="border:1px solid;width:8%;text-align:left;">
 											<span><t t-esc="line.product_id.name"/> </span>
 										</td>
 
-	                    				<td t-if="not line.display_type">
-											<span><t t-esc="line.name"/> </span>
+	                    				<td t-if="not line.display_type" style="border:1px solid;width:8%;text-align:left;">
+											<span>
+                                            <t t-esc="line.product_id.name"/><br/>
+                                            <t t-esc="line.name"/><br/>
+                                            <t t-esc="line.fabric_id.name"/><br/>
+                                            <t t-esc="line.color_ids[1].name"/><br/>
+                                            <t t-esc="line.finish_category_id.name"/><br/>
+                                            <t t-esc="line.finish_color_ids[1].name"/><br/>
+											<t t-esc="line.stock_production_lot_id.name"/>
+                                        </span>
 										</td>
 
 										<t t-if="line.display_type">
-                                        <t t-if="line.name == '#'">
-                                            <td style="border:1px solid;" colspan="8">
-                                                <strong>
-                                                    <span t-field="line.name"/>
-                                                </strong>
-                                            </td>
-                                        </t>
-                                        <t t-else="">
-                                            <td style="border:1px solid;" colspan="7">
-                                                <strong>
-                                                    <span t-field="line.name"/>
-                                                </strong>
-                                            </td>
-                                        </t>
-                                    </t>
+											<t t-if="line.name == '#'">
+												<td style="border:1px solid;" colspan="8">
+													<strong>
+														<span t-field="line.name"/>
+													</strong>
+												</td>
+											</t>
+											<t t-else="">
+												<td style="border:1px solid;" colspan="7">
+													<strong>
+														<span t-field="line.name"/>
+													</strong>
+												</td>
+											</t>
+										</t>
 
 										<td t-if="not line.display_type">
 											<span>

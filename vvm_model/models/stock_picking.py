@@ -6,6 +6,36 @@ from re import findall as regex_findall
 from re import split as regex_split
 
 
+class Picking(models.Model):
+    _inherit = "stock.picking"
+
+    warehouse_user_id = fields.Many2one("res.users", string="Warehouse User")
+    #product_ids = fields.Many2many('product.product', string="Product")
+
+    def send_mail_to_warehouse(self):
+        if self.warehouse_user_id:
+            template = self.env.ref("vvm_model.email_template_send_to_warehouse_user",
+                                    raise_if_not_found=False)
+            template.sudo().send_mail(self.id, force_send=True,email_values={"email_to": self.warehouse_user_id.login})
+
+    # @api.onchange('product_ids')
+    # def onchange_product_ids(self):
+    #     for product in self.product_ids:
+    #         print ("********",product._origin.id)
+    #         lot_id = self.env['stock.production.lot'].search([('product_id', '=', product._origin.id)], limit=1)
+    #         print("=================", lot_id)
+
+        #
+        #
+        #     lot_id = self.env['stock.production.lot'].search([('product_id', '=', self.product.id)], limit=1)
+        #         self.model_type = lot_id.model_type
+        #         self.subtype = lot_id.subtype
+        #         self.fabric_id = lot_id.fabric_id.id
+        #         self.finish_category_id = lot_id.finish_category_id.id
+        #         self.color_ids = [(6, 0, lot_id.color_ids.ids)]
+        #         self.finish_color_ids = [(6, 0, lot_id.finish_color_ids.ids)]
+
+
 class ProductionLot(models.Model):
     _inherit = 'stock.production.lot'
 
@@ -18,6 +48,7 @@ class ProductionLot(models.Model):
     finish_color_ids = fields.Many2many("finish.category.color.line", string="Finish Color")
     location_id = fields.Many2one('stock.location', string="Location")
     reserved = fields.Boolean(string="Reserved")
+    sale_order_id = fields.Many2one('sale.order', string="Sale Order")
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -35,7 +66,6 @@ class ProductionLot(models.Model):
                 res.finish_color_ids = [(6, 0, move.move_id.finish_color_ids.ids)]
                 res.location_id = move.location_dest_id.id
         return res_ids
-
 
     @api.model
     def generate_lot_names(self, first_lot, count):
@@ -63,19 +93,7 @@ class ProductionLot(models.Model):
         return lot_names
 
 
-class Picking(models.Model):
-    _inherit = "stock.picking"
-
-    warehouse_user_id = fields.Many2one("res.users", string="Warehouse User")
-
-    def send_mail_to_warehouse(self):
-        if self.warehouse_user_id:
-            template = self.env.ref("vvm_model.email_template_send_to_warehouse_user",
-                                    raise_if_not_found=False)
-            template.sudo().send_mail(self.id, force_send=True,email_values={"email_to": self.warehouse_user_id.login})
-
-
-# VG Code For First SN	in Recipt
+# VG Code For First SN	in Receipt
 class StockMove(models.Model):
     _inherit = 'stock.move'
 
@@ -122,15 +140,17 @@ class StockMove(models.Model):
             self.color_ids = [(6, 0, self.sale_line_id.color_ids.ids)]
             self.finish_color_ids = [(6, 0, self.sale_line_id.finish_color_ids.ids)]
 
-    @api.onchange('product_no_id')
-    def onchange_product_no_id_method(self):
-        if self.product_no_id:
-            self.model_type = self.product_no_id.model_type
-            self.subtype = self.product_no_id.subtype
-            self.fabric_id = self.product_no_id.fabric_id.id
-            self.finish_category_id = self.product_no_id.finish_category_id.id
-            self.color_ids = [(6, 0, self.purchase_product_no_id.color_ids.ids)]
-            self.finish_color_ids = [(6, 0, self.purchase_product_no_id.finish_color_ids.ids)]
+    @api.onchange('product_id')
+    def onchange_product_method(self):
+        if self.product_id:
+            lot_id = self.env['stock.production.lot'].search([('product_id', '=', self.product_id.id),
+                                                              ('reserved', '=', True)], limit=1)
+            self.model_type = lot_id.model_type
+            self.subtype = lot_id.subtype
+            self.fabric_id = lot_id.fabric_id.id
+            self.finish_category_id = lot_id.finish_category_id.id
+            self.color_ids = [(6, 0, lot_id.color_ids.ids)]
+            self.finish_color_ids = [(6, 0, lot_id.finish_color_ids.ids)]
 
     @api.onchange('model_no_id')
     def onchange_model_no_id_method(self):
@@ -148,7 +168,7 @@ class StockMove(models.Model):
         self.ensure_one()
         action = super().action_show_details()
         if self.origin:
-            purchase_order = self.env["purchase.order"].sudo().search([('name','=',self.origin)])
+            purchase_order = self.env["purchase.order"].sudo().search([('name', '=', self.origin)])
             if purchase_order and self.product_id:
                 next_serial = self.origin + '-' + self.product_id.name
                 if self.product_id.fabric_id and self.product_id.fabric_id.name and len(self.product_id.fabric_id.name)>=4:
