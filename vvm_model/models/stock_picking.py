@@ -164,18 +164,35 @@ class StockMove(models.Model):
             products = self.env["product.product"].sudo().search([('model_no_id', '=', self.model_no_id.id)])
             return {'domain': {'product_id': [('id', 'in', products.ids)]}}
 
+    def _generate_serial_numbers(self, next_serial_count=False):
+        """ This method will generate `lot_name` from a string (field
+        `next_serial`) and create a move line for each generated `lot_name`.
+        """
+        self.ensure_one()
+        lot_names = self.env['stock.production.lot'].generate_lot_names(self.next_serial, next_serial_count or self.next_serial_count)
+        move_lines_commands = self._generate_serial_move_line_commands(lot_names)
+        self.write({'move_line_ids': move_lines_commands})
+        self.product_id.write({'custom_sequence': self.product_id.custom_sequence + len(move_lines_commands)})
+        return True
+
     def action_show_details(self):
         self.ensure_one()
         action = super().action_show_details()
+        product_sequence_str = str(self.product_id.custom_sequence)
+        product_sequence = product_sequence_str.zfill(4)
+
         if self.origin:
             purchase_order = self.env["purchase.order"].sudo().search([('name', '=', self.origin)])
             if purchase_order and self.product_id:
                 next_serial = self.origin + '-' + self.product_id.name
-                if self.product_id.fabric_id and self.product_id.fabric_id.name and len(self.product_id.fabric_id.name)>=4:
-                    next_serial = next_serial + '-' + self.product_id.fabric_id.name[-4:]
-                if self.product_id.color_ids and self.product_id.color_ids[0].color_id and len(self.product_id.color_ids[0].color_id.name)>=4:
-                    next_serial = next_serial + '-' + self.product_id.color_ids[0].color_id.name[-4:]
-                next_serial = next_serial + '-' + '0001'
+                if self.picking_type_id and self.picking_type_id.code == 'incoming' and self.purchase_fabric_id and self.purchase_fabric_id.name and len(self.purchase_fabric_id.name)>=4:
+                    next_serial = next_serial + '-' + self.purchase_fabric_id.name[-4:]
+                if self.picking_type_id and self.picking_type_id.code == 'outgoing' and self.fabric_id and self.fabric_id.name and len(self.fabric_id.name)>=4:
+                    next_serial = next_serial + '-' + self.fabric_id.name[-4:]
+                if self.color_ids and self.color_ids[0].color_id and len(self.color_ids[0].color_id.name)>=4:
+                    next_serial = next_serial + '-' + self.color_ids[0].color_id.name[-4:]
+                # next_serial = next_serial + '-' + '0001'
+                next_serial = next_serial + '-' + product_sequence
                 self.next_serial = next_serial
         return action
 
