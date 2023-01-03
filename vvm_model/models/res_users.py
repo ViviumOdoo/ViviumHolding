@@ -10,4 +10,4 @@ class Users(models.Model):
 class Partner(models.Model):
     _inherit = "res.partner"
 
-    company_id = fields.Many2one('res.company', 'Company', index=True, default=lambda self: self.env.company)
+    company_id = fields.Many2one('res.company', 'Company', index=True)
