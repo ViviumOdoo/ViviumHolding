@@ -9,6 +9,7 @@ import requests
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
+    custom_sequence = fields.Integer(string="Custom Sequence",default=1)
     custom_name = fields.Char(string="Name")
     model_no_id = fields.Many2one("vvm.model", string="Model No.", required=True)
     name = fields.Char('Name', index=True, translate=True, readonly=True, store=True, required=False)
