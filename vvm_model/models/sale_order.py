@@ -64,6 +64,7 @@ class SaleOrder(models.Model):
         self.po_created = True
         for line in self.order_line:
             po_line_id = self.env['purchase.order.line'].create({
+                'product_no_id': line.product_no_id.id,
                 'order_id': po_id.id,
                 'product_id': line.product_id.id,
                 'model_no_id': line.model_no_id.id,

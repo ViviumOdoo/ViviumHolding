@@ -219,9 +219,14 @@
                                             <t t-esc="line.product_id.name"/><br/>
                                             <t t-esc="line.name"/><br/>
                                             <t t-esc="line.fabric_id.name"/><br/>
-                                            <t t-esc="line.color_ids[1].name"/><br/>
+                                            <t t-if="not line.display_type"/><br/>
+                                            <t t-esc="line.color_ids">
+                                                 <t t-esc="line.color_ids[1].name"/><br/>
+                                            </t>
                                             <t t-esc="line.finish_category_id.name"/><br/>
-                                            <t t-esc="line.finish_color_ids[1].name"/><br/>
+                                             <t t-esc="line.finish_color_ids">
+                                                <t t-esc="line.finish_color_ids[1].name"/><br/>
+                                             </t>
                                             <t t-esc="line.stock_production_lot_id.name"/>
                                         </span>
                                     </td>
@@ -849,9 +854,13 @@
                                             <t t-esc="line.product_id.name"/><br/>
                                             <t t-esc="line.name"/><br/>
                                             <t t-esc="line.fabric_id.name"/><br/>
-                                            <t t-esc="line.color_ids[1].name"/><br/>
+                                            <t t-esc="line.color_ids">
+                                                <t t-esc="line.color_ids[1].name"/><br/>
+                                            </t>
                                             <t t-esc="line.finish_category_id.name"/><br/>
-                                            <t t-esc="line.finish_color_ids[1].name"/><br/>
+                                            <t t-esc="line.finish_color_ids">
+                                                <t t-esc="line.finish_color_ids[1].name"/><br/>
+                                            </t>
                                             <t t-esc="line.stock_production_lot_id.name"/>
                                         </span>
                                     </td>
