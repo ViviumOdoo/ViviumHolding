@@ -90,7 +90,7 @@
         <t t-call="web.basic_layout">
             <t t-call="qweb_report_15.purchase_order_custom_layout">
                 <div class="page">
-                    <table border="0" cellspacing="0" cellpadding="0" style="width:100%;font-size:12px;">
+                    <table border="0" cellspacing="0" cellpadding="0" style="width:100%;font-size:9px;">
 
                         <!-- VENDOR INFORMATION -->
                         <tr style="border:1px solid;">
@@ -166,8 +166,7 @@
                         </tr>
                     </table>
 
-
-                    <table class="table table-sm o_main_table" border="0" cellspacing="0" cellpadding="0" style="width:100%;font-size:12px;">
+                    <table class="table table-sm o_main_table" border="0" cellspacing="0" cellpadding="0" style="width:100%;font-size:9px;">
                         <thead style="border:1px solid;">
                             <tr style="background-color:#008B8B;color:#fff;">
                                 <th style="width:8%;"><strong>Item No.</strong></th>
@@ -212,11 +211,15 @@
                                             <t t-esc="line.name"/><br/>
                                             <t t-esc="line.fabric_id.name"/><br/>
                                             <t t-esc="line.color_ids">
-                                                <t t-esc="line.color_ids[1].name"/><br/>
+                                                <t t-foreach="line.color_ids" t-as="color_id">
+                                                    <t t-esc="color_id.name"/><br/>
+                                                </t>
                                             </t>
                                             <t t-esc="line.finish_category_id.name"/><br/>
                                             <t t-esc="line.finish_color_ids">
-                                                <t t-esc="line.finish_color_ids[1].name"/><br/>
+                                                <t t-foreach="line.finish_color_ids" t-as="color_id">
+                                                    <t t-esc="color_id.name"/><br/>
+                                                </t>
                                             </t>
                                         </span>
                                     </td>
@@ -356,7 +359,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
+                    <!--<table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
                         <tr>
                             <td style="width:70%;">
                                 <h5 style="font-weight:700;">Prepared BY</h5>
@@ -383,7 +386,7 @@
                                 <h5>CEO</h5>
                             </td>
                         </tr>                   
-                    </table>
+                    </table>-->
                 </div>
             </t>
         </t>

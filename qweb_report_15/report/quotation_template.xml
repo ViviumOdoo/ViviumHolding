@@ -30,7 +30,7 @@
                           padding: 6px;
                         }
                     </style>
-                    <table border="0" cellspacing="0" cellpadding="0" style="width:100%;font-size:12px;">
+                    <table border="0" cellspacing="0" cellpadding="0" style="width:100%;font-size:9px;">
                         <tr>
                             <!-- First Top Part -->
                             <td style="width:45%;padding-top:30px;">
@@ -66,9 +66,15 @@
                                         </td>
                                         <td style="border:1px solid;width:65%;">
                                             <span>
-                                                <div t-field="o.partner_id"
+                                                <t t-if="o.partner_id.street"><t t-esc="o.partner_id.street"/>,</t>
+                                                <t t-if="o.partner_id.street2"><t t-esc="o.partner_id.street2"/>,</t>
+                                                <t t-if="o.partner_id.city"><t t-esc="o.partner_id.city"/>,</t><br/>
+                                                <t t-if="o.partner_id.state_id"><t t-esc="o.partner_id.state_id.name"/></t>
+                                                <t t-if="o.partner_id.zip"><t t-esc="o.partner_id.zip"/>,</t>
+                                                <t t-if="o.partner_id.country_id"><t t-esc="o.partner_id.country_id.name"/></t>
+                                                <!--<div t-field="o.partner_id"
                         t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
-                    />
+                    />-->
                                             </span>
                                         </td>
                                     </tr>
@@ -154,7 +160,7 @@
 
 
                     <table class="table table-sm o_main_table" border="0" cellspacing="0" cellpadding="0"
-                           style="width:100%;font-size:12px;">
+                           style="width:100%;font-size:9px;">
                         <thead style="border:1px solid;">
                             <tr style="background-color:#D0CECE;border: 1px solid black;">
                                 <th style="width:2%;border: 1px solid black;">
@@ -221,12 +227,16 @@
                                             <t t-esc="line.fabric_id.name"/><br/>
                                             <t t-if="not line.display_type"/><br/>
                                             <t t-esc="line.color_ids">
-                                                 <t t-esc="line.color_ids[1].name"/><br/>
+                                                <t t-foreach="line.color_ids" t-as="color_id">
+                                                    <t t-esc="color_id.name"/><br/>
+                                                </t>
                                             </t>
                                             <t t-esc="line.finish_category_id.name"/><br/>
-                                             <t t-esc="line.finish_color_ids">
-                                                <t t-esc="line.finish_color_ids[1].name"/><br/>
-                                             </t>
+                                            <t t-esc="line.finish_color_ids">
+                                                <t t-foreach="line.finish_color_ids" t-as="color_id">
+                                                    <t t-esc="color_id.name"/><br/>
+                                                </t>
+                                            </t>
                                             <t t-esc="line.stock_production_lot_id.name"/>
                                         </span>
                                     </td>
@@ -336,7 +346,7 @@
                     <div style="padding-top:32px;margin-top:32px"/>
 
                     <table class="table table-sm o_main_table" border="0" cellspacing="0" cellpadding="0"
-                           style="width:100%;font-size:12px;">
+                           style="width:100%;font-size:9px;">
                         <tbody>
                             <tr>
                                 <td colspan="10" style="border:none;">
@@ -347,68 +357,68 @@
                                 <td style="border:none;line-height:5px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:5px;">
                                     Attached quotation is valid for thirty (30) days.
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:5px;">
+                                <td style="border:none;font-size:9px;line-height:5px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:5px;">
                                     Order placed by the customer cannot be modified, exchanged, returned or refunded.
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:5px;">
+                                <td style="border:none;font-size:9px;line-height:5px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:5px;">
                                     Once a payment or deposit is made, it is non-refundable.
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:5px;">
+                                <td style="border:none;font-size:9px;line-height:5px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:5px;">
                                     For furniture that requires "customers own fabric/leather", the client needs to send
                                     to us A4 paper size sample material for approval.
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:5px;">
+                                <td style="border:none;font-size:9px;line-height:5px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:5px;">
                                     The furniture will be delivered on the date and time agreed by Vivium Living1
                                     Trading LLC Logistics team with the client.
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:5px;">
+                                <td style="border:none;font-size:9px;line-height:5px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:5px;">
                                     It is the client's responsibility to make the site accessible for delivery and
                                     installation including necessary permits, scaffolding; lifts; staircases etc.
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:5px;">
+                                <td style="border:none;font-size:9px;line-height:5px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:5px;">
                                     Price quoted includes delivery at Project site in U.A.E. Goods to be send to
                                     client's site maximum within 2 weeks upon availability.For any additional time
                                     storage charges to be applied.
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:10px;">
+                                <td style="border:none;font-size:9px;line-height:10px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:10px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:10px;">
                                     Vivium Living1 Trading LLC will not be responsible for any delivery delay, which
                                     occurs beyond our control. Examples such as war, terrorism, riot, strikes, fire,
                                     flood, storm or unforeseen delay from the shipping forwarder, port/customs clearance
@@ -416,10 +426,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:11px;">
+                                <td style="border:none;font-size:9px;line-height:11px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:11px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:11px;">
                                     Vivium Living1 Trading LLC will not be responsible for any defect in the goods
                                     arising from fair wear and tear, wilful damage, accident, negligence by clientor any
                                     third party, use and handling of goods against the manufacturer’s instructions and
@@ -429,28 +439,28 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:5px;">
+                                <td style="border:none;font-size:9px;line-height:5px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:5px;">
                                     We reserve the right to adjust our prices incase the order will not be purchased as
                                     quoted.
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:5px;">
+                                <td style="border:none;font-size:9px;line-height:5px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:5px;">
                                     During the project realization period defined components types may change.These
                                     components will be substituted by matching successor products.
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:12px;">
+                                <td style="border:none;font-size:9px;line-height:12px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:12px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:12px;">
                                     All technical information in relation to our products and their maintenance remains
                                     our property and, except where intended to serve as instructions for use or
                                     advertising matter, may not be utilized or copied, reproduced, transmitted or
@@ -462,10 +472,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:10px;">
+                                <td style="border:none;font-size:9px;line-height:10px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:10px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:10px;">
                                     The acceptance of our quotation includes the acceptance of the above listed terms
                                     and conditions and no other terms and conditions (whether contained in the buyer’s
                                     purchase order or otherwise) shall be binding on us. unless they are expressly
@@ -473,20 +483,20 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:5px;">
+                                <td style="border:none;font-size:9px;line-height:5px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:5px;">
                                     <b>Payment Terms:</b>
                                     On Order - 70% Advance Payment/ 30% Balance Payment before Delivery/ Available stock
                                     -100% Payment before Delivery.
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:10px;">
+                                <td style="border:none;font-size:9px;line-height:10px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:10px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:10px;">
                                     <b>Delivery Terms:</b>
                                     Estimated time between 14-16 Weeks after receiving Purchase Order/Shipping by Sea
                                     Freight /Wooden crates shall be provided with additional cost, only by the client's
@@ -494,41 +504,41 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:10px;">
+                                <td style="border:none;font-size:9px;line-height:10px;">
                                     <b>*</b>
                                 </td>
                                 <td colspan="2" style="border:none;line-height:10px;">
                                     <b>Bank Details:</b>
                                 </td>
-                                <td style="border:1px solid;font-size:10px;">
+                                <td style="border:1px solid;font-size:9px;">
                                     <b>Account Name</b>
                                 </td>
-                                <td style="border:1px solid;font-size:10px;">
+                                <td style="border:1px solid;font-size:9px;">
                                     <b>IBAN</b>
                                 </td>
-                                <td style="border:1px solid;font-size:10px;">
+                                <td style="border:1px solid;font-size:9px;">
                                     <b>SWIFT</b>
                                 </td>
-                                <td colspan="2" style="border:1px solid;font-size:10px;">
+                                <td colspan="2" style="border:1px solid;font-size:9px;">
                                     <b>Account Number</b>
                                 </td>
                                 <td colspan="2"/>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:10px;">
+                                <td style="border:none;font-size:9px;line-height:10px;">
                                 </td>
                                 <td colspan="2" style="border:none;line-height:10px;">
                                 </td>
-                                <td style="border:1px solid;font-size:10px;">
+                                <td style="border:1px solid;font-size:9px;">
                                     <b>Vivium Living1 Trading LLC</b>
                                 </td>
-                                <td style="border:1px solid;font-size:10px;">
+                                <td style="border:1px solid;font-size:9px;">
                                     <b>AE160211000000150407214</b>
                                 </td>
-                                <td style="border:1px solid;font-size:10px;">
+                                <td style="border:1px solid;font-size:9px;">
                                     <b>CITIAEAD</b>
                                 </td>
-                                <td colspan="2" style="border:1px solid;font-size:10px;">
+                                <td colspan="2" style="border:1px solid;font-size:9px;">
                                     <b>0150407214</b>
                                 </td>
                                 <td colspan="2"/>
@@ -564,7 +574,7 @@
                             </tr>-->
                         </tbody>
                     </table>
-                    <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
+                    <!--<table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
                         <tr>
                             <td style="width:35%;">
                                 <h5 style="font-weight:400;">Prepared BY</h5>
@@ -595,7 +605,7 @@
                                 <h5>CEO</h5>
                             </td>
                         </tr>
-                    </table>
+                    </table>-->
                 </div>
             </t>
         </t>
@@ -648,7 +658,7 @@
                           padding: 6px;
                         }
                     </style>
-                    <table border="0" cellspacing="0" cellpadding="0" style="width:100%;font-size:12px;">
+                    <table border="0" cellspacing="0" cellpadding="0" style="width:100%;font-size:9px;">
                         <tr>
                             <!-- First Top Part -->
                             <td style="width:45%;padding-top:30px;">
@@ -699,9 +709,18 @@
                                             <span>Billing Address:</span>
                                         </td>
                                         <td style="border:1px solid;width:65%;">
-                                            <div t-field="o.partner_id"
+                                            <span>
+                                                <t t-if="o.partner_id.street"><t t-esc="o.partner_id.street"/>,</t>
+                                                <t t-if="o.partner_id.street2"><t t-esc="o.partner_id.street2"/>,</t>
+                                                <t t-if="o.partner_id.city"><t t-esc="o.partner_id.city"/>,</t><br/>
+                                                <t t-if="o.partner_id.state_id"><t t-esc="o.partner_id.state_id.name"/></t>
+                                                <t t-if="o.partner_id.zip"><t t-esc="o.partner_id.zip"/>,</t>
+                                                <t t-if="o.partner_id.country_id"><t t-esc="o.partner_id.country_id.name"/></t>
+                                                <!--<div t-field="o.partner_id"
                         t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
-                    />
+                    />-->
+                                            </span>
+
                                         </td>
                                     </tr>
                                     <tr style="height:30px !important;">
@@ -725,9 +744,18 @@
                                             <span>Shipping Address:</span>
                                         </td>
                                         <td style="border:1px solid;width:65%;">
-                                            <div t-field="o.partner_shipping_id"
+                                            <span>
+                                                <t t-if="o.partner_shipping_id.street"><t t-esc="o.partner_shipping_id.street"/>,</t>
+                                                <t t-if="o.partner_shipping_id.street2"><t t-esc="o.partner_shipping_id.street2"/>,</t>
+                                                <t t-if="o.partner_shipping_id.city"><t t-esc="o.partner_shipping_id.city"/>,</t><br/>
+                                                <t t-if="o.partner_shipping_id.state_id"><t t-esc="o.partner_shipping_id.state_id.name"/></t>
+                                                <t t-if="o.partner_shipping_id.zip"><t t-esc="o.partner_shipping_id.zip"/>,</t>
+                                                <t t-if="o.partner_shipping_id.country_id"><t t-esc="o.partner_shipping_id.country_id.name"/></t>
+                                                <!--<div t-field="o.partner_shipping_id"
                         t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
-                    />
+                    />-->
+                                            </span>
+
                                         </td>
                                     </tr>
                                 </table>
@@ -792,7 +820,7 @@
                         </tr>
                     </table>
                     <table class="table table-sm o_main_table" border="0" cellspacing="0" cellpadding="0"
-                           style="width:100%;font-size:12px;">
+                           style="width:100%;font-size:9px;">
                         <thead style="border:1px solid;">
                             <tr style="background-color:#D0CECE;border: 1px solid black;">
                                 <th style="width:2%;border: 1px solid black;">
@@ -855,11 +883,15 @@
                                             <t t-esc="line.name"/><br/>
                                             <t t-esc="line.fabric_id.name"/><br/>
                                             <t t-esc="line.color_ids">
-                                                <t t-esc="line.color_ids[1].name"/><br/>
+                                                <t t-foreach="line.color_ids" t-as="color_id">
+                                                    <t t-esc="color_id.name"/><br/>
+                                                </t>
                                             </t>
                                             <t t-esc="line.finish_category_id.name"/><br/>
                                             <t t-esc="line.finish_color_ids">
-                                                <t t-esc="line.finish_color_ids[1].name"/><br/>
+                                                <t t-foreach="line.finish_color_ids" t-as="color_id">
+                                                    <t t-esc="color_id.name"/><br/>
+                                                </t>
                                             </t>
                                             <t t-esc="line.stock_production_lot_id.name"/>
                                         </span>
@@ -990,7 +1022,7 @@
                     <div style="padding-top:32px;margin-top:32px"/>
 
                     <table class="table table-sm o_main_table" border="0" cellspacing="0" cellpadding="0"
-                           style="width:100%;font-size:12px;">
+                           style="width:100%;font-size:9px;">
                         <tbody>
                             <tr>
                                 <td colspan="10" style="border:none;">
@@ -998,63 +1030,63 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:5px;">
+                                <td style="border:none;font-size:9px;line-height:5px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:5px;">
                                     Order placed by the customer cannot be modified, exchanged, returned or refunded.
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:5px;">
+                                <td style="border:none;font-size:9px;line-height:5px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:5px;">
                                     Once a payment or deposit is made, it is non-refundable.
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:5px;">
+                                <td style="border:none;font-size:9px;line-height:5px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:5px;">
                                     For furniture that requires "customers own fabric/leather", the client needs to send
                                     to us A4 paper size sample material for approval.
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:5px;">
+                                <td style="border:none;font-size:9px;line-height:5px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:5px;">
                                     The furniture will be delivered on the date and time agreed by Vivium Living1
                                     Trading LLC Logistics team with the client.
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:5px;">
+                                <td style="border:none;font-size:9px;line-height:5px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:5px;">
                                     It is the client's responsibility to make the site accessible for delivery and
                                     installation including necessary permits, scaffolding; lifts; staircases etc.
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:5px;">
+                                <td style="border:none;font-size:9px;line-height:5px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:5px;">
                                     Price quoted includes delivery at Project site in U.A.E. Goods to be send to
                                     client's site maximum within 2 weeks upon availability.For any additional time
                                     storage charges to be applied.
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:10px;">
+                                <td style="border:none;font-size:9px;line-height:10px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:10px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:10px;">
                                     Vivium Living1 Trading LLC will not be responsible for any delivery delay,
                                     which occurs beyond our control. Examples such as war, terrorism, riot, strikes,
                                     fire, flood, storm or unforeseen delay from the shipping forwarder, port/customs
@@ -1062,10 +1094,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:11px;">
+                                <td style="border:none;font-size:9px;line-height:11px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:11px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:11px;">
                                     Vivium Living1 Trading LLC will not be responsible for any defect in the goods
                                     arising from fair wear and tear, wilful damage, accident, negligence by clientor
                                     any third party, use and handling of goods against the manufacturer’s instructions
@@ -1075,28 +1107,28 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:5px;">
+                                <td style="border:none;font-size:9px;line-height:5px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:5px;">
                                     We reserve the right to adjust our prices incase the order will not be purchased as
                                     quoted.
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:5px;">
+                                <td style="border:none;font-size:9px;line-height:5px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:5px;">
                                     During the project realization period defined components types may change.
                                     These components will be substituted by matching successor products.
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:12px;">
+                                <td style="border:none;font-size:9px;line-height:12px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:12px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:12px;">
                                     All technical information in relation to our products and their maintenance remains
                                     our property and, except where intended to serve as instructions for use or advertising
                                     matter, may not be utilized or copied, reproduced, transmitted or communicated to
@@ -1107,10 +1139,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:10px;">
+                                <td style="border:none;font-size:9px;line-height:10px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:10px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:10px;">
                                     The acceptance of our quotation includes the acceptance of the above listed terms
                                     and conditions and no other terms and conditions (whether contained in the buyer’s
                                     purchase order or otherwise) shall be binding on us. unless they are expressly
@@ -1118,20 +1150,20 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:5px;">
+                                <td style="border:none;font-size:9px;line-height:5px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:5px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:5px;">
                                     <b>Payment Terms:</b>
                                     On Order - 70% Advance Payment/ 30% Balance Payment before Delivery/ Available
                                     stock -100% Payment before Delivery.
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:10px;">
+                                <td style="border:none;font-size:9px;line-height:10px;">
                                     <b>*</b>
                                 </td>
-                                <td colspan="9" style="border:none;font-size:10px;line-height:10px;">
+                                <td colspan="9" style="border:none;font-size:9px;line-height:10px;">
                                     <b>Delivery Terms:</b>
                                     Estimated time between 14-16 Weeks after receiving Purchase Order/Shipping by Sea
                                     Freight /Wooden crates shall be provided with additional cost, only by the client's
@@ -1140,41 +1172,41 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:10px;">
+                                <td style="border:none;font-size:9px;line-height:10px;">
                                     <b>*</b>
                                 </td>
                                 <td colspan="2" style="border:none;line-height:10px;">
                                     <b>Bank Details:</b>
                                 </td>
-                                <td style="border:1px solid;font-size:10px;">
+                                <td style="border:1px solid;font-size:9px;">
                                     <b>Account Name</b>
                                 </td>
-                                <td style="border:1px solid;font-size:10px;">
+                                <td style="border:1px solid;font-size:9px;">
                                     <b>IBAN</b>
                                 </td>
-                                <td style="border:1px solid;font-size:10px;">
+                                <td style="border:1px solid;font-size:9px;">
                                     <b>SWIFT</b>
                                 </td>
-                                <td colspan="2" style="border:1px solid;font-size:10px;">
+                                <td colspan="2" style="border:1px solid;font-size:9px;">
                                     <b>Account Number</b>
                                 </td>
                                 <td colspan="2"/>
                             </tr>
                             <tr>
-                                <td style="border:none;font-size:8px;line-height:10px;">
+                                <td style="border:none;font-size:9px;line-height:10px;">
                                 </td>
                                 <td colspan="2" style="border:none;line-height:10px;">
                                 </td>
-                                <td style="border:1px solid;font-size:10px;">
+                                <td style="border:1px solid;font-size:9px;">
                                     <b>Vivium Living1 Trading LLC</b>
                                 </td>
-                                <td style="border:1px solid;font-size:10px;">
+                                <td style="border:1px solid;font-size:9px;">
                                     <b>AE160211000000150407214</b>
                                 </td>
-                                <td style="border:1px solid;font-size:10px;">
+                                <td style="border:1px solid;font-size:9px;">
                                     <b>CITIAEAD</b>
                                 </td>
-                                <td colspan="2" style="border:1px solid;font-size:10px;">
+                                <td colspan="2" style="border:1px solid;font-size:9px;">
                                     <b>0150407214</b>
                                 </td>
                                 <td colspan="2"/>

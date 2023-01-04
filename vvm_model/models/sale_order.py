@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-from odoo.exceptions import UserError, ValidationError
 from datetime import date
 import requests
+from datetime import datetime
 
 
 class SaleOrder(models.Model):
@@ -78,6 +78,8 @@ class SaleOrder(models.Model):
                 'product_qty': line.product_uom_qty,
                 'product_uom': line.product_uom.id,
                 'price_unit': line.product_id.lst_price or 1,
+                'date_planned': datetime.today(),
+                'taxes_id': False,
             })
 
     def action_confirm(self):

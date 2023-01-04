@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-from odoo.exceptions import UserError, ValidationError
 from datetime import date
 import requests
 
@@ -16,7 +15,7 @@ class ProductTemplate(models.Model):
     default_code = fields.Char('Vendor Reference', compute='_compute_default_code',
                                inverse='_set_default_code', store=True)
     model_name = fields.Char(string="Model Name")
-    model_type = fields.Char(string="Type", required=True, size=4)
+    model_type = fields.Char(string="Model Type", required=True, size=4)
     subtype = fields.Char(string="Sub-Type", size=2)
     item_code_id = fields.Many2one("product.product", string="Item Code")
     fabric_id = fields.Many2one("vvm.model.fabric", string="Fabric")
