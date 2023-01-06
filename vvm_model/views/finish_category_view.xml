@@ -49,5 +49,40 @@
             <field name="view_mode">tree,form</field>
         </record>
 
+		<!-- Finish color tree View -->
+		<record id="vvm_model_finish_color_tree_view" model="ir.ui.view">
+			<field name="name">finish.category.color.line.tree.view</field>
+			<field name="model">finish.category.color.line</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="color_id"/>
+					<field name="finish_id"/>
+				</tree>
+			</field>
+		</record>
+
+        <!-- Fabric color form View -->
+		<record id="vvm_model_finish_color_form_view" model="ir.ui.view">
+			<field name="name">finish.category.color.line.tree.view</field>
+			<field name="model">finish.category.color.line</field>
+			<field name="arch" type="xml">
+				<form>
+                    <sheet>
+                        <group>
+							<field name="color_id"/>
+                            <field name="finish_id"/>
+                        </group>
+                    </sheet>
+				</form>
+			</field>
+		</record>
+
+        <record id="vvm_model_finish_color_act_window" model="ir.actions.act_window">
+            <field name="name">Finish Color</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">finish.category.color.line</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
 	</data>
 </odoo>

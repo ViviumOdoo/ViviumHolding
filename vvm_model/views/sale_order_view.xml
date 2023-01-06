@@ -17,7 +17,8 @@
                 <xpath expr="//form/header/button[@name='action_quotation_send']" position="before">
                     <button name="action_create_po" string="Create PO"
                             type="object" class="btn-primary" data-hotkey="g"
-                            attrs="{'invisible': ['|', ('state', '!=', 'sale'), ('po_created', '=', True)]}"/>
+                            attrs="{'invisible': ['|', ('state', '!=', 'sale'), ('po_created', '=', True)]}"
+                            confirm="Are you sure you want to create PO?"/>
                 </xpath>
 
                 <field name="reference" position="after">

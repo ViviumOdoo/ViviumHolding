@@ -12,7 +12,7 @@ class FinishCategory(models.Model):
 	]
 
 	name = fields.Char(string="Name", required=True)
-	finish_color_line = fields.One2many('finish.category.color.line', 'finish_id', string="Fabric Color")
+	finish_color_line = fields.One2many('finish.category.color.line', 'finish_id', string="Finish Color")
 	is_created = fields.Boolean(string="Is Created")
 	image_128 = fields.Image("Image")
 
@@ -27,5 +27,6 @@ class FinishCategoryColorLin(models.Model):
 	_name = "finish.category.color.line"
 	_rec_name = "color_id"
 
-	finish_id = fields.Many2one('finish.category', string="Fabric")
-	color_id = fields.Many2one("model.color", string="Fabric Color")
+	finish_id = fields.Many2one('finish.category', string="Finish Category")
+	color_id = fields.Many2one("model.color", string="Finish Color")
+	short_name = fields.Char(string="Short Name")

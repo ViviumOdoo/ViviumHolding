@@ -11,3 +11,5 @@ class Partner(models.Model):
     _inherit = "res.partner"
 
     company_id = fields.Many2one('res.company', 'Company', index=True)
+    contact_person = fields.Char('Contact Person')
+    is_vendor = fields.Boolean('Is Vendor')

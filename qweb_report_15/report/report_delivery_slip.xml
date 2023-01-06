@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="delivery_note_custom_layout">
+        <header>
+            <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
+                <tbody>
+                    <tr>
+                        <td style="text-align:left; font-size:12px;">
+                            <h3 style="font-weight:700;">Delivery Note -
+                                <t t-esc="o.name"/>
+                            </h3>
+                        </td>
+                        <td style="text-align:right;">
+                            <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                                 style="max-height: 60px; max-width: 500px;" alt="Logo"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </header>
+        <t t-raw="0"/>
+    </template>
+
+    <template id="report_delivery_document" inherit_id="stock.report_delivery_document">
+        <xpath expr="//t [@t-call='web.external_layout']" position="replace">
+            <t t-call="web.external_layout">
+                <t t-call="qweb_report_15.delivery_note_custom_layout">
+                    <div class="page">
+                        <style>
+                            th, td {
+                              padding: 5px;
+                            }
+                        </style>
+                        <table border="0" cellspacing="0" cellpadding="0" style="width:100%;font-size:9px;">
+                        <tr>
+                            <!-- First Top Part -->
+                            <td style="width:45%;padding-top:20px;">
+                                <table border="0" cellspacing="0" cellpadding="0"
+                                       style="width:100%;border 1px solid; background:#D0CECE;">
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:35%;">
+                                            <span>Sale Order Ref.:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:65%;">
+                                            <span><t t-esc="o.origin"/></span>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:35%;">
+                                            <span>Customer Name:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:65%;">
+                                            <span><t t-esc="o.partner_id.name"/></span>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:35%;">
+                                            <span>Contact Details:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:65%;">
+                                            <span><t t-esc="o.partner_id.mobile"/></span>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:35%;">
+                                            <span>Delivery Address:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:65%;">
+                                            <span>
+                                                <t t-if="o.partner_id.street"><t t-esc="o.partner_id.street"/>,</t>
+                                                <t t-if="o.partner_id.street2"><t t-esc="o.partner_id.street2"/>,</t>
+                                                <t t-if="o.partner_id.city"><t t-esc="o.partner_id.city"/>,</t><br/>
+                                                <t t-if="o.partner_id.state_id"><t t-esc="o.partner_id.state_id.name"/></t>
+                                                <t t-if="o.partner_id.zip"><t t-esc="o.partner_id.zip"/>,</t>
+                                                <t t-if="o.partner_id.country_id"><t t-esc="o.partner_id.country_id.name"/></t>
+                                            </span>
+                                        </td>
+                                    </tr>
+
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:35%;">
+                                            <span>Requested Delivery Date:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:65%;">
+                                            <span><t t-esc="o.scheduled_date"/></span>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:35%;">
+                                            <span>Order Remark:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:65%;">
+                                            <span><t t-esc="o.name"/></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+
+                            <!-- Second Top Part -->
+                            <td style="width:10%;padding-top:25px;"></td>
+
+                            <!-- Third Top Part -->
+                            <td style="width:45%;">
+                                <table border="0" cellspacing="0" cellpadding="0"
+                                       style="width:100%;border 1px solid; background:#D0CECE;">
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:30;">
+                                            <span>Supplier:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:70;">
+                                            <span>Vivium Living1 Trading LLC</span>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:30;">
+                                        </td>
+                                        <td style="border:1px solid;width:70;">
+                                            <span>Cassina Furniture Distributor in UAE/ Bahrain/ Oman</span>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:30;">
+                                            <span>TRN:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:70;">
+                                            <span>100520150200003</span>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:30;">
+                                            <span>Address:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:70;">
+                                            <span>Jumeirah Beach Road, Plot No. 3560263, <br/>
+                                                Umm Suqeim 1, Dubai</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:30;">
+                                            <span>Delivery Term:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:70;">
+                                            <span>
+                                                <t t-esc="o.picking_type_id.name"/>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:30;">
+                                            <span>Contact Details:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:70;">
+                                            <span>
+                                                <t t-esc="o.company_id.mobile"/>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        </table>
+
+                        <table class="table table-sm o_main_table" border="0" cellspacing="0" cellpadding="0"
+                           style="width:100%;font-size:9px;">
+                            <thead style="border:1px solid;">
+                                <tr style="background-color:#D0CECE;border: 1px solid black;">
+                                    <th style="border:1px solid;" class="text-center">
+                                        <strong>SN</strong>
+                                    </th>
+                                    <th style="border:1px solid;" class="text-center">
+                                        <strong>ITEM CODE</strong>
+                                    </th>
+                                    <th style="border:1px solid;" class="text-center">
+                                        <strong>Details</strong>
+                                    </th>
+                                    <th style="border:1px solid;" class="text-center">
+                                        <strong>Qty</strong>
+                                    </th>
+                                    <th style="border:1px solid;" class="text-center">
+                                        <strong>Remarks</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <t t-set="index" t-value="1"/>
+                            <t t-foreach="o.move_line_ids_without_package" t-as="line">
+                                <tr style="border:1px solid;">
+                                    <td style="border:1px solid;width:2%;">
+                                        <t t-esc="index"/>)
+                                        <t t-set="index" t-value="index + 1"/>
+                                    </td>
+                                    <td style="border:1px solid;text-align:left;">
+                                        <span><t t-esc="line.product_id.name"/> <br/><br/>
+                                        <t t-esc="line.lot_id.name"/></span>
+                                    </td>
+
+                                    <td style="border:1px solid;text-align:left;">
+                                         <span>
+                                            <t t-esc="line.move_id.description_picking"/><br/><br/>
+                                            <t t-esc="line.move_id.fabric_id.name"/><br/>
+
+                                            <t t-if="line.move_id.color_ids">
+                                                <t t-foreach="line.move_id.color_ids" t-as="color_id">
+                                                    <t t-esc="color_id.color_id.name"/><br/>
+                                                </t>
+                                            </t>
+                                            <t t-esc="line.move_id.finish_category_id.name"/><br/>
+                                            <t t-if="line.move_id.finish_color_ids">
+                                                <t t-foreach="line.move_id.finish_color_ids" t-as="color_id">
+                                                    <t t-esc="color_id.color_id.name"/><br/>
+                                                </t>
+                                            </t>
+                                        </span>
+                                    </td>
+
+                                    <td style="border:1px solid;text-align:center;">
+                                        <span><t t-esc="line.qty_done"/></span>
+                                    </td>
+                                    <td style="border:1px solid;" class="text-center">
+                                        <span> </span>
+                                    </td>
+                                </tr>
+                            </t>
+                            </tbody>
+                        </table>
+
+
+                        <div style="padding-top:32px;margin-top:32px"/>
+
+                        <table class="table table-sm o_main_table" border="0" cellspacing="0" cellpadding="0"
+                               style="width:100%;font-size:9px;">
+                            <tbody>
+                                <tr>
+                                    <td style="border:1px solid;">
+                                        <b>Customer Comments:</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border:1px solid;">
+                                        If there is no specific remark related to goods and installation it is considered to be accepted by the client in good condition.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <br/>
+                        <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
+                            <tr style="padding-top:50px;">
+                                <td style="width:70%;font-size:9px;" class="text-left">
+                                    <span>
+                                        <b>Delivery Team Signature:</b>
+                                    </span>
+                                </td>
+                                <td style="width:30%;font-size:9px;" class="text-left">
+                                    <span>
+                                        <b>Receiver Name: </b><br/>
+                                        <b>Date: </b><br/>
+                                        <b>Signature: </b><br/>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </xpath>
+    </template>
+</odoo>

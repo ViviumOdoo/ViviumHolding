@@ -23,15 +23,20 @@
 				  action="vvm_model_fabric_act_window"
                   sequence="3"/>
 
+		<menuitem name="Fabric Color" id="vvm_model_fabric_color_menu"
+				  parent="menu_master_model_fabric_sale_config"
+				  action="vvm_model.vvm_model_fabric_color_act_window"
+				  sequence="4"/>
+
         <menuitem name="Finish Category" id="finish_category_menu"
 				  parent="menu_master_model_fabric_sale_config"
                   action="finish_category_act_window"
-				  sequence="4"/>
-
-        <menuitem name="Fabric Color" id="vvm_model_fabric_color_menu"
-				  parent="menu_master_model_fabric_sale_config"
-				  action="vvm_model.vvm_model_fabric_color_act_window"
 				  sequence="5"/>
+
+		<menuitem name="Finish Color" id="vvm_model_finish_color_menu"
+				  parent="menu_master_model_fabric_sale_config"
+				  action="vvm_model.vvm_model_finish_color_act_window"
+				  sequence="6"/>
 
     </data>
 </odoo>

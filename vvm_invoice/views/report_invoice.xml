@@ -4,15 +4,16 @@
         <t t-call="web.basic_layout">
             <t t-set="o" t-value="o.with_context(lang=lang)" />
             <div class="page">
+
                 <div id="content" class='html-content'>
                 	<div class="row">
                         <div class="col-6 col-md-6 float-left">
                 			<strong><h5>TAX INVOICE NUMBER-<t t-esc="o.name"/></h5></strong>
                         </div>
-                        <div class="col-6 col-md-6" name="right-upper-side">
+                        <div style="text-align:right;" class="col-6 col-md-6 float-right" name="right-upper-side" >
 							<img t-if="o.company_id.logo"
 								 t-att-src="image_data_uri(o.company_id.logo)"
-								 style="max-height: 65px;max-weight: 100px" alt="Logo"/>
+								 style="max-height: 65px;max-weight: 500px" alt="Logo"/>
                         	<!--<img t-if="o.company_id.logo"
 								 t-att-src="'data:image/png;base64,%s' %o.company_id.logo"
 								 style="width:150px;height:120px;"/>-->
@@ -37,32 +38,28 @@
 								  margin: 0;
 								}
 			            	</style>
-                			<table class=" table-bordered"
+                			<table class="table-bordered"
 								   style="background-color: #D3D3D3; font-weight:bold;">
                 				<tbody>
                 					<tr>
                 						<td>Project Reference:</td>
-                						<td><t t-esc="o.name"></t></td>
+                						<td><t t-esc="o.name"/></td>
                 					</tr>
                 					<tr>
                 						<td>Sales Order Reference Number:</td>
-                						<td><t t-esc="o.sale_order_id.name"></t></td>
-                					</tr>
-                					<tr>
-                						<td>Customer Name:</td>
-                						<td><t t-esc="o.partner_id.name"></t></td>
+                						<td><t t-esc="o.sale_order_id.name"/></td>
                 					</tr>
                 					<tr>
                 						<td>Contact Person:</td>
-                						<td><t t-esc="o.partner_id.name"></t></td>
+                						<td><t t-esc="o.partner_id.name"/></td>
                 					</tr>
                 					<tr>
                 						<td>Contact Details:</td>
-                						<td><t t-esc="o.partner_id.mobile"></t></td>
+                						<td><t t-esc="o.partner_id.mobile"/></td>
                 					</tr>
                 					<tr>
                 						<td>Email:</td>
-                						<td><t t-esc="o.partner_id.email"></t></td>
+                						<td><t t-esc="o.partner_id.email"/></td>
                 					</tr>
                 					<tr>
                 						<td>Billing Address:</td>
@@ -74,18 +71,15 @@
                                                 <t t-if="o.partner_id.state_id"><t t-esc="o.partner_id.state_id.name"/></t>
                                                 <t t-if="o.partner_id.zip"><t t-esc="o.partner_id.zip"/>,</t>
                                                 <t t-if="o.partner_id.country_id"><t t-esc="o.partner_id.country_id.name"/></t>
-                                                <!--<div t-field="o.partner_id"
-                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
-                    />-->
                                             </span>
 										</td>
                 					</tr>
                 					<tr>
-                						<td>VAT number:</td>
+                						<td>TRN:</td>
                 						<td><span><t t-esc="o.partner_id.vat"/></span></td>
                 					</tr>
                 					<tr>
-                						<td>Ship to  party:</td>
+                						<td>Ship to Party:</td>
 										<td><span><t t-esc="o.partner_shipping_id.name"/></span></td>
                 					</tr>
                 					<tr>
@@ -98,9 +92,6 @@
                                                 <t t-if="o.partner_shipping_id.state_id"><t t-esc="o.partner_shipping_id.state_id.name"/></t>
                                                 <t t-if="o.partner_shipping_id.zip"><t t-esc="o.partner_shipping_id.zip"/>,</t>
                                                 <t t-if="o.partner_shipping_id.country_id"><t t-esc="o.partner_shipping_id.country_id.name"/></t>
-                                                <!--<div t-field="o.partner_shipping_id"
-                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
-                    />-->
                                             </span>
 
 										</td>
@@ -132,14 +123,6 @@
                 						<td>Supplier:</td>
                 						<td>Vivium Living1 Trading LLC</td>
                 					</tr>
-<!--                					<tr>-->
-<!--                						<td></td>-->
-<!--                						<td></td>-->
-<!--                					</tr>-->
-<!--                					<tr>-->
-<!--                						<td></td>-->
-<!--                						<td></td>-->
-<!--                					</tr>-->
                 					<tr>
                 						<td></td>
                 						<td>Cassina Furniture Distributor in UAE/ Bahrain/ Oman</td>
@@ -150,7 +133,8 @@
                 					</tr>
                 					<tr>
                 						<td>Address:</td>
-                						<td>Jumeirah Beach Road, Plot No. 3560263, Umm Suqeim 1, Dubai</td>
+                						<td>Jumeirah Beach Road, Plot No. 3560263, <br/>
+											Umm Suqeim 1, Dubai</td>
                 					</tr>
                 					<tr>
                 						<td>Sales Person:</td>
@@ -158,14 +142,6 @@
 											<t t-esc="o.invoice_user_id.name"/>
 										</td>
                 					</tr>
-<!--                					<tr>-->
-<!--                						<td></td>-->
-<!--                						<td></td>-->
-<!--                					</tr>-->
-<!--                					<tr>-->
-<!--                						<td></td>-->
-<!--                						<td></td>-->
-<!--                					</tr>-->
                 					<tr>
                 						<td>Date:</td>
                 						<td>
@@ -177,7 +153,6 @@
                         </div>
                     </div>
                     <br/>
-
 
                     <div class="row">
                     	<style>
@@ -196,25 +171,24 @@
 							}
 		            	</style>
                     	<table class=" table-bordered">
-                    		<thead style="background-color: #D3D3D3; font-weight:bold;">
-                    			<tr>
-                    				<th>SN</th>
-                    				<th>Barcode</th>
-                    				<th>Item Code</th>
-                    				<th>Details</th>
-                    				<th>Qty</th>
-                    				<th>Unit Price(AED)</th>
-                    				<th>Total Gross Price</th>
-                    				<th>Total Net Price (excl. VAT)</th>
+                    		<thead style="background-color: #D3D3D3; font-weight:bold;border: 1px solid black;">
+                    			<tr class="text-center">
+                    				<th style="width:3%;">SN</th>
+                    				<th style="width:17%;">Item Code</th>
+                    				<th style="width:20%;">Details</th>
+                    				<th style="width:7%;">Qty</th>
+                    				<th style="width:15%;">Unit Price(AED)</th>
+                    				<th style="width:15%;">Total Gross Price</th>
+									<th style="width:8%;">
+										<strong>Discount</strong>
+									</th>
+                    				<th style="width:15%;">Total Net Price (excl. VAT)</th>
                     			</tr>
                     		</thead>
                     		<tbody>
                     			<t t-set="i" t-value="1" />
                     			<t t-foreach="o.invoice_line_ids" t-as="line">
 									<tr>
-
-<!--										<t t-set="quantity" t-value="0"/>-->
-<!--										<t t-set="price_subtotal" t-value="0"/>-->
 										<t t-set="price_total" t-value="0"/>
 										<t t-set="subline_check" t-value="False"/>
 
@@ -226,31 +200,28 @@
 										</td>
 
 	                    				<td t-if="not line.display_type" style="border:1px solid;width:8%;text-align:left;">
-											<span><t t-esc="line.product_id.barcode"/> </span>
-										</td>
-
-	                    				<td t-if="not line.display_type" style="border:1px solid;width:8%;text-align:left;">
-											<span><t t-esc="line.product_id.name"/> </span>
+											<span>
+												<t t-esc="line.product_id.name"/> <br/><br/>
+                                        		<t t-esc="line.stock_production_lot_id.name"/>
+											</span>
 										</td>
 
 	                    				<td t-if="not line.display_type" style="border:1px solid;width:8%;text-align:left;">
 											<span>
-                                            <t t-esc="line.product_id.name"/><br/>
-                                            <t t-esc="line.name"/><br/>
-                                            <t t-esc="line.fabric_id.name"/><br/>
-											<t t-esc="line.color_ids">
-                                                <t t-foreach="line.color_ids" t-as="color_id">
-                                                    <t t-esc="color_id.name"/><br/>
-                                                </t>
-                                            </t>
-                                            <t t-esc="line.finish_category_id.name"/><br/>
-                                            <t t-esc="line.finish_color_ids">
-                                                <t t-foreach="line.finish_color_ids" t-as="color_id">
-                                                    <t t-esc="color_id.name"/><br/>
-                                                </t>
-                                            </t>
-											<t t-esc="line.stock_production_lot_id.name"/>
-                                        </span>
+												<t t-esc="line.name"/><br/>
+												<t t-esc="line.fabric_id.name"/><br/>
+												<t t-if="line.color_ids">
+													<t t-foreach="line.color_ids" t-as="color_id">
+														<t t-esc="color_id.color_id.name"/><br/>
+													</t>
+												</t>
+												<t t-esc="line.finish_category_id.name"/><br/>
+												<t t-if="line.finish_color_ids">
+													<t t-foreach="line.finish_color_ids" t-as="color_id">
+														<t t-esc="color_id.color_id.name"/><br/>
+													</t>
+												</t>
+											</span>
 										</td>
 
 										<t t-if="line.display_type">
@@ -270,24 +241,27 @@
 											</t>
 										</t>
 
-										<td t-if="not line.display_type">
+										<td style="border:1px solid;" class="text-center" t-if="not line.display_type">
 											<span>
-													<t t-esc="line.quantity"/>
+												<t t-esc="line.quantity"/>
 											</span>
 										</td>
 
-	                    				<td t-if="not line.display_type">
+	                    				<td style="border:1px solid;" class="text-right" t-if="not line.display_type">
 											<span><t t-esc="line.price_unit"/> </span>
 										</td>
 
-	                    				<td t-if="not line.display_type">
+	                    				<td style="border:1px solid;" class="text-right" t-if="not line.display_type">
                                             <span>
                                                 <t t-esc="line.price_subtotal"/>
                                             </span>
 										</td>
+										<td style="border:1px solid;" class="text-right" t-if="not line.display_type">
+											<span><t t-esc="line.discount"/> </span>
+										</td>
 
 										<t t-if="line.name != '#'">
-										<td>
+										<td style="border:1px solid;" class="text-right">
 											<t t-if="line.display_type">
 												<t t-foreach="o.invoice_line_ids" t-as="subline">
 													<t t-if="subline.display_type">
@@ -304,12 +278,12 @@
 											</t>
 											<t t-if="not line.display_type">
 												<span>
-													<t t-esc="line.price_total"/>
+													<t t-esc="'%.2f'% line.price_total"/>
 												</span>
 											</t>
 											<t t-if="line.name != '#'">
 												<t t-if="line.display_type">
-													<t t-esc="price_total"/>
+													<t t-esc="'%.2f'% price_total"/>
 												</t>
 											</t>
 											<!--											<span><t t-esc="line.price_total"/> </span>-->
@@ -318,27 +292,39 @@
 	                    			</tr>
                     			</t>
                     			<tr>
-                    				<td colspan="4"> </td>
-                    				<td colspan="3" style="font-weight:bold;">TOTAL (Excl. VAT)</td>
-                    				<td><span><t t-esc="o.amount_untaxed"/> </span></td>
+                    				<td colspan="5" style="border:none;"> </td>
+                    				<td style="border: 1px solid;" class="text-right" colspan="2">
+										<span>TOTAL (Excl. VAT)</span>
+									</td>
+                    				<td style="border: 1px solid;" class="text-right">
+                                    	<span><t t-esc="'%.2f'% o.amount_untaxed"/> </span>
+                                	</td>
                     			</tr>
                     			<tr>
-                    				<td colspan="4"> </td>
-                    				<td colspan="3" style="font-weight:bold;">VAT</td>
-                    				<td><span><t t-esc="o.amount_tax"/> </span></td>
+                    				<td colspan="5" style="border:none;"> </td>
+									<td style="border: 1px solid;" class="text-right" colspan="2">
+										<span>VAT</span>
+									</td>
+									<td style="border: 1px solid;" class="text-right">
+										 <span><t t-esc="'%.2f'% o.amount_tax"/> </span>
+									</td>
+
                     			</tr>
                     			<tr>
-                    				<td colspan="4"> </td>
-                    				<td colspan="3"
-										style="font-weight:bold;background-color: #D3D3D3;">TOTAL PRICE (incl. VAT)</td>
-                    				<td style="background-color: #D3D3D3;"> <span><t t-esc="o.amount_total"/> </span></td>
+                    				<td colspan="5" style="border:none;"> </td>
+									<td colspan="2" style="background-color:#D0CECE;border: 1px solid;" class="text-right">
+										<span>TOTAL PRICE (incl. VAT)</span>
+									</td>
+									<td style="background-color:#D0CECE;border: 1px solid;" class="text-right">
+										<span><t t-esc="'%.2f'% o.amount_total"/> </span>
+									</td>
                     			</tr>
                     		</tbody>
                     	</table>
                     </div>
                     <br/>
 
-					<div style="page-break-before: always;"/>
+<!--					<div style="page-break-before: always;"/>-->
 
                     <div style="padding-top:32px;margin-top:32px"/>
 
@@ -420,8 +406,8 @@
         <field name="orientation">Portrait</field>
         <field name="margin_top">10</field>
         <field name="margin_bottom">32</field>
-        <field name="margin_left">7</field>
-        <field name="margin_right">7</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
         <field name="header_line" eval="False" />
         <field name="header_spacing">35</field>
         <field name="dpi">90</field>

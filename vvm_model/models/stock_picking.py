@@ -10,30 +10,14 @@ class Picking(models.Model):
     _inherit = "stock.picking"
 
     warehouse_user_id = fields.Many2one("res.users", string="Warehouse User")
-    #product_ids = fields.Many2many('product.product', string="Product")
+    start_date = fields.Date(string="Start Date")
+    end_date = fields.Date(string="End Date")
 
     def send_mail_to_warehouse(self):
         if self.warehouse_user_id:
             template = self.env.ref("vvm_model.email_template_send_to_warehouse_user",
                                     raise_if_not_found=False)
             template.sudo().send_mail(self.id, force_send=True,email_values={"email_to": self.warehouse_user_id.login})
-
-    # @api.onchange('product_ids')
-    # def onchange_product_ids(self):
-    #     for product in self.product_ids:
-    #         print ("********",product._origin.id)
-    #         lot_id = self.env['stock.production.lot'].search([('product_id', '=', product._origin.id)], limit=1)
-    #         print("=================", lot_id)
-
-        #
-        #
-        #     lot_id = self.env['stock.production.lot'].search([('product_id', '=', self.product.id)], limit=1)
-        #         self.model_type = lot_id.model_type
-        #         self.subtype = lot_id.subtype
-        #         self.fabric_id = lot_id.fabric_id.id
-        #         self.finish_category_id = lot_id.finish_category_id.id
-        #         self.color_ids = [(6, 0, lot_id.color_ids.ids)]
-        #         self.finish_color_ids = [(6, 0, lot_id.finish_color_ids.ids)]
 
 
 class ProductionLot(models.Model):
@@ -103,9 +87,9 @@ class StockMove(models.Model):
                                   related='sale_line_id.model_no_id', store=True)
     model_type = fields.Char(string="Type", related='sale_line_id.model_type', store=True)
     subtype = fields.Char(string="Sub-Type", related='sale_line_id.subtype', store=True)
-    fabric_id = fields.Many2one("vvm.model.fabric", string="Fabric", store=True)
+    fabric_id = fields.Many2one(related='sale_line_id.fabric_id', string="Fabric", store=True)
     color_ids = fields.Many2many("fabric.color.line", string="Color", store=True)
-    finish_category_id = fields.Many2one('finish.category', string="Finish Category", store=True)
+    finish_category_id = fields.Many2one(related='sale_line_id.finish_category_id', string="Finish Category", store=True)
     finish_color_ids = fields.Many2many("finish.category.color.line", string="Finish Color", store=True)
 
     purchase_product_no_id = fields.Many2one("product.product", string="Model No.",

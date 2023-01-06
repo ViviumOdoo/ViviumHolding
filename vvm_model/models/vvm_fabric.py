@@ -23,3 +23,4 @@ class FabricColorLine(models.Model):
 
 	fabric_id = fields.Many2one('vvm.model.fabric', string="Fabric")
 	color_id = fields.Many2one("model.color", string="Fabric Color")
+	short_name = fields.Char(string="Short Name")

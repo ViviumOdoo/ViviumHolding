@@ -19,7 +19,7 @@ class ProductTemplate(models.Model):
     subtype = fields.Char(string="Sub-Type", size=2)
     item_code_id = fields.Many2one("product.product", string="Item Code")
     fabric_id = fields.Many2one("vvm.model.fabric", string="Fabric")
-    color_ids = fields.Many2many("fabric.color.line", string="Color")
+    color_ids = fields.Many2many("fabric.color.line", string="Fabric Color")
     finish_category_id = fields.Many2one('finish.category', string="Finish Category")
     finish_color_ids = fields.Many2many("finish.category.color.line", string="Finish Color")
     sale_price_aed = fields.Float(string="Sale Price (EUR)")
@@ -54,7 +54,7 @@ class ProductTemplate(models.Model):
                     if today_rates.get('EUR'):
                         original_rates = round(today_rates.get('EUR'), 4)
                         # print("======original_rates===", original_rates)
-                        self.list_price = self.sale_price_aed / original_rates
+                        self.lst_price = self.sale_price_aed / original_rates
 
     @api.onchange('purchase_price_aed')
     def onchange_purchase_price_aed(self):
@@ -141,7 +141,7 @@ class ProductProduct(models.Model):
                     if today_rates.get('EUR'):
                         original_rates = round(today_rates.get('EUR'), 4)
                         # print("======original_rates===", original_rates)
-                        self.list_price = self.sale_price_aed / original_rates
+                        self.lst_price = self.sale_price_aed / original_rates
 
     @api.onchange('purchase_price_aed')
     def onchange_purchase_price_aed(self):
@@ -194,7 +194,7 @@ class SaleOrderLine(models.Model):
     model_type = fields.Char(string="Type")
     subtype = fields.Char(string="Sub-Type")
     fabric_id = fields.Many2one("vvm.model.fabric", string="Fabric")
-    color_ids = fields.Many2many("fabric.color.line", string="Color")
+    color_ids = fields.Many2many("fabric.color.line", string="Fabric Color")
     finish_category_id = fields.Many2one('finish.category', string="Finish Category")
     finish_color_ids = fields.Many2many("finish.category.color.line", string="Finish Color")
     stock_production_lot_id = fields.Many2one("stock.production.lot", string="Serial number")

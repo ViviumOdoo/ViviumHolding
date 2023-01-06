@@ -64,6 +64,7 @@ class SaleOrder(models.Model):
         self.po_created = True
         for line in self.order_line:
             po_line_id = self.env['purchase.order.line'].create({
+                'display_type': line.display_type,
                 'product_no_id': line.product_no_id.id,
                 'order_id': po_id.id,
                 'product_id': line.product_id.id,
@@ -113,3 +114,15 @@ class SaleOrder(models.Model):
                             original_rates = round(today_rates.get('EUR'), 4)
                             # print("======original_rates===", original_rates)
                             line.price_unit = line.product_id.lst_price * original_rates
+
+    def action_cancel(self):
+        res = super().action_cancel()
+        for sale_order in self:
+            for line in sale_order.order_line:
+                if line.product_id and line.stock_production_lot_id:
+                    serial_ids = self.env['stock.production.lot'].search([('product_id', '=', line.product_id.id),
+                                                             ('id', '=', line.stock_production_lot_id.id)])
+                    for serial_id in serial_ids:
+                        serial_id.reserved = False
+                        serial_id.sale_order_id = False
+        return res

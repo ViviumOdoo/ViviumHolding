@@ -6,13 +6,14 @@
             <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
                 <tbody>
                     <tr>
-                        <td style="text-align:left;">
+                        <td style="text-align:left; font-size:12px;">
                             <h3 style="font-weight:700;">QUOTATION -
                                 <t t-esc="o.name"/>
                             </h3>
                         </td>
                         <td style="text-align:right;">
-                            <img t-att-src="o.company_id.logo"/>
+                            <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                                 style="max-height: 65px; max-width: 500px;" alt="Logo"/>
                         </td>
                     </tr>
                 </tbody>
@@ -27,16 +28,16 @@
                 <div class="page">
                     <style>
                         th, td {
-                          padding: 6px;
+                          padding: 5px;
                         }
                     </style>
                     <table border="0" cellspacing="0" cellpadding="0" style="width:100%;font-size:9px;">
                         <tr>
                             <!-- First Top Part -->
-                            <td style="width:45%;padding-top:30px;">
+                            <td style="width:45%;padding-top:20px;">
                                 <table border="0" cellspacing="0" cellpadding="0"
                                        style="width:100%;border 1px solid; background:#D0CECE;">
-                                    <tr style="height:30px !important;">
+                                    <tr style="height:25px !important;">
                                         <td style="border:1px solid;width:35%;">
                                             <span>Project Reference:</span>
                                         </td>
@@ -44,7 +45,7 @@
                                             <span><t t-esc="o.project_reference"/></span>
                                         </td>
                                     </tr>
-                                    <tr style="height:30px !important;">
+                                    <tr style="height:25px !important;">
                                         <td style="border:1px solid;width:35%;">
                                             <span>Contact Person:</span>
                                         </td>
@@ -52,7 +53,7 @@
                                             <span><t t-esc="o.partner_id.name"/></span>
                                         </td>
                                     </tr>
-                                    <tr style="height:30px !important;">
+                                    <tr style="height:25px !important;">
                                         <td style="border:1px solid;width:35%;">
                                             <span>Contact Details:</span>
                                         </td>
@@ -60,7 +61,7 @@
                                             <span><t t-esc="o.partner_id.mobile"/></span>
                                         </td>
                                     </tr>
-                                    <tr style="height:30px !important;">
+                                    <tr style="height:25px !important;">
                                         <td style="border:1px solid;width:35%;">
                                             <span>Address:</span>
                                         </td>
@@ -78,15 +79,23 @@
                                             </span>
                                         </td>
                                     </tr>
-                                    <tr style="height:30px !important;">
+                                    <tr style="height:25px !important;">
                                         <td style="border:1px solid;width:35%;">
-                                            <span>VAT Number</span>
+                                            <span>Email:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:65%;">
+                                            <span><t t-esc="o.partner_id.email"/></span>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:35%;">
+                                            <span>TRN:</span>
                                         </td>
                                         <td style="border:1px solid;width:65%;">
                                             <span><t t-esc="o.partner_id.vat"/></span>
                                         </td>
                                     </tr>
-                                    <tr style="height:30px !important;">
+                                    <tr style="height:25px !important;">
                                         <td style="border:1px solid;width:35%;">
                                             <span>Destination:</span>
                                         </td>
@@ -98,7 +107,7 @@
                             </td>
 
                             <!-- Second Top Part -->
-                            <td style="width:10%;padding-top:30px;"></td>
+                            <td style="width:10%;padding-top:25px;"></td>
 
                             <!-- Third Top Part -->
                             <td style="width:45%;">
@@ -132,12 +141,13 @@
                                             <span>Address:</span>
                                         </td>
                                         <td style="border:1px solid;width:70;">
-                                            <span>Jumeirah Beach Road, Plot No. 3560263, Umm Suqeim 1, Dubai</span>
+                                            <span>Jumeirah Beach Road, Plot No. 3560263, <br/>
+                                                Umm Suqeim 1, Dubai</span>
                                         </td>
                                     </tr>
                                     <tr style="height:25px !important;">
                                         <td style="border:1px solid;width:30;">
-                                            <span>Sales Person</span>
+                                            <span>Sales Person:</span>
                                         </td>
                                         <td style="border:1px solid;width:70;">
                                             <span><t t-esc="o.user_id.name"/></span>
@@ -150,6 +160,16 @@
                                         <td style="border:1px solid;width:70;">
                                             <span>
                                                 <t t-esc="(o.date_order).strftime('%d/%m/%Y')"/>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:30;">
+                                            <span>Expiration:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:70;">
+                                            <span>
+                                                <t t-esc="(o.validity_date).strftime('%d/%m/%Y')"/>
                                             </span>
                                         </td>
                                     </tr>
@@ -166,19 +186,19 @@
                                 <th style="width:2%;border: 1px solid black;">
                                     <strong>SN</strong>
                                 </th>
-                                <th style="width:3%;border: 1px solid black;">
+                                <!--<th style="width:3%;border: 1px solid black;">
                                     <strong>BARCODE</strong>
-                                </th>
-                                <th style="width:8%;border: 1px solid black;" class="text-center">
+                                </th>-->
+                                <th style="width:13%;border: 1px solid black;" class="text-center">
                                     <strong>ITEM CODE</strong>
                                 </th>
                                 <th style="width:20%;border: 1px solid black;" class="text-center">
                                     <strong>Details</strong>
                                 </th>
-                                <th style="width:20%;border: 1px solid black;" class="text-center">
+                                <th style="width:15%;border: 1px solid black;" class="text-center">
                                     <strong>Indicative Image</strong>
                                 </th>
-                                <th style="width:20%;border: 1px solid black;" class="text-center">
+                                <th style="width:15%;border: 1px solid black;" class="text-center">
                                     <strong>Dimension</strong>
                                 </th>
                                 <th style="width:5%;border: 1px solid black;" class="text-center">
@@ -190,8 +210,11 @@
                                 <th style="width:7%;border: 1px solid black;" class="text-center">
                                     <strong>Total Gross Price</strong>
                                 </th>
-                                <th style="width:8%;border: 1px solid black;" class="text-center">
-                                    <strong>Total Net Price ( excl. VAT)</strong>
+                                <th style="width:6%;border: 1px solid black;" class="text-center">
+                                    <strong>Discount</strong>
+                                </th>
+                                <th style="width:10%;border: 1px solid black;" class="text-center">
+                                    <strong>Total Net Price (excl. VAT)</strong>
                                 </th>
                             </tr>
                         </thead>
@@ -212,32 +235,32 @@
                                         </t>
                                     </td>
 
-                                    <td style="border:1px solid;width:3%;text-align:left;" t-if="not line.display_type">
+                                    <!--<td style="border:1px solid;width:3%;text-align:left;" t-if="not line.display_type">
                                         <span><t t-esc="line.product_id.barcode"/> </span>
+                                    </td>-->
+
+                                    <td style="border:1px solid;text-align:left;" t-if="not line.display_type">
+                                        <span><t t-esc="line.product_id.name"/> <br/><br/>
+                                        <t t-esc="line.stock_production_lot_id.name"/></span>
                                     </td>
 
-                                    <td style="border:1px solid;width:8%;text-align:left;" t-if="not line.display_type">
-                                        <span><t t-esc="line.product_id.name"/> </span>
-                                    </td>
-
-                                    <td style="border:1px solid;width:20%;text-align:left;" t-if="not line.display_type">
+                                    <td style="border:1px solid;text-align:left;" t-if="not line.display_type">
                                          <span>
-                                            <t t-esc="line.product_id.name"/><br/>
-                                            <t t-esc="line.name"/><br/>
+                                            <t t-esc="line.name"/><br/><br/>
                                             <t t-esc="line.fabric_id.name"/><br/>
-                                            <t t-if="not line.display_type"/><br/>
-                                            <t t-esc="line.color_ids">
+                                            <t t-if="not line.display_type"/>
+                                            <t t-if="line.color_ids">
                                                 <t t-foreach="line.color_ids" t-as="color_id">
-                                                    <t t-esc="color_id.name"/><br/>
+                                                    <t t-esc="color_id.color_id.name"/><br/>
                                                 </t>
                                             </t>
                                             <t t-esc="line.finish_category_id.name"/><br/>
-                                            <t t-esc="line.finish_color_ids">
+                                            <t t-if="line.finish_color_ids">
                                                 <t t-foreach="line.finish_color_ids" t-as="color_id">
-                                                    <t t-esc="color_id.name"/><br/>
+                                                    <t t-esc="color_id.color_id.name"/><br/>
                                                 </t>
                                             </t>
-                                            <t t-esc="line.stock_production_lot_id.name"/>
+
                                         </span>
                                     </td>
 
@@ -258,34 +281,38 @@
                                         </t>
                                     </t>
 
-                                    <td style="border:1px solid;height:20px !important;width:20% !important;" class="text-center" t-if="not line.display_type">
+                                    <td style="border:1px solid;height:20px !important;" class="text-center" t-if="not line.display_type">
                                         <t t-if="line.product_id.image_1920">
                                         <span t-field="line.product_id.image_1920" t-options='{"widget": "image"}'
                                         />
                                         </t>
                                     </td>
 
-                                    <td style="border:1px solid;height:20px !important;width:20% !important;" class="text-center" t-if="not line.display_type">
+                                    <td style="border:1px solid;height:20px !important;" class="text-center" t-if="not line.display_type">
                                         <t t-if="line.product_id.image_dimension">
-                                        <span t-field="line.product_id.image_dimension" t-options='{"widget": "image"}'
-                                        />
+                                        <span t-field="line.product_id.image_dimension"
+                                              t-options='{"widget": "image"}'/>
                                         </t>
                                     </td>
 
-                                    <td style="border:1px solid;width:5%;" class="text-center" t-if="not line.display_type">
+                                    <td style="border:1px solid;" class="text-center" t-if="not line.display_type">
                                         <span><t t-esc="line.product_uom_qty"/></span>
                                     </td>
 
-                                    <td style="border:1px solid;width:7%;" class="text-center" t-if="not line.display_type">
+                                    <td style="border:1px solid;" class="text-right" t-if="not line.display_type">
                                         <span><t t-esc="line.price_unit"/> </span>
                                     </td>
 
-                                    <td style="border:1px solid;width:7%;" class="text-center" t-if="not line.display_type">
+                                    <td style="border:1px solid;" class="text-right" t-if="not line.display_type">
+                                        <span><t t-esc="line.discount"/> </span>
+                                    </td>
+
+                                    <td style="border:1px solid;" class="text-right" t-if="not line.display_type">
                                         <span><t t-esc="line.price_subtotal"/> </span>
                                     </td>
 
                                     <t t-if="line.name != '#'">
-                                    <td style="border:1px solid;width:8%;" class="text-center">
+                                    <td style="border:1px solid;" class="text-right">
                                         <t t-if="line.display_type">
                                             <t t-foreach="o.order_line" t-as="subline">
                                                 <t t-if="subline.display_type">
@@ -300,11 +327,13 @@
                                             </t>
                                         </t>
                                         <t t-if="not line.display_type">
-                                        <span><t t-esc="line.price_total"/> </span>
+                                            <span>
+                                                <t t-esc="'%.2f'% line.price_total"/>
+                                            </span>
                                         </t>
                                         <t t-if="line.name != '#'">
                                         <t t-if="line.display_type">
-                                            <t t-esc="price_total"/>
+                                            <t t-esc="'%.2f'% price_total"/>
                                             </t>
                                         </t>
                                     </td>
@@ -313,33 +342,35 @@
                             </t>
                             <tr>
                                 <td colspan="6" style="border:none;"/>
-                                <td style="border: 1px solid;" colspan="3">
+                                <td style="border: 1px solid;" class="text-right" colspan="3">
                                     <span>TOTAL (Excl. VAT)</span>
                                 </td>
-                                <td style="border: 1px solid;">
-                                    <span><t t-esc="o.amount_untaxed"/> </span>
+                                <td style="border: 1px solid;" class="text-right">
+                                    <span><t t-esc="'%.2f'% o.amount_untaxed"/> </span>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="6" style="border:none;"/>
-                                <td style="border: 1px solid;" colspan="3">
+                                <td style="border: 1px solid;" class="text-right" colspan="3">
                                     <span>VAT</span>
                                 </td>
-                                <td style="border: 1px solid;">
-                                     <span><t t-esc="o.amount_tax"/> </span>
+                                <td style="border: 1px solid;" class="text-right">
+                                     <span><t t-esc="'%.2f'% o.amount_tax"/> </span>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="6" style="border:none;"/>
-                                <td colspan="3" style="background-color:#D0CECE;border: 1px solid;">
+                                <td colspan="3" style="background-color:#D0CECE;border: 1px solid;" class="text-right">
                                     <span>TOTAL PRICE (incl. VAT)</span>
                                 </td>
-                                <td style="background-color:#D0CECE;border: 1px solid;">
-                                    <span><t t-esc="o.amount_total"/> </span>
+                                <td style="background-color:#D0CECE;border: 1px solid;" class="text-right">
+                                    <span><t t-esc="'%.2f'% o.amount_total"/> </span>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+
+
 
                     <div style="page-break-before: always;"/>
 
@@ -634,13 +665,14 @@
             <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
                 <tbody>
                     <tr>
-                        <td style="text-align:left;">
+                        <td style="text-align:left;font-size:12px;">
                             <h3 style="font-weight:700;">Sales Order -
                                 <t t-esc="o.name"/>
                             </h3>
                         </td>
                         <td style="text-align:right;">
-                            <img t-att-src="o.company_id.logo"/>
+                            <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 60px; max-width: 500px;" alt="Logo"/>
+<!--                            <img t-att-src="o.company_id.logo"/>-->
                         </td>
                     </tr>
                 </tbody>
@@ -661,10 +693,10 @@
                     <table border="0" cellspacing="0" cellpadding="0" style="width:100%;font-size:9px;">
                         <tr>
                             <!-- First Top Part -->
-                            <td style="width:45%;padding-top:30px;">
+                            <td style="width:45%;padding-top:20px;">
                                 <table border="0" cellspacing="0" cellpadding="0"
                                        style="width:100%;border 1px solid; background:#D0CECE;">
-                                    <tr style="height:30px !important;">
+                                    <tr style="height:25px !important;">
                                         <td style="border:1px solid;width:35%;">
                                             <span>Project Reference:</span>
                                         </td>
@@ -672,23 +704,8 @@
                                             <span><t t-esc="o.project_reference"/></span>
                                         </td>
                                     </tr>
-                                    <tr style="height:30px !important;">
-                                        <td style="border:1px solid;width:35%;">
-                                            <span>Quotation Reference Number :</span>
-                                        </td>
-                                        <td style="border:1px solid;width:65%;">
-                                            <span><t t-esc="o.name"/></span>
-                                        </td>
-                                    </tr>
-                                    <tr style="height:30px !important;">
-                                        <td style="border:1px solid;width:35%;">
-                                            <span>Customer Name :</span>
-                                        </td>
-                                        <td style="border:1px solid;width:65%;">
-                                            <span><t t-esc="o.partner_id.name"/></span>
-                                        </td>
-                                    </tr>
-                                    <tr style="height:30px !important;">
+
+                                    <tr style="height:25px !important;">
                                         <td style="border:1px solid;width:35%;">
                                             <span>Contact Person:</span>
                                         </td>
@@ -696,7 +713,7 @@
                                             <span><t t-esc="o.partner_id.name"/></span>
                                         </td>
                                     </tr>
-                                    <tr style="height:30px !important;">
+                                    <tr style="height:25px !important;">
                                         <td style="border:1px solid;width:35%;">
                                             <span>Contact Details:</span>
                                         </td>
@@ -704,7 +721,7 @@
                                             <span><t t-esc="o.partner_id.mobile"/></span>
                                         </td>
                                     </tr>
-                                    <tr style="height:30px !important;">
+                                    <tr style="height:25px !important;">
                                         <td style="border:1px solid;width:35%;">
                                             <span>Billing Address:</span>
                                         </td>
@@ -723,15 +740,15 @@
 
                                         </td>
                                     </tr>
-                                    <tr style="height:30px !important;">
+                                    <tr style="height:25px !important;">
                                         <td style="border:1px solid;width:35%;">
-                                            <span>VAT Number</span>
+                                            <span>TRN:</span>
                                         </td>
                                         <td style="border:1px solid;width:65%;">
                                             <span><t t-esc="o.partner_id.vat"/></span>
                                         </td>
                                     </tr>
-                                    <tr style="height:30px !important;">
+                                    <tr style="height:25px !important;">
                                         <td style="border:1px solid;width:35%;">
                                             <span>Ship to party:</span>
                                         </td>
@@ -739,7 +756,7 @@
                                             <span><t t-esc="o.partner_shipping_id.name"/></span>
                                         </td>
                                     </tr>
-                                    <tr style="height:30px !important;">
+                                    <tr style="height:25px !important;">
                                         <td style="border:1px solid;width:35%;">
                                             <span>Shipping Address:</span>
                                         </td>
@@ -755,7 +772,6 @@
                         t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
                     />-->
                                             </span>
-
                                         </td>
                                     </tr>
                                 </table>
@@ -794,7 +810,8 @@
                                             <span>Address:</span>
                                         </td>
                                         <td style="border:1px solid;width:70;">
-                                            <span>Jumeirah Beach Road, Plot No. 3560263, Umm Suqeim 1, Dubai</span>
+                                            <span>Jumeirah Beach Road, Plot No. 3560263, <br/>
+                                                Umm Suqeim 1, Dubai</span>
                                         </td>
                                     </tr>
                                     <tr style="height:25px !important;">
@@ -815,6 +832,16 @@
                                             </span>
                                         </td>
                                     </tr>
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:30;">
+                                            <span>Payment Terms:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:70;">
+                                            <span>
+                                                <t t-esc="o.payment_term_id.name"/>
+                                            </span>
+                                        </td>
+                                    </tr>
                                 </table>
                             </td>
                         </tr>
@@ -826,19 +853,19 @@
                                 <th style="width:2%;border: 1px solid black;">
                                     <strong>SN</strong>
                                 </th>
-                                <th style="width:3%;border: 1px solid black;">
+                                <!--<th style="width:3%;border: 1px solid black;">
                                     <strong>BARCODE</strong>
-                                </th>
-                                <th style="width:8%;border: 1px solid black;" class="text-center">
+                                </th>-->
+                                <th style="width:13%;border: 1px solid black;" class="text-center">
                                     <strong>ITEM CODE</strong>
                                 </th>
                                 <th style="width:20%;border: 1px solid black;" class="text-center">
                                     <strong>Details</strong>
                                 </th>
-                                <th style="width:20%;border: 1px solid black;" class="text-center">
+                                <th style="width:15%;border: 1px solid black;" class="text-center">
                                     <strong>Indicative Image</strong>
                                 </th>
-                                <th style="width:20%;border: 1px solid black;" class="text-center">
+                                <th style="width:15%;border: 1px solid black;" class="text-center">
                                     <strong>Dimension</strong>
                                 </th>
                                 <th style="width:5%;border: 1px solid black;" class="text-center">
@@ -850,8 +877,11 @@
                                 <th style="width:7%;border: 1px solid black;" class="text-center">
                                     <strong>Total Gross Price</strong>
                                 </th>
-                                <th style="width:8%;border: 1px solid black;" class="text-center">
-                                    <strong>Total Net Price ( excl. VAT)</strong>
+                                <th style="width:6%;border: 1px solid black;" class="text-center">
+                                    <strong>Discount</strong>
+                                </th>
+                                <th style="width:10%;border: 1px solid black;" class="text-center">
+                                    <strong>Total Net Price (excl. VAT)</strong>
                                 </th>
                             </tr>
                         </thead>
@@ -862,38 +892,33 @@
                                     <t t-set="price_total" t-value="0"/>
                                     <t t-set="subline_check" t-value="False"/>
 
-                                    <td style="border:1px solid;width:2%;" t-if="not line.display_type">
+                                    <td style="border:1px solid;" t-if="not line.display_type">
                                         <t t-if="not line.display_type">
                                             <t t-esc="index"/>)
                                             <t t-set="index" t-value="index + 1"/>
                                         </t>
                                     </td>
 
-                                    <td style="border:1px solid;width:3%;text-align:left;" t-if="not line.display_type">
-                                        <span><t t-esc="line.product_id.barcode"/> </span>
+                                    <td style="border:1px solid;text-align:left;" t-if="not line.display_type">
+                                        <span><t t-esc="line.product_id.name"/> <br/><br/>
+                                        <t t-esc="line.stock_production_lot_id.name"/></span>
                                     </td>
 
-                                    <td style="border:1px solid;width:8%;text-align:left;" t-if="not line.display_type">
-                                        <span><t t-esc="line.product_id.name"/> </span>
-                                    </td>
-
-                                    <td style="border:1px solid;width:20%;text-align:left;" t-if="not line.display_type">
+                                    <td style="border:1px solid;text-align:left;" t-if="not line.display_type">
                                         <span>
-                                            <t t-esc="line.product_id.name"/><br/>
                                             <t t-esc="line.name"/><br/>
                                             <t t-esc="line.fabric_id.name"/><br/>
-                                            <t t-esc="line.color_ids">
+                                            <t t-if="line.color_ids">
                                                 <t t-foreach="line.color_ids" t-as="color_id">
-                                                    <t t-esc="color_id.name"/><br/>
+                                                    <t t-esc="color_id.color_id.name"/><br/>
                                                 </t>
                                             </t>
                                             <t t-esc="line.finish_category_id.name"/><br/>
-                                            <t t-esc="line.finish_color_ids">
+                                            <t t-if="line.finish_color_ids">
                                                 <t t-foreach="line.finish_color_ids" t-as="color_id">
-                                                    <t t-esc="color_id.name"/><br/>
+                                                    <t t-esc="color_id.color_id.name"/><br/>
                                                 </t>
                                             </t>
-                                            <t t-esc="line.stock_production_lot_id.name"/>
                                         </span>
                                     </td>
 
@@ -914,21 +939,20 @@
                                         </t>
                                     </t>
 
-                                    <td style="border:1px solid;height:20px !important;width:20% !important;" class="text-center" t-if="not line.display_type">
+                                    <td style="border:1px solid;height:20px !important;" class="text-center" t-if="not line.display_type">
                                         <t t-if="line.product_id.image_1920">
                                         <span t-field="line.product_id.image_1920" t-options='{"widget": "image"}'/>
                                         </t>
                                     </td>
 
-                                    <td style="border:1px solid;height:20px !important;width:20% !important;" class="text-center" t-if="not line.display_type">
+                                    <td style="border:1px solid;height:20px !important;" class="text-center" t-if="not line.display_type">
                                         <t t-if="line.product_id.image_dimension">
                                         <span t-field="line.product_id.image_dimension" t-options='{"widget": "image"}'
                                         />
                                         </t>
                                     </td>
 
-                                    <td style="border:1px solid;width:5%;" class="text-center" t-if="not line.display_type">
-
+                                    <td style="border:1px solid;" class="text-center" t-if="not line.display_type">
                                         <span>
                                             <t t-if="not line.display_type">
                                             <t t-esc="line.product_uom_qty"/>
@@ -940,24 +964,28 @@
                                             </t>
                                         </span>
                                     </td>
-                                    <td style="border:1px solid;width:7%;" class="text-center" t-if="not line.display_type">
+                                    <td style="border:1px solid;" class="text-right" t-if="not line.display_type">
                                         <t t-if="not line.display_type">
-                                        <span><t t-esc="line.price_unit"/> </span>
+                                            <span><t t-esc="line.price_unit"/> </span>
                                         </t>
                                      </td>
 
-                                    <td style="border:1px solid;width:7%;" class="text-center" t-if="not line.display_type">
+                                    <td style="border:1px solid;" class="text-right" t-if="not line.display_type">
+                                        <span><t t-esc="line.discount"/> </span>
+                                    </td>
+
+                                    <td style="border:1px solid;" class="text-right" t-if="not line.display_type">
                                         <t t-if="not line.display_type">
                                         <span><t t-esc="line.price_subtotal"/> </span>
                                         </t>
                                         <t t-if="line.name != '#'">
                                         <t t-if="line.display_type">
-                                            <t t-esc="price_subtotal"/>
+                                                <t t-esc="'%.2f'% line.price_subtotal"/>
                                             </t>
                                         </t>
                                     </td>
                                     <t t-if="line.name != '#'">
-                                    <td style="border:1px solid;width:8%;" class="text-center">
+                                    <td style="border:1px solid;" class="text-right">
                                         <t t-if="line.display_type">
                                             <t t-foreach="o.order_line" t-as="subline">
                                                 <t t-if="subline.display_type">
@@ -973,12 +1001,12 @@
                                         </t>
                                         <t t-if="not line.display_type">
                                             <span>
-                                                <t t-esc="line.price_total"/>
+                                                <t t-esc="'%.2f'% line.price_total"/>
                                             </span>
                                         </t>
                                         <t t-if="line.name != '#'">
                                             <t t-if="line.display_type">
-                                                <t t-esc="price_total"/>
+                                                <t t-esc="'%.2f'% price_total"/>
                                             </t>
                                         </t>
                                     </td>
@@ -988,29 +1016,68 @@
                             </t>
                             <tr>
                                 <td colspan="6" style="border:none;"/>
-                                <td style="border: 1px solid;" colspan="3">
+                                <td style="border: 1px solid;" class="text-right" colspan="3">
                                     <span>TOTAL (Excl. VAT)</span>
                                 </td>
-                                <td style="border: 1px solid;">
-                                    <span><t t-esc="o.amount_untaxed"/> </span>
+                                <td style="border: 1px solid;" class="text-right">
+                                    <span><t t-esc="'%.2f'% o.amount_untaxed"/> </span>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="6" style="border:none;"/>
-                                <td style="border: 1px solid;" colspan="3">
+                                <td colspan="6" style="border:none;" class="text-right"/>
+                                <td style="border: 1px solid;" colspan="3" class="text-right">
                                     <span>VAT</span>
                                 </td>
-                                <td style="border: 1px solid;">
-                                     <span><t t-esc="o.amount_tax"/> </span>
+                                <td style="border: 1px solid;" class="text-right">
+                                     <span><t t-esc="'%.2f'% o.amount_tax"/> </span>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="6" style="border:none;"/>
-                                <td colspan="3" style="background-color:#D0CECE;border: 1px solid;">
+                                <td colspan="3" style="background-color:#D0CECE;border: 1px solid;" class="text-right">
                                     <span>TOTAL PRICE (incl. VAT)</span>
                                 </td>
-                                <td style="background-color:#D0CECE;border: 1px solid;">
-                                    <span><t t-esc="o.amount_total"/> </span>
+                                <td style="background-color:#D0CECE;border: 1px solid;" class="text-right">
+                                    <span><t t-esc="'%.2f'% o.amount_total"/> </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="border:none;"/>
+                                <td style="background-color:#D0CECE;border: 1px solid;" class="text-left">
+                                    <span>Payment Method</span>
+                                </td>
+                                <td style="background-color:#D0CECE;border: 1px solid;" class="text-left">
+                                    <span><t t-esc="o.payment_method_id.name"/> </span>
+                                </td>
+                                <td style="border:none;"/>
+                                <td colspan="3" style="background-color:#D0CECE;border: 1px solid;" class="text-right">
+                                    <span>Advance Amount</span>
+                                </td>
+                                <td style="background-color:#D0CECE;border: 1px solid;" class="text-right">
+                                    <span>
+                                        <t t-if="o.down_payment == 'discount'">
+                                            <t t-esc="'%.2f'% o.discount_amount"/>
+                                        </t>
+                                        <t t-if="o.down_payment == 'fixed'">
+                                            <t t-esc="'%.2f'% o.fixed_payment"/>
+                                        </t>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="border:none;"/>
+                                <td style="background-color:#D0CECE;border: 1px solid;" class="text-left">
+                                    <span>Reference Number(s)</span>
+                                </td>
+                                <td style="background-color:#D0CECE;border: 1px solid;" class="text-left">
+                                    <span><t t-esc="o.payment_ref"/> </span>
+                                </td>
+                                <td style="border:none;"/>
+                                <td colspan="3" style="background-color:#D0CECE;border: 1px solid;" class="text-right">
+                                    <span>Amount Due</span>
+                                </td>
+                                <td style="background-color:#D0CECE;border: 1px solid;" class="text-right">
+                                    <span><t t-esc="'%.2f'% o.amount_due"/> </span>
                                 </td>
                             </tr>
 
@@ -1209,7 +1276,7 @@
                                 <td colspan="2" style="border:1px solid;font-size:9px;">
                                     <b>0150407214</b>
                                 </td>
-                                <td colspan="2"/>
+                                <td style="border:none;" colspan="2"/>
                             </tr>
                             <!--<tr>
                                 <td colspan="9" style="border:none;">
@@ -1226,7 +1293,23 @@
                             </tr>-->
                         </tbody>
                     </table>
+                    <br/>
+                    <br/>
+                    <br/>
                     <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
+                        <tr style="padding-top:50px;">
+                            <td style="width:50%;font-size:9px;" class="text-left">
+                                <span>---------------------------<br/>
+                                <b><t t-esc="o.company_id.name"/></b>
+                                </span>
+                            </td>
+                            <td style="width:50%;font-size:9px;" class="text-right">
+                                <span>---------------------------<br/>
+                                    <span><b>Client Signature </b></span></span>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--<table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
                         <tr>
                             <td style="width:35%;">
                                 <h5 style="font-weight:400;">Prepared BY</h5>
@@ -1257,7 +1340,7 @@
                                 <h5>CEO</h5>
                             </td>
                         </tr>
-                    </table>
+                    </table>-->
                 </div>
             </t>
         </t>

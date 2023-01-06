@@ -19,6 +19,22 @@
                 </xpath>
             </field>
         </record>
+
+        <record id="view_partner_form_inherit_id" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="vat" position="before">
+                    <field name="contact_person"/>
+                    <field name="is_vendor"/>
+                </field>
+                <xpath expr="//page[@name='sales_purchases']/group/group/field[@name='company_id']" position="attributes">
+                    <attribute name="domain">[('id', '=', uid.company_id.id)]</attribute>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 
 </odoo>

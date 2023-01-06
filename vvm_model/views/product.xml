@@ -285,7 +285,7 @@
                            domain="[('finish_id', '=', finish_category_id)]"/>
                 </xpath>
                 <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="after">
-                    <field name="stock_production_lot_id"
+                    <field name="stock_production_lot_id" attrs="{'required': [('display_type', '=', False)]}"
                            options="{'no_create_edit': True}"
                            domain="[('product_id', '=', product_id), ('reserved', '!=', True)]"/>
                 </xpath>
@@ -340,7 +340,7 @@
                     <field name="finish_color_ids" widget="many2many_tags"
                            options="{'no_create_edit': True}"
                            domain="[('finish_id', '=', finish_category_id)]"/>
-                    <field name="stock_production_lot_id"/>
+                    <field name="stock_production_lot_id" attrs="{'required': [('display_type', '=', False)]}"/>
                 </xpath>
                 <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='tax_ids']" position="attributes">
                     <attribute name="invisible">1</attribute>

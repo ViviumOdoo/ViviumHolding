@@ -126,7 +126,9 @@
                                             <span>Address:</span>
                                         </td>
                                         <td style="border:1px solid;width:70;">
-                                            <span>Jumeirah Beach Road, Plot No. 3560263, Umm Suqeim 1, Dubai</span>
+                                            <span>Jumeirah Beach Road, Plot No. 3560263, <br/>
+                                                Umm Suqeim 1, Dubai
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr style="height:25px !important;">
@@ -144,6 +146,16 @@
                                         <td style="border:1px solid;width:70;">
                                             <span>
                                                 <t t-esc="(o.date_order).strftime('%d/%m/%Y')"/>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:25px !important;">
+                                        <td style="border:1px solid;width:30;">
+                                            <span>Expiration:</span>
+                                        </td>
+                                        <td style="border:1px solid;width:70;">
+                                            <span>
+                                                <t t-esc="(o.validity_date).strftime('%d/%m/%Y')"/>
                                             </span>
                                         </td>
                                     </tr>

@@ -31,7 +31,6 @@
                   action="finish_category_act_window"
                   sequence="4"/>
 
-
         <record id="view_picking_form_inherit_vvm" model="ir.ui.view">
             <field name="name">stock.picking.form</field>
             <field name="model">stock.picking</field>
@@ -44,8 +43,11 @@
                 <!--  VG Code -->
                 <field name="origin" position="after">
                     <field name="warehouse_user_id"/>
-<!--                    <field name="product_ids" widget="many2many_tags"/>-->
                 </field>
+                <xpath expr="//page[@name='extra']/group/group/field[@name='company_id']" position="after">
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </xpath>
                 <xpath expr="//tree/field[@name='product_id']" position="after">
                     <field name="product_no_id" readonly="0" context="{'default_is_model': True}"
                            attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'outgoing')] }"
@@ -84,15 +86,6 @@
                            options="{'no_create_edit': True}"
                            force_save="1"/>
                 </xpath>
-                <!--<xpath expr="//page[@name='operations']/field/tree/field[@name='product_id']" position="after">
-                    <field name="model_no_id" optional="show"/>
-                        <field name="model_type" optional="show"/>
-                        <field name="subtype" optional="show"/>
-                        <field name="fabric_id" position="after"/>
-                        <field name="color_ids" optional="show"/>
-                        <field name="finish_category_id" optional="show"/>
-                        <field name="finish_color_ids" optional="show"/>
-                </xpath>-->
             </field>
         </record>
 

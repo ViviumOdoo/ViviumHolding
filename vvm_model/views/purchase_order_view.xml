@@ -10,9 +10,22 @@
                 <field name="sale_order_id"/>
                 <field name="sale_partner_id"/>
             </field>
+
+            <field name="date_order" position="attributes">
+                <attribute name="string">Order Date</attribute>
+            </field>
+            <label for="date_planned" position="attributes">
+                <attribute name="string">Ex-Delivery Date</attribute>
+            </label>
             <field name="partner_ref" position="attributes">
                 <attribute name="attrs">{'required': [('state','=', 'purchase')]}</attribute>
             </field>
+            <field name="partner_id" position="attributes">
+                <attribute name="domain">[('is_vendor', '=', True)]</attribute>
+            </field>
+            <xpath expr="//notebook/page[@name='products']/field/tree/field[@name='price_unit']" position="attributes">
+                <attribute name="attrs">{'column_invisible': [('parent.state', 'in', ('draft', 'sent'))]}</attribute>
+            </xpath>
         </field>
     </record>
 
@@ -52,4 +65,15 @@
         </field>
     </record>
 
+    <record id="view_purchase_order_filter_inh" model="ir.ui.view">
+        <field name="name">request.quotation.select</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="sale_order_id"/>
+                <field name="sale_partner_id"/>
+            </field>
+        </field>
+    </record>
 </odoo>

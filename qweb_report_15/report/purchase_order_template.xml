@@ -52,7 +52,7 @@
                                     <td colspan="2" style="text-align:right;">
                                         <span style="font-size:22px;color:#008B8B;font-weight:bold;">PURCHASE ORDER</span>
                                     </td>
-                                </tr>                                    
+                                </tr>
                                 <tr>
                                     <td style="text-align:right;padding-right:5px;color:#008B8B;">
                                         <span>Date:</span>
@@ -170,7 +170,7 @@
                         <thead style="border:1px solid;">
                             <tr style="background-color:#008B8B;color:#fff;">
                                 <th style="width:8%;"><strong>Item No.</strong></th>
-                                <th style="width:8%;"><strong>BARCODE</strong></th>
+<!--                                <th style="width:8%;"><strong>BARCODE</strong></th>-->
                                 <th style="width:9%;" class="text-center"><strong>ITEM CODE</strong></th>
                                 <th style="width:20%;" class="text-center"><strong>Details</strong></th>
                                 <th style="width:20%;" class="text-center"><strong>Dimension Pictures</strong></th>
@@ -197,9 +197,9 @@
                                         </t>
                                     </td>
 
-                                    <td style="border:1px solid;width:8%;text-align:left;" t-if="not line.display_type">
+                                    <!--<td style="border:1px solid;width:8%;text-align:left;" t-if="not line.display_type">
                                         <span t-field="line.product_id.barcode"/>
-                                    </td>
+                                    </td>-->
 
                                     <td style="border:1px solid;width:9%;text-align:left;" t-if="not line.display_type">
                                         <span t-field="line.product_id.name"/>
@@ -212,13 +212,13 @@
                                             <t t-esc="line.fabric_id.name"/><br/>
                                             <t t-esc="line.color_ids">
                                                 <t t-foreach="line.color_ids" t-as="color_id">
-                                                    <t t-esc="color_id.name"/><br/>
+                                                    <t t-esc="color_id.color_id.name"/><br/>
                                                 </t>
                                             </t>
                                             <t t-esc="line.finish_category_id.name"/><br/>
                                             <t t-esc="line.finish_color_ids">
                                                 <t t-foreach="line.finish_color_ids" t-as="color_id">
-                                                    <t t-esc="color_id.name"/><br/>
+                                                    <t t-esc="color_id.color_id.name"/><br/>
                                                 </t>
                                             </t>
                                         </span>
