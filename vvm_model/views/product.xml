@@ -288,7 +288,7 @@
                            domain="[('finish_id', '=', finish_category_id)]"/>
                 </xpath>
                 <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="after">
-                    <field name="stock_production_lot_id" attrs="{'required': [('display_type', '=', False)]}"
+                    <field name="stock_production_lot_id" attrs="{'required': [('display_type', '=', False), ('parent.state', '=', 'sale')]}"
                            options="{'no_create_edit': True}"
                            domain="[('product_id', '=', product_id), ('reserved', '!=', True)]"/>
                 </xpath>

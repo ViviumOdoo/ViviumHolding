@@ -169,7 +169,9 @@
                                         </td>
                                         <td style="border:1px solid;width:70;">
                                             <span>
-                                                <t t-esc="(o.validity_date).strftime('%d/%m/%Y')"/>
+                                                <t t-if="o.validity_date">
+                                                    <t t-esc="(o.validity_date).strftime('%d/%m/%Y')"/>
+                                                </t>
                                             </span>
                                         </td>
                                     </tr>
@@ -279,8 +281,7 @@
 
                                     <td style="border:1px solid;height:20px !important;" class="text-center" t-if="not line.display_type">
                                         <t t-if="line.product_id.image_1920">
-                                        <span t-field="line.product_id.image_1920" t-options='{"widget": "image"}'
-                                        />
+                                        <span t-field="line.product_id.image_1920" t-options='{"widget": "image"}'/>
                                         </t>
                                     </td>
 
@@ -307,7 +308,7 @@
                                     </td>
 
                                     <t t-if="line.name != '#'">
-                                    <td style="border:1px solid;" class="text-right">
+                                    <td style="border:1px solid;background-color:#D0CECE;border;" class="text-right">
                                         <t t-if="line.display_type">
                                             <t t-foreach="o.order_line" t-as="subline">
                                                 <t t-if="subline.display_type">
@@ -589,8 +590,8 @@
                             </tr>
                             <tr>
                                 <td colspan="9" style="border:none;">
-                                    <b>For any further clarifications, please do not hesitate to contact us.</b>
-                                    <span>enquiry@viviumliving1.com</span>
+                                    <b>For any further clarifications, please do not hesitate to contact us.:</b>
+                                    <span> enquiry@viviumliving1.com</span>
                                 </td>
                                 <td style="border:none;"/>
                             </tr>
@@ -983,7 +984,7 @@
                                                     <t t-set="subline_check" t-value="False"/>
                                                 </t>
                                                 <t t-if="line.name == subline.name">
-                                                    <t t-set="subline_check" t-value="True"/>
+                                                    <b><t t-set="subline_check" t-value="True"/></b>
                                                 </t>
                                                 <t t-if="subline_check">
                                                     <t t-set="price_total" t-value="price_total+subline.price_total"/>
