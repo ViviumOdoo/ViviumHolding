@@ -8,6 +8,7 @@
 			<field name="arch" type="xml">
 				<tree>
 					<field name="color_id"/>
+					<field name="short_name"/>
 					<field name="fabric_id"/>
 				</tree>
 			</field>
@@ -22,6 +23,7 @@
                     <sheet>
                         <group>
 							<field name="color_id"/>
+							<field name="short_name"/>
                             <field name="fabric_id"/>
                         </group>
                     </sheet>

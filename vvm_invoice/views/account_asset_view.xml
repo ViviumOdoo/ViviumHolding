@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_account_asset_form_inh">
+        <field name="name">account.asset.form</field>
+        <field name="model">account.asset</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/div[@class='oe_title']" position="before">
+                <div class="oe_title">
+                    <label for="asset_number" name="model_name_label" string="Asset Number"/>
+                    <h1>
+                        <field name="asset_number"/>
+                    </h1>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_account_asset_purchase_tree_inh">
+        <field name="name">account.asset.purchase.tree</field>
+        <field name="model">account.asset</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_purchase_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="asset_number"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

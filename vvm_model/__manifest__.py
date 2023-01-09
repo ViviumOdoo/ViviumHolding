@@ -19,6 +19,7 @@
 
 	'data': [
 		'security/ir.model.access.csv',
+		'security/fields_security.xml',
 		'data/product_storable_cron.xml',
 		'data/mail_template.xml',
 

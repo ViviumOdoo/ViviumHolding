@@ -8,10 +8,13 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
 
-                <!--  VG Code -->
+                <field name="payment_term_id" position="attributes">
+                    <attribute name="required">1</attribute>
+                </field>
                 <field name="payment_term_id" position="after">
                     <field name="project_reference"/>
                     <field name="sales_type"/>
+                    <field name="company_code" invisible="1"/>
                 </field>
 
                 <xpath expr="//form/header/button[@name='action_quotation_send']" position="before">

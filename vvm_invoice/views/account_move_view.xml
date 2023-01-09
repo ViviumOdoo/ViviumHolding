@@ -11,6 +11,9 @@
                     <field name="sale_order_id" readonly="1" force_save="1"/>
                     <field name="sale_total_amount" readonly="1" force_save="1"/>
                 </field>
+                <field name="invoice_payment_term_id" position="attributes">
+                    <attribute name="required">1</attribute>
+                </field>
             </field>
         </record>
 

@@ -4,6 +4,8 @@ from odoo import models, fields, api, _
 from datetime import date
 import requests
 from datetime import datetime
+import json
+from lxml import etree
 
 
 class SaleOrder(models.Model):
@@ -18,11 +20,30 @@ class SaleOrder(models.Model):
     discount_amount = fields.Float(compute='_amount_due', string="Advance Amount", store=True)
     fixed_payment = fields.Float(string="Advance Amount", store=True)
     amount_due = fields.Float(string="Amount Due", compute='_amount_due', store=True)
-
-    # VG Code
     project_reference = fields.Char(string="Project Reference")
     sales_type = fields.Selection([('retails', 'Retails'), ('project', 'Project')],
                                     default='retails', string='Sales Type')
+    company_code = fields.Char(string="Company Code", default=lambda self: self.env.company.company_code)
+
+    # @api.model
+    # def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
+    #     res = super(SaleOrder, self).fields_view_get(view_id=view_id,
+    #                                                      view_type=view_type,
+    #                                                      toolbar=toolbar,
+    #                                                      submenu=submenu)
+    #     if self.env.company.company_code != 'VL1T':
+    #         doc = etree.XML(res['arch'])
+    #         #print ("---------",doc.xpath("//field[@name='order_line']/field"))
+    #         #print ("==========",doc.xpath("//form/sheet/notebook/page[@name='order_lines']/field[@name='order_line']/tree//field"))
+    #         fields_name = 'model_no_id', 'product_no_id', 'model_type', 'subtype', 'fabric_id', 'color_ids', 'finish_category_id', 'finish_color_ids', 'stock_production_lot_id'
+    #         for field in fields_name:
+    #             for node in doc.xpath("//field[@name='order_line']/field[@name='%s']" % field):
+    #                 node.set("invisible", "1")
+    #                 modifiers = json.loads(node.get("modifiers"))
+    #                 modifiers['invisible'] = True
+    #                 node.set("modifiers", json.dumps(modifiers))
+    #         res['arch'] = etree.tostring(doc)
+    #     return res
 
     @api.depends('fixed_payment', 'discount_payment', 'down_payment')
     def _amount_due(self):
@@ -87,7 +108,7 @@ class SaleOrder(models.Model):
         res = super(SaleOrder, self).action_confirm()
         for order_line in self.order_line:
             if order_line.stock_production_lot_id:
-                order_line.stock_production_lot_id.reserved = True
+                order_line.stock_production_lot_id.reserved = 'reserved'
                 order_line.stock_production_lot_id.sale_order_id = self.id
         return res
 
@@ -123,6 +144,6 @@ class SaleOrder(models.Model):
                     serial_ids = self.env['stock.production.lot'].search([('product_id', '=', line.product_id.id),
                                                              ('id', '=', line.stock_production_lot_id.id)])
                     for serial_id in serial_ids:
-                        serial_id.reserved = False
+                        serial_id.reserved = 'unreserved'
                         serial_id.sale_order_id = False
         return res

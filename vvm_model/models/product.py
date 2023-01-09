@@ -3,6 +3,8 @@
 from odoo import models, fields, api, _
 from datetime import date
 import requests
+import json
+from lxml import etree
 
 
 class ProductTemplate(models.Model):
@@ -10,12 +12,12 @@ class ProductTemplate(models.Model):
 
     custom_sequence = fields.Integer(string="Custom Sequence",default=1)
     custom_name = fields.Char(string="Name")
-    model_no_id = fields.Many2one("vvm.model", string="Model No.", required=True)
+    model_no_id = fields.Many2one("vvm.model", string="Model No.")
     name = fields.Char('Name', index=True, translate=True, readonly=True, store=True, required=False)
     default_code = fields.Char('Vendor Reference', compute='_compute_default_code',
                                inverse='_set_default_code', store=True)
     model_name = fields.Char(string="Model Name")
-    model_type = fields.Char(string="Model Type", required=True, size=4)
+    model_type = fields.Char(string="Model Type", size=4)
     subtype = fields.Char(string="Sub-Type", size=2)
     item_code_id = fields.Many2one("product.product", string="Item Code")
     fabric_id = fields.Many2one("vvm.model.fabric", string="Fabric")
@@ -25,7 +27,32 @@ class ProductTemplate(models.Model):
     sale_price_aed = fields.Float(string="Sale Price (EUR)")
     purchase_price_aed = fields.Float(string="Purchase Price (EUR)")
     image_dimension = fields.Image("Dimension Image")
+    company_code = fields.Char(string="Company Code", default=lambda self: self.env.company.company_code)
 
+    @api.model
+    def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
+        res = super(ProductTemplate, self).fields_view_get(view_id=view_id,
+                                                     view_type=view_type,
+                                                     toolbar=toolbar,
+                                                     submenu=submenu)
+        if self.env.company.company_code != 'VL1T':
+            doc = etree.XML(res['arch'])
+            fields_name = 'model_no_id', 'model_name', 'model_type', 'subtype', 'fabric_id', 'color_ids', 'finish_category_id', 'finish_color_ids', 'image_dimension'
+            for field in fields_name:
+                for node in doc.xpath("//field[@name='%s']" % field):
+                    node.set("invisible", "1")
+                    modifiers = json.loads(node.get("modifiers"))
+                    modifiers['invisible'] = True
+                    node.set("modifiers", json.dumps(modifiers))
+            res['arch'] = etree.tostring(doc)
+        return res
+
+    # if view_type == 'form':
+    #     doc = etree.XML(result['fields']['order_line']['views']['tree']['arch'])
+    #     node = doc.xpath("//field[@name='product_id']")[0]
+    #     node.set('invisible', '1')
+    #     result['fields']['order_line']['views']['tree']['arch'] = etree.tostring(doc)
+    # return result
 
     @api.onchange('finish_category_id')
     def onchange_finish_category(self):
@@ -104,13 +131,23 @@ class ProductProduct(models.Model):
 
     default_code = fields.Char('Vendor Reference', index=True)
 
-    # @api.constrains('barcode', 'company_id')
-    # def _check_barcode_company_id(self):
-    #     for i in self.env['product.product'].search([]):
-    #         if i.id:
-    #             if self.barcode == i.barcode and self.company_id == i.company_id:
-    #                 raise ValidationError(_("Barcode 1 must be unique per Company!"))
-
+    @api.model
+    def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
+        res = super(ProductProduct, self).fields_view_get(view_id=view_id,
+                                                           view_type=view_type,
+                                                           toolbar=toolbar,
+                                                           submenu=submenu)
+        if self.env.company.company_code != 'VL1T':
+            doc = etree.XML(res['arch'])
+            fields_name = 'model_no_id', 'model_name', 'model_type', 'subtype', 'fabric_id', 'color_ids', 'finish_category_id', 'finish_color_ids', 'image_dimension'
+            for field in fields_name:
+                for node in doc.xpath("//field[@name='%s']" % field):
+                    node.set("invisible", "1")
+                    modifiers = json.loads(node.get("modifiers"))
+                    modifiers['invisible'] = True
+                    node.set("modifiers", json.dumps(modifiers))
+            res['arch'] = etree.tostring(doc)
+        return res
 
     def name_get(self):
         result = []

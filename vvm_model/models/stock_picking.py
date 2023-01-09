@@ -31,7 +31,8 @@ class ProductionLot(models.Model):
     finish_category_id = fields.Many2one('finish.category', string="Finish Category")
     finish_color_ids = fields.Many2many("finish.category.color.line", string="Finish Color")
     location_id = fields.Many2one('stock.location', string="Location")
-    reserved = fields.Boolean(string="Reserved")
+    reserved = fields.Selection([('reserved', 'Reserved'),('unreserved', 'Available for Sale')], string="Reserved",
+                                default='unreserved')
     sale_order_id = fields.Many2one('sale.order', string="Sale Order")
 
     @api.model_create_multi
@@ -128,7 +129,7 @@ class StockMove(models.Model):
     def onchange_product_method(self):
         if self.product_id:
             lot_id = self.env['stock.production.lot'].search([('product_id', '=', self.product_id.id),
-                                                              ('reserved', '=', True)], limit=1)
+                                                              ('reserved', '=', 'reserved')], limit=1)
             self.model_type = lot_id.model_type
             self.subtype = lot_id.subtype
             self.fabric_id = lot_id.fabric_id.id
@@ -173,9 +174,8 @@ class StockMove(models.Model):
                     next_serial = next_serial + '-' + self.purchase_fabric_id.name[-4:]
                 if self.picking_type_id and self.picking_type_id.code == 'outgoing' and self.fabric_id and self.fabric_id.name and len(self.fabric_id.name)>=4:
                     next_serial = next_serial + '-' + self.fabric_id.name[-4:]
-                if self.color_ids and self.color_ids[0].color_id and len(self.color_ids[0].color_id.name)>=4:
-                    next_serial = next_serial + '-' + self.color_ids[0].color_id.name[-4:]
-                # next_serial = next_serial + '-' + '0001'
+                if self.color_ids and self.color_ids[0].short_name and len(self.color_ids[0].short_name)>=4:
+                    next_serial = next_serial + '-' + self.color_ids[0].short_name[-4:]
                 next_serial = next_serial + '-' + product_sequence
                 self.next_serial = next_serial
         return action
@@ -200,3 +200,9 @@ class StockQuant(models.Model):
                 quant.state = 'reserved'
             else:
                 quant.state = 'not_available'
+
+    @api.model
+    def create(self, vals):
+        res = super(StockQuant, self).create(vals)
+        res.lot_id.location_id = res.location_id.id
+        return res

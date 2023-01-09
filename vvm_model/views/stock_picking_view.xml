@@ -11,24 +11,28 @@
                   id="vvm_model_menu_inventory"
                   parent="menu_master_model_fabric_config"
 				  action="vvm_model_act_window"
+                  groups="vvm_model.group_fields_by_company"
                   sequence="1"/>
 
         <menuitem name="Fabric"
                   id="vvm_model_fabric_menu_inventory"
                   parent="menu_master_model_fabric_config"
 				  action="vvm_model_fabric_act_window"
+                  groups="vvm_model.group_fields_by_company"
                   sequence="2"/>
 
         <menuitem name="Color"
                   id="vvm_model_color_menu_inventory"
                   parent="menu_master_model_fabric_config"
 				  action="model_color_act_window"
+                  groups="vvm_model.group_fields_by_company"
                   sequence="3"/>
 
         <menuitem name="Finish Category"
                   id="finish_category_menu_inventory"
                   parent="menu_master_model_fabric_config"
                   action="finish_category_act_window"
+                  groups="vvm_model.group_fields_by_company"
                   sequence="4"/>
 
         <record id="view_picking_form_inherit_vvm" model="ir.ui.view">
@@ -138,13 +142,39 @@
             <field name="inherit_id" ref="stock.search_product_lot_filter"/>
             <field name="arch" type="xml">
                 <field name="product_id" position="after">
+                    <field name="reserved"/>
                     <field name="location_id"/>
                     <field name="sale_order_id"/>
+                    <group expand='0' string='Filters'>
+                        <filter name='group_by_reserved' string="Reserved" domain="[('reserved','=', 'reserved')]"/>
+                        <filter name='group_by_unreserved' string="Available for Sale" domain="[('reserved','=', 'unreserved')]"/>
+                    </group>
                 </field>
+
                 <xpath expr="//group" position="inside">
                     <filter name="group_by_location" string="Location" domain="[]" context="{'group_by': 'location_id'}"/>
-                    <filter name="group_by_sale_order" string="Sale Order" domain="[]" context="{'group_by': 'sale_order_id'}"/>
+                    <filter name="group_by_reserved" string="Stock Report" domain="[('reserved', 'in', ['reserved', 'unreserved'])]" context="{'group_by': 'reserved'}"/>
                 </xpath>
+            </field>
+        </record>
+
+        <record id="stock.action_production_lot_form" model="ir.actions.act_window">
+            <field name="name">Lots/Serial Numbers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.production.lot</field>
+            <field name="view_ids"
+                       eval="[(5, 0, 0),
+                              (0, 0, {'view_mode': 'tree', 'view_id': ref('stock.view_production_lot_tree')}),
+                              (0, 0, {'view_mode': 'form', 'view_id': ref('stock.view_production_lot_form')})]"/>
+            <field name="search_view_id" ref="stock.search_product_lot_filter"/>
+            <field name="context">{'search_default_group_by_location': 1, 'default_group_by_reserved': 1}</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Add a lot/serial number
+              </p><p>
+                Lots/Serial numbers help you tracking the path followed by your products.
+                From their traceability report you will see the full history of their use, as well as their composition.
+              </p>
             </field>
         </record>
 

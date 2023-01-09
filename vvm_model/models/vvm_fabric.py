@@ -10,7 +10,7 @@ class VVMFabric(models.Model):
 		('name_key', 'UNIQUE (name)', 'You can not have two color with the same name !')
 	]
 
-	name = fields.Char(string="Name", required=True)
+	name = fields.Char(string="Name")
 	description = fields.Text(string='Description')
 	image_1920 = fields.Image("Fabric Image")
 	fabric_color_line = fields.One2many('fabric.color.line', 'fabric_id', string="Fabric Color")
@@ -23,4 +23,4 @@ class FabricColorLine(models.Model):
 
 	fabric_id = fields.Many2one('vvm.model.fabric', string="Fabric")
 	color_id = fields.Many2one("model.color", string="Fabric Color")
-	short_name = fields.Char(string="Short Name")
+	short_name = fields.Char(string="Short Code")

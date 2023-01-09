@@ -39,6 +39,5 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-
 	</data>
 </odoo>
