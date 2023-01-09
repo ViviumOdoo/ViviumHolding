@@ -183,7 +183,7 @@
                            style="width:100%;font-size:9px;">
                         <thead style="border:1px solid;">
                             <tr style="background-color:#D0CECE;border: 1px solid black;">
-                                <th style="width:2%;border: 1px solid black;">
+                                <th style="width:2%;border: 1px solid black;vertical-align:middle;">
                                     <strong>SN</strong>
                                 </th>
                                 <!--<th style="width:3%;border: 1px solid black;">
@@ -228,7 +228,7 @@
                                     <t t-set="price_total" t-value="0"/>
                                     <t t-set="subline_check" t-value="False"/>
 
-                                    <td style="border:1px solid;width:2%;vertical-align:middle;" t-if="not line.display_type">
+                                    <td style="border:1px solid;width:2%;" t-if="not line.display_type">
                                         <t t-if="not line.display_type">
                                         <t t-esc="index"/>
                                         <t t-set="index" t-value="index + 1"/>
@@ -842,7 +842,7 @@
                            style="width:100%;font-size:9px;">
                         <thead style="border:1px solid;">
                             <tr style="background-color:#D0CECE;border: 1px solid black;">
-                                <th style="width:2%;border: 1px solid black;">
+                                <th style="width:2%;border: 1px solid black;vertical-align:middle;">
                                     <strong>SN</strong>
                                 </th>
                                 <!--<th style="width:3%;border: 1px solid black;">
@@ -884,7 +884,7 @@
                                     <t t-set="price_total" t-value="0"/>
                                     <t t-set="subline_check" t-value="False"/>
 
-                                    <td style="border:1px solid;vertical-align:middle;" t-if="not line.display_type">
+                                    <td style="border:1px solid;" t-if="not line.display_type">
                                         <t t-if="not line.display_type">
                                             <t t-esc="index"/>
                                             <t t-set="index" t-value="index + 1"/>
