@@ -23,7 +23,7 @@ class SaleOrder(models.Model):
     project_reference = fields.Char(string="Project Reference")
     sales_type = fields.Selection([('retails', 'Retails'), ('project', 'Project')],
                                     default='retails', string='Sales Type')
-    company_code = fields.Char(string="Company Code") #default=lambda self: self.env.company.company_code)
+    company_code = fields.Char(string="Company Code", default=lambda self: self.env.company.company_code)
 
     # @api.model
     # def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):

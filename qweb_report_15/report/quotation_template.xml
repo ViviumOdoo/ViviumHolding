@@ -183,7 +183,7 @@
                            style="width:100%;font-size:9px;">
                         <thead style="border:1px solid;">
                             <tr style="background-color:#D0CECE;border: 1px solid black;">
-                                <th style="width:2%;border: 1px solid black;vertical-align:middle;">
+                                <th style="width:2%;border: 1px solid black;">
                                     <strong>SN</strong>
                                 </th>
                                 <!--<th style="width:3%;border: 1px solid black;">
@@ -292,7 +292,7 @@
                                     </td>
 
                                     <td style="border:1px solid;" class="text-center" t-if="not line.display_type">
-                                        <span><t t-esc="line.product_uom_qty"/></span>
+                                        <span><t t-esc="'%.0f'% line.product_uom_qty"/></span>
                                     </td>
 
                                     <td style="border:1px solid;" class="text-right" t-if="not line.display_type">
@@ -300,7 +300,7 @@
                                     </td>
 
                                     <td style="border:1px solid;" class="text-right" t-if="not line.display_type">
-                                        <span><t t-esc="line.price_subtotal"/> </span>
+                                        <span><t t-esc="line.price_total"/> </span>
                                     </td>
                                     <td style="border:1px solid;" class="text-right" t-if="not line.display_type">
                                         <span><t t-esc="line.discount"/> </span>
@@ -323,7 +323,7 @@
                                         </t>
                                         <t t-if="not line.display_type">
                                             <span>
-                                                <t t-esc="'%.2f'% line.price_total"/>
+                                                <t t-esc="'%.2f'% line.price_subtotal"/>
                                             </span>
                                         </t>
                                         <t t-if="line.name != '#'">
@@ -842,7 +842,7 @@
                            style="width:100%;font-size:9px;">
                         <thead style="border:1px solid;">
                             <tr style="background-color:#D0CECE;border: 1px solid black;">
-                                <th style="width:2%;border: 1px solid black;vertical-align:middle;">
+                                <th style="width:2%;border: 1px solid black;">
                                     <strong>SN</strong>
                                 </th>
                                 <!--<th style="width:3%;border: 1px solid black;">
@@ -947,11 +947,11 @@
                                     <td style="border:1px solid;" class="text-center" t-if="not line.display_type">
                                         <span>
                                             <t t-if="not line.display_type">
-                                            <t t-esc="line.product_uom_qty"/>
+                                            <t t-esc="'%.0f'% line.product_uom_qty"/>
                                             </t>
                                             <t t-if="line.name != '#'">
                                                 <t t-if="line.display_type">
-                                                    <t t-esc="product_uom_qty"/>
+                                                    <t t-esc="'%.0f'% product_uom_qty"/>
                                                 </t>
                                             </t>
                                         </span>
@@ -964,7 +964,7 @@
 
                                     <td style="border:1px solid;" class="text-right" t-if="not line.display_type">
                                         <t t-if="not line.display_type">
-                                        <span><t t-esc="line.price_subtotal"/> </span>
+                                        <span><t t-esc="line.price_total"/> </span>
                                         </t>
                                         <t t-if="line.name != '#'">
                                         <t t-if="line.display_type">
@@ -992,7 +992,7 @@
                                         </t>
                                         <t t-if="not line.display_type">
                                             <span>
-                                                <t t-esc="'%.2f'% line.price_total"/>
+                                                <t t-esc="'%.2f'% line.price_subtotal"/>
                                             </span>
                                         </t>
                                         <t t-if="line.name != '#'">

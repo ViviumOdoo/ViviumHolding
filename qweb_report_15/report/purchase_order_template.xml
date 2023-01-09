@@ -177,7 +177,6 @@
                                 <th style="width:2%;" class="text-center"><strong>Unit</strong></th>
                                 <th style="width:8%;" class="text-center"><strong>Quantity</strong></th>
                                 <th style="width:8%;" class="text-center"><strong>Unit Price</strong></th>
-                                <th style="width:8%;" class="text-center"><strong>Discount</strong></th>
                                 <th style="width:9%;" class="text-center"><strong>Total</strong></th>
                             </tr>
                         </thead>
@@ -252,18 +251,12 @@
                                     </td>
 
                                     <td style="border:1px solid;width:8%;" class="text-center" t-if="not line.display_type">
-                                        <span t-field="line.product_qty"/>
+                                        <span t-field="'%.0f'% line.product_qty"/>
                                     </td>
 
                                     <td style="border:1px solid;width:8%;" class="text-center" t-if="not line.display_type">
                                         <t t-if="not line.display_type">
-                                            <span t-field="line.price_unit"/>
-                                        </t>
-                                    </td>
-
-                                    <td style="border:1px solid;width:8%;" class="text-center" t-if="not line.display_type">
-                                        <t t-if="not line.display_type">
-                                            <span t-field="line.discount"/>
+                                            <span t-field="'%.2f'% line.price_unit"/>
                                         </t>
                                     </td>
 
@@ -285,12 +278,12 @@
                                         </t>
                                         <t t-if="not line.display_type">
                                             <span>
-                                                <t t-esc="line.price_subtotal"/>
+                                                <t t-esc="'%.2f'% line.price_subtotal"/>
                                             </span>
                                         </t>
                                         <t t-if="line.name != '#'">
                                             <t t-if="line.display_type">
-                                                <t t-esc="price_subtotal"/>
+                                                <t t-esc="'%.2f'% price_subtotal"/>
                                             </t>
                                         </t>
                                         <!--                                        <span t-field="line.price_subtotal"/>-->
@@ -299,7 +292,7 @@
                                 </tr>
                             </t>
                             <tr>
-                                <td colspan="5" style="background-color:#008B8B;color:#fff;">
+                                <td colspan="4" style="background-color:#008B8B;color:#fff;">
                                     <span>Additional Note: <t t-if="o.notes"><span t-field="o.notes"/></t></span>
                                 </td>
                                 <td/>

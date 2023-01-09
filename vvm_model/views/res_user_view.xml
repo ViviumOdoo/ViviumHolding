@@ -29,9 +29,9 @@
                     <field name="contact_person"/>
                     <field name="is_vendor"/>
                 </field>
-                <xpath expr="//page[@name='sales_purchases']/group/group/field[@name='company_id']" position="attributes">
+                <!--<xpath expr="//page[@name='sales_purchases']/group/group/field[@name='company_id']" position="attributes">
                     <attribute name="domain">[('id', '=', uid.company_id.id)]</attribute>
-                </xpath>
+                </xpath>-->
             </field>
         </record>
 

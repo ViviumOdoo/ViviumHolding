@@ -27,7 +27,7 @@ class ProductTemplate(models.Model):
     sale_price_aed = fields.Float(string="Sale Price (EUR)")
     purchase_price_aed = fields.Float(string="Purchase Price (EUR)")
     image_dimension = fields.Image("Dimension Image")
-    company_code = fields.Char(string="Company Code")
+    company_code = fields.Char(string="Company Code", default=lambda self: self.env.company.company_code)
 
     @api.model
     def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):

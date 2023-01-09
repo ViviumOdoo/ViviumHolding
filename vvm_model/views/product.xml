@@ -180,9 +180,7 @@
                     <page name="item_info" string="Item Information">
                         <group>
                             <group>
-                                <field name="model_no_id" required="1"/>
-                                       <!--attrs ="{'required':['|',('company_code','=', 'VL1T'), ('company_code','=', 'VL1TL')],
-                                       'invisible':[('company_code','!=', 'VL1T')]}"/>-->
+                                <field name="model_no_id" attrs ="{'required':['|',('company_code','=', 'VL1T'), ('company_code','=', 'VL1TL')]}"/>
                                 <field name="model_name"/>
                                 <field name="model_type" required="1"/>
                                 <field name="subtype" required="1"/>
@@ -241,10 +239,13 @@
                     <page name="item_info" string="Item Information">
                         <group>
                             <group>
-                                <field name="model_no_id" />
+                                <field name="model_no_id"
+                                       attrs ="{'required':['|',('company_code','=', 'VL1T'), ('company_code','=', 'VL1TL')]}"/>
                                 <field name="model_name"/>
-                                <field name="model_type"/>
-                                <field name="subtype"/>
+                                <field name="model_type"
+                                       attrs ="{'required':['|',('company_code','=', 'VL1T'), ('company_code','=', 'VL1TL')]}"/>
+                                <field name="subtype"
+                                       attrs ="{'required':['|',('company_code','=', 'VL1T'), ('company_code','=', 'VL1TL')]}"/>
                                 <field name="custom_sequence" invisible="1"/>
                                 <field name="company_code"/>
                             </group>
@@ -274,7 +275,7 @@
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
-                    <field name="model_no_id" />
+                    <field name="model_no_id"/>
                     <field name="model_type"/>
                     <field name="subtype"/>
                     <field name="fabric_id"/>
