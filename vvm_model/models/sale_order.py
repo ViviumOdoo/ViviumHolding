@@ -31,7 +31,7 @@ class SaleOrder(models.Model):
     #                                                      view_type=view_type,
     #                                                      toolbar=toolbar,
     #                                                      submenu=submenu)
-    #     if self.env.company.company_code != 'VL1T':
+    #     if self.env.company.company_code != 'VLC':
     #         doc = etree.XML(res['arch'])
     #         #print ("---------",doc.xpath("//field[@name='order_line']/field"))
     #         #print ("==========",doc.xpath("//form/sheet/notebook/page[@name='order_lines']/field[@name='order_line']/tree//field"))

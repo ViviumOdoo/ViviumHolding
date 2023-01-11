@@ -8,6 +8,7 @@ class PurchaseOrder(models.Model):
 
     sale_order_id = fields.Many2one('sale.order', string="Sale Order", readonly=1, store=True)
     sale_partner_id = fields.Many2one('res.partner', string="Client Name", readonly=1, store=True)
+    client_ref = fields.Char(string="Client Reference")
 
     @api.onchange('currency_id')
     def currency_onchange(self):

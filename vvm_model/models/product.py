@@ -35,7 +35,7 @@ class ProductTemplate(models.Model):
                                                      view_type=view_type,
                                                      toolbar=toolbar,
                                                      submenu=submenu)
-        if self.env.company.company_code != 'VL1T':
+        if self.env.company.company_code != 'VLC':
             doc = etree.XML(res['arch'])
             fields_name = 'model_no_id', 'model_name', 'model_type', 'subtype', 'fabric_id', 'color_ids', 'finish_category_id', 'finish_color_ids', 'image_dimension'
             for field in fields_name:
@@ -137,7 +137,7 @@ class ProductProduct(models.Model):
                                                            view_type=view_type,
                                                            toolbar=toolbar,
                                                            submenu=submenu)
-        if self.env.company.company_code != 'VL1T':
+        if self.env.company.company_code != 'VLC':
             doc = etree.XML(res['arch'])
             fields_name = 'model_no_id', 'model_name', 'model_type', 'subtype', 'fabric_id', 'color_ids', 'finish_category_id', 'finish_color_ids', 'image_dimension'
             for field in fields_name:

@@ -7,8 +7,8 @@
         <field name="inherit_id" ref="purchase.purchase_order_form"/>
         <field name="arch" type="xml">
             <field name="currency_id" position="after">
-                <field name="sale_order_id"/>
-                <field name="sale_partner_id"/>
+                <field name="sale_order_id" invisible="0"/>
+                <field name="sale_partner_id" invisible="0"/>
             </field>
 
             <field name="date_order" position="attributes">
@@ -38,6 +38,9 @@
                 <field name="sale_order_id"/>
                 <field name="sale_partner_id"/>
             </field>
+            <field name="date_order" position="before">
+                <field name="date_planned" string="Ex-Delivery Date"/>
+            </field>
         </field>
     </record>
 
@@ -50,6 +53,9 @@
                 <field name="sale_order_id"/>
                 <field name="sale_partner_id"/>
             </field>
+            <field name="date_order" position="before">
+                <field name="date_planned" string="Ex-Delivery Date"/>
+            </field>
         </field>
     </record>
 
@@ -61,6 +67,9 @@
             <field name="state" position="before">
                 <field name="sale_order_id"/>
                 <field name="sale_partner_id"/>
+            </field>
+            <field name="date_order" position="before">
+                <field name="date_planned" string="Ex-Delivery Date"/>
             </field>
         </field>
     </record>

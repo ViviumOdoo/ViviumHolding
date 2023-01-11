@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="purchase_order_custom_layout">
+    <template id="purchase_request_custom_layout">
         <header>
             <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
                 <tbody>
                     <tr>
                         <td colspan="2" style="text-align:center;">
-                            <h3 t-esc="o.company_id.name"/>        
+                            <h3 t-esc="o.company_id.name"/>
                         </td>
                     </tr>
                     <tr>
@@ -27,7 +27,7 @@
                                         <span t-if="o.company_id.zip">, <t t-esc="o.company_id.zip"/></span>
                                         <span t-if="o.company_id.country_id">, <t t-esc="o.company_id.state_id.country_id.name"/></span>
                                     </td>
-                                </tr>                                
+                                </tr>
                                 <tr>
                                     <td>
                                         <span t-esc="o.company_id.phone"/>
@@ -51,7 +51,7 @@
                             <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
                                 <tr>
                                     <td colspan="2" style="text-align:right;">
-                                        <span style="font-size:22px;color:#008B8B;font-weight:bold;">PURCHASE ORDER</span>
+                                        <span style="font-size:22px;color:#008B8B;font-weight:bold;">Request for Quotation</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -64,20 +64,20 @@
                                 </tr>
                                 <tr>
                                     <td style="text-align:right;padding-right:5px;color:#008B8B;">
-                                        <span>Purchase Order No.:</span>
+                                        <span>Request for Quotation No.:</span>
                                     </td>
                                     <td style="text-align:right;">
                                         <span t-esc="o.name"/>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td style="text-align:right;padding-right:5px;">
-                                        <span>Sales Order Reference Number:</span>
-                                    </td>
-                                    <td style="text-align:right;">
-                                        <span t-esc="o.sale_order_id.name"/>
-                                    </td>
-                                </tr>
+<!--                                <tr>-->
+<!--                                    <td style="text-align:right;padding-right:5px;">-->
+<!--                                        <span>Sales Order Reference Number:</span>-->
+<!--                                    </td>-->
+<!--                                    <td style="text-align:right;">-->
+<!--                                        <span t-esc="o.sale_order_id.name"/>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
                             </table>
                         </td>
                     </tr>
@@ -87,9 +87,9 @@
         <br/>
         <t t-raw="0"/>
     </template>
-    <template id="report_template_purchase_order">
+    <template id="report_template_purchase_request">
         <t t-call="web.basic_layout">
-            <t t-call="qweb_report_15.purchase_order_custom_layout">
+            <t t-call="qweb_report_15.purchase_request_custom_layout">
                 <div class="page">
                     <style>
                         th, td, tr {
@@ -103,7 +103,7 @@
                             <td colspan="3" style="background-color:#008B8B;color:#fff;width:100%;">
                                 <span>VENDOR INFORMATION</span>
                             </td>
-                        </tr>                                    
+                        </tr>
                         <tr>
                             <td style="border:1px solid;width:40%;">
                                 VENDOR NAME: <span t-esc="o.partner_id.name"/>
@@ -142,7 +142,7 @@
                             <td colspan="3" style="background-color:#008B8B;color:#fff;width:100%;">
                                 <span>Ship to</span>
                             </td>
-                        </tr>                                    
+                        </tr>
                         <tr>
                             <td style="border:1px solid;width:40%;">
                                 <span>CUSTOMER NAME</span>
@@ -175,22 +175,22 @@
                     <table class="table table-sm o_main_table" border="0" cellspacing="0" cellpadding="0" style="width:100%;font-size:9px;">
                         <thead style="border:1px solid;">
                             <tr style="background-color:#008B8B;color:#fff;">
-                                <th style="width:2%;"><strong>SN.</strong></th>
-                                <th style="width:13%;" class="text-center"><strong>Item Code</strong></th>
-                                <th style="width:20%;" class="text-center"><strong>Details</strong></th>
-                                <th style="width:20%;" class="text-center"><strong>Dimension Image</strong></th>
+                                <th style="width:5%;"><strong>SN.</strong></th>
+                                <th style="width:20%;" class="text-center"><strong>Item Code</strong></th>
+                                <th style="width:35%;" class="text-center"><strong>Details</strong></th>
+                                <th style="width:25%;" class="text-center"><strong>Dimension Image</strong></th>
+                                <th style="width:5%;" class="text-center"><strong>Qty</strong></th>
                                 <th style="width:10%;" class="text-center"><strong>Unit</strong></th>
-                                <th style="width:5%;" class="text-center"><strong>Quantity</strong></th>
-                                <th style="width:10%;" class="text-center"><strong>Unit Price</strong></th>
+                                <!--<th style="width:10%;" class="text-center"><strong>Unit Price</strong></th>
                                 <th style="width:7%;" class="text-center"><strong>Discount %</strong></th>
-                                <th style="width:15%;" class="text-center"><strong>Total</strong></th>
+                                <th style="width:15%;" class="text-center"><strong>Total</strong></th>-->
                             </tr>
                         </thead>
                         <tbody>
                             <t t-set="index" t-value="1"/>
                             <t t-foreach="o.order_line" t-as="line">
                                 <tr style="border:1px solid;">
-                                    <t t-set="price_subtotal" t-value="0"/>
+<!--                                    <t t-set="price_subtotal" t-value="0"/>-->
                                     <t t-set="subline_check" t-value="False"/>
 
                                     <td style="border:1px solid;" t-if="not line.display_type">
@@ -246,14 +246,13 @@
                                     </td>
 
                                     <td style="border:1px solid;" class="text-center" t-if="not line.display_type">
+                                        <span><t t-esc="'%.0f'% line.product_qty"/></span>
+                                    </td>
+                                    <td style="border:1px solid;" class="text-center" t-if="not line.display_type">
                                         <span t-field="line.product_uom.name"/>
                                     </td>
 
-                                    <td style="border:1px solid;" class="text-center" t-if="not line.display_type">
-                                        <span><t t-esc="'%.0f'% line.product_qty"/></span>
-                                    </td>
-
-                                    <td style="border:1px solid;" class="text-right" t-if="not line.display_type">
+                                    <!--<td style="border:1px solid;" class="text-right" t-if="not line.display_type">
                                         <t t-if="not line.display_type">
                                             <span t-esc="'%.2f'% line.price_unit"/>
                                         </t>
@@ -289,51 +288,36 @@
                                             </t>
                                         </t>
                                     </td>
-                                    </t>
+                                    </t>-->
                                 </tr>
                             </t>
                             <tr>
-                                <td colspan="5" style="background-color:#008B8B;color:#fff;">
+                                <td colspan="3" style="background-color:#008B8B;color:#fff;">
                                     <span>Additional Note: <t t-if="o.notes"><span t-field="o.notes"/></t></span>
                                 </td>
-                                <td class="text-right" colspan="3">
-                                    <span><b>Subtotal:</b></span>
-                                </td>
-                                <td class="text-right" style="border-bottom:1px solid;">
-                                    <span><b><span t-field="o.amount_untaxed"/></b></span>
-                                </td>
+
                             </tr>
                             <tr>
-                                <td colspan="5">
+                                <td colspan="3">
                                     <span>Payment shall be 30 days upon delivery of the above items.</span>
                                 </td>
-                                <td class="text-right" colspan="3">
-                                    <span>Taxes(%):</span>
-                                </td>
-                                <td class="text-right" style="border-bottom:1px solid;">
-                                    <span t-field="o.amount_tax"/>
-                                </td>
+
                             </tr>
                             <tr>
-                                <td colspan="5">
+                                <td colspan="3">
                                     <span>Delivery of goods to be at our office premises; unless agreed differently.</span>
                                 </td>
-                                <td class="text-right" colspan="3">
-                                    <span><b>Total:</b></span>
-                                </td>
-                                <td class="text-right" style="border-bottom:1px solid;">
-                                    <span><b><span t-field="o.amount_total"/></b></span>
-                                </td>
+
                             </tr>
                             <tr>
-                                <td colspan="6" style="border:none;"/>
+                                <td colspan="3" style="border:none;"/>
                                 <td colspan="3" style="border:none;">
                                     <br/>
                                     <span>Name of Authorized Signatory: </span>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="6" style="border:none;"/>
+                                <td colspan="3" style="border:none;"/>
                                 <td colspan="3" style="border:none;">
                                     <br/>
                                     <span>Title: </span>
@@ -359,7 +343,7 @@
                         </tr>
                         <tr style="padding-top:10px;">
                             <td style="width:70%;">
-                                
+
                             </td>
                             <td style="width:15%;">
                                 <h5>CFO</h5>
@@ -367,19 +351,18 @@
                             <td style="width:15%;">
                                 <h5>CEO</h5>
                             </td>
-                        </tr>                   
+                        </tr>
                     </table>-->
                 </div>
             </t>
         </t>
     </template>
 
-    <!-- VG Code -->
-<!--    <template id="report_purchase_order_template">-->
-    <template id="purchase.report_purchaseorder">
+<!--   <template id="report_purchase_order_template">-->
+    <template id="purchase.report_purchasequotation">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="qweb_report_15.report_template_purchase_order"/>
+                <t t-call="qweb_report_15.report_template_purchase_request" t-lang="o.partner_id.lang"/>
             </t>
         </t>
     </template>

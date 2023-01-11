@@ -13,6 +13,17 @@ class Picking(models.Model):
     start_date = fields.Date(string="Start Date")
     end_date = fields.Date(string="End Date")
 
+    @api.model
+    def create(self, vals):
+        res = super(Picking, self).create(vals)
+        for move in res.move_lines:
+            if move.sale_line_id:
+                move.description_picking = move.sale_line_id.name
+
+            if move.purchase_line_id:
+                move.description_picking = move.purchase_line_id.name
+        return res
+
     def send_mail_to_warehouse(self):
         if self.warehouse_user_id:
             template = self.env.ref("vvm_model.email_template_send_to_warehouse_user",
@@ -114,6 +125,9 @@ class StockMove(models.Model):
         if res.purchase_line_id:
             res.color_ids = [(6, 0, res.purchase_product_no_id.color_ids.ids)]
             res.finish_color_ids = [(6, 0, res.purchase_product_no_id.finish_color_ids.ids)]
+        if res.sale_line_id:
+            res.description_picking = res.sale_line_id.name
+            print ('*******',res.description_picking)
         return res
 
     @api.onchange('product_id')

@@ -7,9 +7,11 @@
     'data': [
         'report/purchase_order_report.xml',
         'report/purchase_order_template.xml',
+        'report/purchase_request_template.xml',
         'report/quotation_report.xml',
         'report/quotation_template.xml',
         'report/report_delivery_slip.xml',
+        'report/report_picking_operation_template.xml',
     ],
     'installable': True,
 }
